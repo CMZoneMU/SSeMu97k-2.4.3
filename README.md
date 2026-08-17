@@ -1,9 +1,9 @@
-# ---------------------------------------------------------------------------
+# ---------------------------------------------------
 # Website  : https://www.ssemu.com.ar
 # YouTube  : https://www.youtube.com/@ssemu
 # © SSeMU 2022 SetecSoft Development
 # Arquivos Vazados - Base SSeMU UPDATE 85 2.4.3 97KOR
-# ---------------------------------------------------------------------------
+# ---------------------------------------------------
 
 UPDATE CMZ 00 (3.0.0) 17-08-26
 * Foi corrigido o crash crítico do cliente ao aprender ou usar Orbs e Scrolls de habilidades no inventário. [97KOR]
