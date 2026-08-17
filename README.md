@@ -10,10 +10,9 @@ UPDATE CMZ 00 (3.0.0) 17-08-26
 * Foi otimizado o desempenho gráfico do jogo, reduzindo o consumo indevido de CPU e eliminando a limpeza contínua de memória RAM. [97KOR]
 * Foram adicionados temporizadores de alta precisão e maior prioridade de processo para eliminar micro-travamentos (stuttering). [97KOR]
 
-## Website  : https://www.ssemu.com.ar
-## YouTube  : https://www.youtube.com/@ssemu
-## © SSeMU 2022 SetecSoft Development
-## Arquivos Vazados - Base SSeMU UPDATE 85 2.4.3 97KOR
+## Titulo: Arquivos Vazados - Base SSeMU Update 85 2.4.3 97KOR
+## Contato Oficial: https://www.ssemu.com.ar
+## Créditos Arquivos: SetecSoft Development © SSeMU 2021
 
 UPDATE 85 (2.4.3)
 * Se repararon errores de CustomAttack relacionados a buffs o usar skills sin armas tecla F8. [ALL VERSIONS]
