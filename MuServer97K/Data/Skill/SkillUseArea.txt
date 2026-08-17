@@ -1,0 +1,35 @@
+// #############################################################################
+// # SSeMU MU Online Emulator
+// # https://www.ssemu.com.ar
+// # https://www.facebook.com/ssemuemulator
+// # https://www.youtube.com/@ssemu
+// # ---------------------------------------------------------------------------
+// # © 2023 SetecSoft Development
+// # This file is part of the SSeMU MuOnline Server files.
+// #############################################################################
+
+0
+// --------------------
+// [Index]
+// SkillIndex   Comment
+// --------------------
+   16           //Soul Barrier
+   26           //Heal
+   27           //Greater Defense
+   28           //Greater Damage
+   48           //Sweel Life
+end
+
+1
+// -----------------------------------------------------------------------
+//             [1~255]       [1~255]       [1~255]     [1~255]
+// MapNumber   RangeStartX   RangeStartY   RangeEndX   RangeEndY   Comment
+// -----------------------------------------------------------------------
+   9           045           060           160         190         //Devil Square 1
+   11          008           003           019         014         //Blood Castle 1
+   12          008           003           019         014         //Blood Castle 2
+   13          008           003           019         014         //Blood Castle 3
+   14          008           003           019         014         //Blood Castle 4
+   15          008           003           019         014         //Blood Castle 5
+   16          008           003           019         014         //Blood Castle 6
+end

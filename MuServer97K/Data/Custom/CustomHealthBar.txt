@@ -1,0 +1,24 @@
+// #############################################################################
+// # SSeMU MU Online Emulator
+// # https://www.ssemu.com.ar
+// # https://www.facebook.com/ssemuemulator
+// # https://www.youtube.com/@ssemu
+// # ---------------------------------------------------------------------------
+// # © 2024 SetecSoft Development
+// # This file is part of the SSeMU MuOnline Server files.
+// #############################################################################
+
+// ----------------------------------------------
+// [*~N]          [*~N]       [0-1]
+// MonsterIndex   MapNumber   BarSwitch   Comment
+// ----------------------------------------------
+   100            *           0           //Trap Lance
+   101            *           0           //Trap Iron Stick
+   102            *           0           //Trap Fire
+   103            *           0           //Trap Meteorite
+   104            *           0           //Trap
+   105            *           0           //Trap Canon
+   106            *           0           //Trap Laser
+   200            *           0           //Soccer Ball
+   *              *           1           //Other Monsters
+end

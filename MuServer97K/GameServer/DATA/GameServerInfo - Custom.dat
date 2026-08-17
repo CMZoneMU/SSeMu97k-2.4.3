@@ -1,0 +1,89 @@
+[GameServerInfo]
+;==================================================
+; Custom Arena Settings
+;==================================================
+CustomArenaSwitch = 0
+CustomArenaMapNumber = 40
+CustomArenaVictimScoreDecrease = 0
+CustomArenaKillerScoreIncrease = 1
+
+;==================================================
+; Custom Attack Settings
+;==================================================
+CustomAttackSwitch = 0
+CustomAttackMapZone = -1
+CustomAttackBuffEnable_AL0 = 0
+CustomAttackBuffEnable_AL1 = 0
+CustomAttackBuffEnable_AL2 = 0
+CustomAttackBuffEnable_AL3 = 0
+CustomAttackExperienceRate_AL0 = 100
+CustomAttackExperienceRate_AL1 = 100
+CustomAttackExperienceRate_AL2 = 100
+CustomAttackExperienceRate_AL3 = 100
+CustomAttackMaxTimeLimit_AL0 = 0
+CustomAttackMaxTimeLimit_AL1 = 0
+CustomAttackMaxTimeLimit_AL2 = 0
+CustomAttackMaxTimeLimit_AL3 = 0
+CustomAttackPotion_AL0 = 0
+CustomAttackPotion_AL1 = 0
+CustomAttackPotion_AL2 = 0
+CustomAttackPotion_AL3 = 0
+CustomAttackPotionDelay_AL0 = 500
+CustomAttackPotionDelay_AL1 = 500
+CustomAttackPotionDelay_AL2 = 500
+CustomAttackPotionDelay_AL3 = 500
+CustomAttackPotionRate1 = 50
+CustomAttackPotionRate2 = 50
+CustomAttackRepair_AL0 = 0
+CustomAttackRepair_AL1 = 0
+CustomAttackRepair_AL2 = 0
+CustomAttackRepair_AL3 = 0
+
+;==================================================
+; Custom Attack Offline Settings
+;==================================================
+CustomAttackOfflineSwitch = 0
+CustomAttackOfflineBuffEnable_AL0 = 0
+CustomAttackOfflineBuffEnable_AL1 = 0
+CustomAttackOfflineBuffEnable_AL2 = 0
+CustomAttackOfflineBuffEnable_AL3 = 0
+CustomAttackOfflineExperienceRate_AL0 = 100
+CustomAttackOfflineExperienceRate_AL1 = 100
+CustomAttackOfflineExperienceRate_AL2 = 100
+CustomAttackOfflineExperienceRate_AL3 = 100
+CustomAttackOfflineKeepEnable_AL0 = 0
+CustomAttackOfflineKeepEnable_AL1 = 0
+CustomAttackOfflineKeepEnable_AL2 = 0
+CustomAttackOfflineKeepEnable_AL3 = 0
+CustomAttackOfflineMaxTimeLimit_AL0 = 0
+CustomAttackOfflineMaxTimeLimit_AL1 = 0
+CustomAttackOfflineMaxTimeLimit_AL2 = 0
+CustomAttackOfflineMaxTimeLimit_AL3 = 0
+
+;==================================================
+; Custom Event Drop Settings
+;==================================================
+CustomEventDropSwitch = 0
+
+;==================================================
+; Custom Gift Settings
+;==================================================
+CustomGiftSwitch = 0
+
+;==================================================
+; Custom Luke Helper Settings
+;==================================================
+CustomLukeHelperSwitch = 0
+
+;==================================================
+; Custom Pick Settings
+;==================================================
+CustomPickSwitch = 0
+CustomPickMapZone = -1
+CustomPickMoneyPick = 1
+CustomPickJewelPick = 1
+CustomPickExcellentPick = 1
+CustomPickMaxTime_AL0 = 0
+CustomPickMaxTime_AL1 = 0
+CustomPickMaxTime_AL2 = 0
+CustomPickMaxTime_AL3 = 0

@@ -1,0 +1,18 @@
+// #############################################################################
+// # SSeMU MU Online Emulator
+// # https://www.ssemu.com.ar
+// # https://www.facebook.com/ssemuemulator
+// # https://www.youtube.com/@ssemu
+// # ---------------------------------------------------------------------------
+// # © 2023 SetecSoft Development
+// # This file is part of the SSeMU MuOnline Server files.
+// #############################################################################
+
+// ------------------------------------------------------------------------
+// Index   MinLevel   MaxLevel   MinReset   MaxReset   DamageRate   Comment
+// ------------------------------------------------------------------------
+   0       *          *          *          *          1000         // Angel
+   1       *          *          *          *          1000         // Satan
+   2       *          *          *          *          1000         // Uniria
+   3       *          *          *          *          1000         // Dinorant
+end

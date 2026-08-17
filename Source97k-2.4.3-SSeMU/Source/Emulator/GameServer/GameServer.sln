@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameServer", "GameServer.vcxproj", "{93F80160-07A8-42A6-B46C-70B72AFF74C4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		0.97K KOR|Win32 = 0.97K KOR|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{93F80160-07A8-42A6-B46C-70B72AFF74C4}.0.97K KOR|Win32.ActiveCfg = 0.97K KOR|Win32
+		{93F80160-07A8-42A6-B46C-70B72AFF74C4}.0.97K KOR|Win32.Build.0 = 0.97K KOR|Win32
+		{93F80160-07A8-42A6-B46C-70B72AFF74C4}.Release|Win32.ActiveCfg = Release|Win32
+		{93F80160-07A8-42A6-B46C-70B72AFF74C4}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

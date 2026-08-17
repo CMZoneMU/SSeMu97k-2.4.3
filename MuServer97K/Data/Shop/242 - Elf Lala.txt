@@ -1,0 +1,70 @@
+// #############################################################################
+// # SSeMU MU Online Emulator
+// # https://www.ssemu.com.ar
+// # https://www.facebook.com/ssemuemulator
+// # https://www.youtube.com/@ssemu
+// # ---------------------------------------------------------------------------
+// # © 2023 SetecSoft Development
+// # This file is part of the SSeMU MuOnline Server files.
+// #############################################################################
+
+// -----------------------------------------------------------------------------------------------
+// [00,000]    [0~11]      [0~255]      [0-1]         [0-1]        [0~7]       [0~63]
+// ItemIndex   ItemLevel   Durability   SkillSwitch   LuckSwitch   Aditional   Excellent   Comment
+// -----------------------------------------------------------------------------------------------
+   14,000      0           1            0             0            0           0           //Apple
+   14,001      0           1            0             0            0           0           //Small Healing Potion
+   14,002      0           1            0             0            0           0           //Healing Potion
+   14,003      0           1            0             0            0           0           //Large Healing Potion
+   14,004      0           1            0             0            0           0           //Small Mana Potion
+   14,005      0           1            0             0            0           0           //Mana Potion
+   14,006      0           1            0             0            0           0           //Large Mana Potion
+   14,008      0           1            0             0            0           0           //Antidote
+   14,000      0           3            0             0            0           0           //Apple
+   14,001      0           3            0             0            0           0           //Small Healing Potion
+   14,002      0           3            0             0            0           0           //Healing Potion
+   14,003      0           3            0             0            0           0           //Large Healing Potion
+   14,004      0           3            0             0            0           0           //Small Mana Potion
+   14,005      0           3            0             0            0           0           //Mana Potion
+   14,006      0           3            0             0            0           0           //Large Mana Potion
+   14,008      0           3            0             0            0           0           //Antidote
+   14,000      1           1            0             0            0           0           //Apple
+   14,001      1           1            0             0            0           0           //Small Healing Potion
+   14,002      1           1            0             0            0           0           //Healing Potion
+   14,003      1           1            0             0            0           0           //Large Healing Potion
+   14,000      1           3            0             0            0           0           //Apple
+   14,001      1           3            0             0            0           0           //Small Healing Potion
+   14,002      1           3            0             0            0           0           //Healing Potion
+   14,003      1           3            0             0            0           0           //Large Healing Potion
+   12,008      0           1            0             0            0           0           //Healing Orb
+   12,009      0           1            0             0            0           0           //Orb of Greater Fortitude
+   12,010      0           1            0             0            0           0           //Orb of Greater Damage
+   12,011      0           1            0             0            0           0           //Orb of Summoning
+   12,011      1           1            0             0            0           0           //Orb of Summoning
+   12,011      2           1            0             0            0           0           //Orb of Summoning
+   12,011      3           1            0             0            0           0           //Orb of Summoning
+   12,011      4           1            0             0            0           0           //Orb of Summoning
+   07,010      0           0            0             1            1           0           //Vine Helm
+   08,010      0           0            0             1            1           0           //Vine Armor
+   09,010      0           0            0             1            1           0           //Vine Pants
+   10,010      0           0            0             1            1           0           //Vine Gloves
+   11,010      0           0            0             1            1           0           //Vine Boots
+   07,011      2           0            0             1            1           0           //Silk Helm
+   08,011      2           0            0             1            1           0           //Silk Armor
+   09,011      2           0            0             1            1           0           //Silk Pants
+   10,011      2           0            0             1            1           0           //Silk Gloves
+   11,011      2           0            0             1            1           0           //Silk Boots
+   07,012      3           0            0             1            1           0           //Wind Helm
+   08,012      3           0            0             1            1           0           //Wind Armor
+   09,012      3           0            0             1            1           0           //Wind Pants
+   10,012      3           0            0             1            1           0           //Wind Gloves
+   11,012      3           0            0             1            1           0           //Wind Boots
+   13,029      0           1            0             0            0           0           //Armor of Guardsman
+   14,010      0           1            0             0            0           0           //Town Portal Scroll
+   04,007      0           255          0             0            0           0           //Bolt
+   04,007      1           255          0             0            0           0           //Bolt
+   04,007      2           255          0             0            0           0           //Bolt
+   04,015      0           255          0             0            0           0           //Arrow
+   04,015      1           255          0             0            0           0           //Arrow
+   04,015      2           255          0             0            0           0           //Arrow
+end

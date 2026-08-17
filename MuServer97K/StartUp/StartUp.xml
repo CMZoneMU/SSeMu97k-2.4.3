@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<StartUp>
+  <Process Run="True" Delay="1000" Path="..\ConnectServer\ConnectServer97k.exe" Parameters="" />
+  <Process Run="True" Delay="1000" Path="..\JoinServer\JoinServer97k.exe" Parameters="" />
+  <Process Run="True" Delay="1000" Path="..\DataServer\DataServer97k.exe" Parameters="" />
+</StartUp>

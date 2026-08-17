@@ -1,0 +1,15 @@
+// #############################################################################
+// # SSeMU MU Online Emulator
+// # https://www.ssemu.com.ar
+// # https://www.facebook.com/ssemuemulator
+// # https://www.youtube.com/@ssemu
+// # ---------------------------------------------------------------------------
+// # © 2023 SetecSoft Development
+// # This file is part of the SSeMU MuOnline Server files.
+// #############################################################################
+
+// -----------------------------------------------------------------------------------------------------------------------------------
+//         [*/N]   [*/N]      [*/N]      [*/N]      [*/N]      [*/N]      [*/N]      [InMs]                           [0~2]
+// Index   Class   MinLevel   MaxLevel   MinReset   MaxReset   MinSpeed   MaxSpeed   MaxDelay   MinCount   MaxCount   Action   Comment
+// -----------------------------------------------------------------------------------------------------------------------------------
+end

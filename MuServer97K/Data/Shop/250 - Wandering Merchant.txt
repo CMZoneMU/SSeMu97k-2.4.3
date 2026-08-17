@@ -1,0 +1,40 @@
+// #############################################################################
+// # SSeMU MU Online Emulator
+// # https://www.ssemu.com.ar
+// # https://www.facebook.com/ssemuemulator
+// # https://www.youtube.com/@ssemu
+// # ---------------------------------------------------------------------------
+// # © 2023 SetecSoft Development
+// # This file is part of the SSeMU MuOnline Server files.
+// #############################################################################
+
+// -----------------------------------------------------------------------------------------------
+// [00,000]    [0~11]      [0~255]      [0-1]         [0-1]        [0~7]       [0~63]
+// ItemIndex   ItemLevel   Durability   SkillSwitch   LuckSwitch   Aditional   Excellent   Comment
+// -----------------------------------------------------------------------------------------------
+   07,005      0           0            0             1            1           0           //Leather Helm
+   08,005      0           0            0             1            1           0           //Leather Armor
+   09,005      0           0            0             1            1           0           //Leather Pants
+   10,005      0           0            0             1            1           0           //Leather Gloves
+   11,005      0           0            0             1            1           0           //Leather Boots
+   07,000      2           0            0             1            1           0           //Bronze Helm
+   08,000      2           0            0             1            1           0           //Bronze Armor
+   09,000      2           0            0             1            1           0           //Bronze Pants
+   10,000      2           0            0             1            1           0           //Bronze Gloves
+   11,000      2           0            0             1            1           0           //Bronze Boots
+   07,006      3           0            0             1            1           0           //Scale Helm
+   08,006      3           0            0             1            1           0           //Scale Armor
+   09,006      3           0            0             1            1           0           //Scale Pants
+   10,006      3           0            0             1            1           0           //Scale Gloves
+   11,006      3           0            0             1            1           0           //Scale Boots
+   07,008      3           0            0             1            1           0           //Brass Helm
+   08,008      3           0            0             1            1           0           //Brass Armor
+   09,008      3           0            0             1            1           0           //Brass Pants
+   10,008      3           0            0             1            1           0           //Brass Gloves
+   11,008      3           0            0             1            1           0           //Brass Boots
+   07,009      3           0            0             1            1           0           //Plate Helm
+   08,009      3           0            0             1            1           0           //Plate Armor
+   09,009      3           0            0             1            1           0           //Plate Pants
+   10,009      3           0            0             1            1           0           //Plate Gloves
+   11,009      3           0            0             1            1           0           //Plate Boots
+end

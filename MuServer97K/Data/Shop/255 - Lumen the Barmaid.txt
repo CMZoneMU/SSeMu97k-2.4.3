@@ -1,0 +1,40 @@
+// #############################################################################
+// # SSeMU MU Online Emulator
+// # https://www.ssemu.com.ar
+// # https://www.facebook.com/ssemuemulator
+// # https://www.youtube.com/@ssemu
+// # ---------------------------------------------------------------------------
+// # © 2023 SetecSoft Development
+// # This file is part of the SSeMU MuOnline Server files.
+// #############################################################################
+
+// -----------------------------------------------------------------------------------------------
+// [00,000]    [0~11]      [0~255]      [0-1]         [0-1]        [0~7]       [0~63]
+// ItemIndex   ItemLevel   Durability   SkillSwitch   LuckSwitch   Aditional   Excellent   Comment
+// -----------------------------------------------------------------------------------------------
+   14,009      0           1            0             0            0           0           //Ale
+   14,010      0           1            0             0            0           0           //Town Portal Scroll
+   13,016      1           0            0             0            0           0           //Scroll of Archangel
+   13,016      2           0            0             0            0           0           //Scroll of Archangel
+   13,016      3           0            0             0            0           0           //Scroll of Archangel
+   13,016      4           0            0             0            0           0           //Scroll of Archangel
+   13,016      5           0            0             0            0           0           //Scroll of Archangel
+   13,016      6           0            0             0            0           0           //Scroll of Archangel
+   13,016      7           0            0             0            0           0           //Scroll of Archangel
+   13,017      1           0            0             0            0           0           //Blood Bone
+   13,017      2           0            0             0            0           0           //Blood Bone
+   13,017      3           0            0             0            0           0           //Blood Bone
+   13,017      4           0            0             0            0           0           //Blood Bone
+   13,017      5           0            0             0            0           0           //Blood Bone
+   13,017      6           0            0             0            0           0           //Blood Bone
+   13,017      7           0            0             0            0           0           //Blood Bone
+   14,017      1           0            0             0            0           0           //Devil's Eye
+   14,017      2           0            0             0            0           0           //Devil's Eye
+   14,017      3           0            0             0            0           0           //Devil's Eye
+   14,017      4           0            0             0            0           0           //Devil's Eye
+   14,018      1           0            0             0            0           0           //Devil's Key
+   14,018      2           0            0             0            0           0           //Devil's Key
+   14,018      3           0            0             0            0           0           //Devil's Key
+   14,018      4           0            0             0            0           0           //Devil's Key
+   13,029      0           1            0             0            0           0           //Armor of Guardsman
+end

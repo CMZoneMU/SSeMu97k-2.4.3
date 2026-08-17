@@ -1,0 +1,42 @@
+[GameServerInfo]
+;==================================================
+; Custom Window Event Settings
+;==================================================
+WindowEventSwitch = 0
+
+;==================================================
+; Blood Castle Event Settings
+;==================================================
+BloodCastleEvent = 1
+BloodCastleMaxUser = 10
+BloodCastleMaxEntryCount_AL0 = 0
+BloodCastleMaxEntryCount_AL1 = 0
+BloodCastleMaxEntryCount_AL2 = 0
+BloodCastleMaxEntryCount_AL3 = 0
+BloodCastleNPCWithoutEntrance = 0
+
+;==================================================
+; Bonus Manager Settings
+;==================================================
+BonusManagerSwitch = 1
+
+;==================================================
+; Devil Square Event Settings
+;==================================================
+DevilSquareEvent = 1
+DevilSquareMaxUser = 15
+DevilSquareMaxEntryCount_AL0 = 0
+DevilSquareMaxEntryCount_AL1 = 0
+DevilSquareMaxEntryCount_AL2 = 0
+DevilSquareMaxEntryCount_AL3 = 0
+DevilSquareNPCWithoutEntrance = 0
+
+;==================================================
+; Drop Event Settings
+;==================================================
+DropEventSwitch = 1
+
+;==================================================
+; Invasion Manager Settings
+;==================================================
+InvasionManagerSwitch = 1

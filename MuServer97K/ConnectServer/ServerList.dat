@@ -1,0 +1,16 @@
+// #############################################################################
+// # SSeMU MU Online Emulator
+// # https://www.ssemu.com.ar
+// # https://www.facebook.com/ssemuemulator
+// # https://www.youtube.com/@ssemu
+// # ---------------------------------------------------------------------------
+// # © 2023 SetecSoft Development
+// # This file is part of the SSeMU MuOnline Server files.
+// #############################################################################
+
+// ---------------------------------------------------------------------
+//              [Max 20 Char]    [000.000.000.000]   [1~65535]   [0-1]
+// ServerCode   ServerName       IpAddress           Port        Visible
+// ---------------------------------------------------------------------
+   0            "UPAR + PVP"   "SEU-IP"        55900       1
+end

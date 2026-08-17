@@ -1,0 +1,24 @@
+// #############################################################################
+// # SSeMU MU Online Emulator
+// # https://www.ssemu.com.ar
+// # https://www.facebook.com/ssemuemulator
+// # https://www.youtube.com/@ssemu
+// # ---------------------------------------------------------------------------
+// # © 2023 SetecSoft Development
+// # This file is part of the SSeMU MuOnline Server files.
+// #############################################################################
+
+// -----------------------------------------------------------------------------------------------
+// [00,000]    [0~11]      [0~255]      [0-1]         [0-1]        [0~7]       [0~63]
+// ItemIndex   ItemLevel   Durability   SkillSwitch   LuckSwitch   Aditional   Excellent   Comment
+// -----------------------------------------------------------------------------------------------
+   03,005      3           0            1             1            1           0           //Double Poleaxe
+   03,001      3           0            1             1            1           0           //Spear
+   03,003      3           0            1             1            1           0           //Giant Trident
+   03,007      3           0            1             1            1           0           //Berdysh
+   03,004      3           0            1             1            1           0           //Serpent Spear
+   03,000      3           0            1             1            1           0           //Light Spear
+   00,010      3           0            1             1            1           0           //Light Saber
+   02,003      3           0            1             1            1           0           //Great Hammer
+end
+

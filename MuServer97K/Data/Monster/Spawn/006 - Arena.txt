@@ -1,0 +1,83 @@
+// #############################################################################
+// # SSeMU MU Online Emulator
+// # https://www.ssemu.com.ar
+// # https://www.facebook.com/ssemuemulator
+// # https://www.youtube.com/@ssemu
+// # ---------------------------------------------------------------------------
+// # © 2023 SetecSoft Development
+// # This file is part of the SSeMU MuOnline Server files.
+// #############################################################################
+
+0
+// --------------------------------------------------------------
+//                [0~30]        [1~255]     [1~255]     [*/0~8]
+// MonsterIndex   SpawnRadius   LocationX   LocationY   Direction
+// --------------------------------------------------------------
+   200            6             63          160         1
+end
+
+1
+// ----------------------------------------------------------------------------------------------------------
+//                [0~30]        [1~255]       [1~255]       [1~255]     [1~255]     [*/0~8]     [1~1000]
+// MonsterIndex   SpawnRadius   RangeStartX   RangeStartY   RangeEndX   RangeEndY   Direction   MaxSpawnCount
+// ----------------------------------------------------------------------------------------------------------
+87	3	40	111	44	113	*	7	//Giant Ogre - Arena
+86	3	13	113	18	114	*	4	//Dark Skull Soldier - Arena
+87	3	13	110	18	112	*	4	//Giant Ogre - Arena
+86	3	73	113	73	113	*	7	//Dark Skull Soldier - Arena
+84	3	97	113	97	113	*	9	//Chief Skeleton Warrior - Arena
+85	3	85	90	85	90	*	9	//Chief Skeleton Archer - Arena
+88	3	97	84	97	84	*	8	//Red Skeleton Knight - Arena
+86	3	84	71	84	71	*	8	//Dark Skull Soldier - Arena
+88	3	97	53	97	53	*	6	//Red Skeleton Knight - Arena
+89	3	95	53	95	53	*	3	//Magic Skeleton - Arena
+84	3	84	35	84	35	*	7	//Chief Skeleton Warrior - Arena
+88	3	95	6	98	15	*	10	//Red Skeleton Knight - Arena
+88	3	71	6	71	6	*	7	//Red Skeleton Knight - Arena
+86	3	46	6	46	6	*	6	//Dark Skull Soldier - Arena
+88	3	47	27	47	27	*	8	//Red Skeleton Knight - Arena
+87	3	29	27	29	27	*	8	//Giant Ogre - Arena
+86	3	13	26	13	26	*	8	//Dark Skull Soldier - Arena
+88	3	10	35	13	42	*	10	//Red Skeleton Knight - Arena
+85	3	9	54	14	50	*	6	//Chief Skeleton Archer - Arena
+87	3	9	54	14	50	*	4	//Giant Ogre - Arena
+88	3	9	72	14	77	*	10	//Red Skeleton Knight - Arena
+89	3	8	87	17	96	*	4	//Magic Skeleton - Arena
+85	3	8	87	17	96	*	4	//Chief Skeleton Archer - Arena
+88	3	8	87	17	96	*	4	//Red Skeleton Knight - Arena
+87	3	8	87	17	96	*	4	//Giant Ogre - Arena
+86	3	8	87	17	96	*	4	//Dark Skull Soldier - Arena
+89	3	27	88	31	94	*	2	//Magic Skeleton - Arena
+85	3	27	88	31	94	*	2	//Chief Skeleton Archer - Arena
+88	3	27	88	31	94	*	2	//Red Skeleton Knight - Arena
+87	3	27	88	31	94	*	2	//Giant Ogre - Arena
+86	3	27	88	31	94	*	2	//Dark Skull Soldier - Arena
+85	3	27	71	33	77	*	7	//Chief Skeleton Archer - Arena
+87	3	27	71	33	77	*	7	//Giant Ogre - Arena
+87	3	26	53	32	60	*	5	//Giant Ogre - Arena
+85	3	26	53	32	60	*	5	//Chief Skeleton Archer - Arena
+89	3	26	53	32	60	*	2	//Magic Skeleton - Arena
+88	3	26	53	32	60	*	3	//Red Skeleton Knight - Arena
+84	3	27	35	31	41	*	4	//Chief Skeleton Warrior - Arena
+88	3	27	35	31	41	*	6	//Red Skeleton Knight - Arena
+87	3	45	35	50	41	*	5	//Giant Ogre - Arena
+85	3	45	35	50	41	*	5	//Chief Skeleton Archer - Arena
+84	3	45	54	50	60	*	5	//Chief Skeleton Warrior - Arena
+88	3	45	54	50	60	*	5	//Red Skeleton Knight - Arena
+88	3	45	79	48	86	*	5	//Red Skeleton Knight - Arena
+86	3	45	79	48	86	*	5	//Dark Skull Soldier - Arena
+88	3	65	71	69	76	*	4	//Red Skeleton Knight - Arena
+86	3	65	71	69	76	*	4	//Dark Skull Soldier - Arena
+87	3	65	71	69	76	*	4	//Giant Ogre - Arena
+88	3	64	55	71	57	*	11	//Red Skeleton Knight - Arena
+89	3	63	28	63	28	*	4	//Magic Skeleton - Arena
+88	3	65	28	65	28	*	4	//Red Skeleton Knight - Arena
+88	3	96	34	96	34	*	8	//Red Skeleton Knight - Arena
+end
+
+2
+// --------------------------------------------------------------
+//                [0~30]        [1~255]     [1~255]     [*/0~8]
+// MonsterIndex   SpawnRadius   LocationX   LocationY   Direction
+// --------------------------------------------------------------
+end

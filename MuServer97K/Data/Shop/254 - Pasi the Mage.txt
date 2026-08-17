@@ -1,0 +1,43 @@
+// #############################################################################
+// # SSeMU MU Online Emulator
+// # https://www.ssemu.com.ar
+// # https://www.facebook.com/ssemuemulator
+// # https://www.youtube.com/@ssemu
+// # ---------------------------------------------------------------------------
+// # © 2023 SetecSoft Development
+// # This file is part of the SSeMU MuOnline Server files.
+// #############################################################################
+
+// -----------------------------------------------------------------------------------------------
+// [00,000]    [0~11]      [0~255]      [0-1]         [0-1]        [0~7]       [0~63]
+// ItemIndex   ItemLevel   Durability   SkillSwitch   LuckSwitch   Aditional   Excellent   Comment
+// -----------------------------------------------------------------------------------------------
+   15,003      0           1            0             0            0           0           //Scroll of Fire Ball
+   15,010      0           1            0             0            0           0           //Scroll of Power Wave
+   15,002      0           1            0             0            0           0           //Scroll of Lighting
+   15,001      0           1            0             0            0           0           //Scroll of Meteorite
+   15,005      0           1            0             0            0           0           //Scroll of Teleport
+   15,006      0           1            0             0            0           0           //Scroll of Ice
+   15,000      0           1            0             0            0           0           //Scroll of Poison
+   12,013      0           1            0             0            0           0           //Orb of Impale
+   12,007      0           1            0             0            0           0           //Orb of Twisting Slash
+   07,002      0           0            0             1            1           0           //Pad Helm
+   08,002      0           0            0             1            1           0           //Pad Armor
+   09,002      0           0            0             1            1           0           //Pad Pants
+   10,002      0           0            0             1            1           0           //Pad Gloves
+   11,002      0           0            0             1            1           0           //Pad Boots
+   07,004      2           0            0             1            1           0           //Bone Helm
+   08,004      2           0            0             1            1           0           //Bone Armor
+   09,004      2           0            0             1            1           0           //Bone Pants
+   10,004      2           0            0             1            1           0           //Bone Gloves
+   11,004      2           0            0             1            1           0           //Bone Boots
+   07,007      3           0            0             1            1           0           //Sphinx Mask
+   08,007      3           0            0             1            1           0           //Sphinx Armor
+   09,007      3           0            0             1            1           0           //Sphinx Pants
+   10,007      3           0            0             1            1           0           //Sphinx Gloves
+   11,007      3           0            0             1            1           0           //Sphinx Boots
+   05,003      3           0            0             1            1           0           //Thunder Staff
+   05,000      0           0            0             1            1           0           //Skull Staff
+   05,001      2           0            0             1            1           0           //Angelic Staff
+   05,002      3           0            0             1            1           0           //Serpent Staff
+end

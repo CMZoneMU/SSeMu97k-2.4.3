@@ -1,0 +1,35 @@
+// #############################################################################
+// # SSeMU MU Online Emulator
+// # https://www.ssemu.com.ar
+// # https://www.facebook.com/ssemuemulator
+// # https://www.youtube.com/@ssemu
+// # ---------------------------------------------------------------------------
+// # © 2023 SetecSoft Development
+// # This file is part of the SSeMU MuOnline Server files.
+// #############################################################################
+
+// -----------------------------------------------------------------------------------------------
+// [00,000]    [0~11]      [0~255]      [0-1]         [0-1]        [0~7]       [0~63]
+// ItemIndex   ItemLevel   Durability   SkillSwitch   LuckSwitch   Aditional   Excellent   Comment
+// -----------------------------------------------------------------------------------------------
+   07,013      3           0            0             1            1           0           //Spirit Helm
+   08,013      3           0            0             1            1           0           //Spirit Armor
+   09,013      3           0            0             1            1           0           //Spirit Pants
+   10,013      3           0            0             1            1           0           //Spirit Gloves
+   11,013      3           0            0             1            1           0           //Spirit Boots
+   07,014      3           0            0             1            1           0           //Guardian Helm
+   08,014      3           0            0             1            1           0           //Guardian Armor
+   09,014      3           0            0             1            1           0           //Guardian Pants
+   10,014      3           0            0             1            1           0           //Guardian Gloves
+   11,014      3           0            0             1            1           0           //Guardian Boots
+   04,008      1           0            1             1            1           0           //Crossbow
+   04,009      3           0            1             1            1           0           //Golden Crossbow
+   04,000      0           0            1             1            1           0           //Short Bow
+   04,001      0           0            1             1            1           0           //Bow
+   04,002      2           0            1             1            1           0           //Elven Bow
+   04,003      3           0            1             1            1           0           //Battle Bow
+   04,011      3           0            1             1            1           0           //Light Crossbow
+   04,004      3           0            1             1            1           0           //Tiger Bow
+   04,010      3           0            1             1            1           0           //Arquebus
+   06,003      3           0            1             1            1           0           //Elven Shield
+end

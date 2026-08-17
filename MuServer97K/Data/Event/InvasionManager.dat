@@ -1,0 +1,93 @@
+// #############################################################################
+// # SSeMU MU Online Emulator
+// # https://www.ssemu.com.ar
+// # https://www.facebook.com/ssemuemulator
+// # https://www.youtube.com/@ssemu
+// # ---------------------------------------------------------------------------
+// # © 2023 SetecSoft Development
+// # This file is part of the SSeMU MuOnline Server files.
+// #############################################################################
+
+0
+// -------------------------------------------------------------------------------------------
+// [0~29]       [*/0000]    [*/0~12]     [*/0~31]   [*/1~7]    [*/0~23]    [*/0~59]   [*/0~59]
+// EventIndex   StartYear   StartMonth   StartDay   StartDoW   StartHour   StartMin   StartSec
+// -------------------------------------------------------------------------------------------
+   0            *           *            *          *          0           5           0
+   0            *           *            *          *          4           5           0
+   0            *           *            *          *          8           5           0
+   0            *           *            *          *          12          5           0
+   0            *           *            *          *          16          5           0
+   0            *           *            *          *          20          5           0
+   1            *           *            *          *          0           15          0
+   1            *           *            *          *          4           15          0
+   1            *           *            *          *          8           15          0
+   1            *           *            *          *          12          15          0
+   1            *           *            *          *          16          15          0
+   1            *           *            *          *          20          15          0
+   2            *           *            *          *          0           25          0
+   2            *           *            *          *          4           25          0
+   2            *           *            *          *          8           25          0
+   2            *           *            *          *          12          25          0
+   2            *           *            *          *          16          25          0
+   2            *           *            *          *          20          25          0
+end
+
+1
+// ---------------------------------------------------------------------------------------------------------------------------
+// [0~29]       [*/MsgIndex]     [*/MsgIndex]     [*/N]              [*/MsgIndex]        [InSec]        [0-1-3]
+// EventIndex   RespawnMessage   DespawnMessage   MonsterBossIndex   BossKilledMessage   InvasionTime   EffectType   EventName
+// ---------------------------------------------------------------------------------------------------------------------------
+   0            580              *                55                 590                 600            0            "Skeleton King Invasion"
+   1            581              *                42                 591                 600            1            "Red Dragon Invasion"
+   2            582              *                79                 592                 600            3            "Golden Invasion"
+end
+
+2
+// --------------------------------------
+// [0~29]       [0~20]              [0~5]
+// EventIndex   Group   MapNumber   Stage
+// --------------------------------------
+   0            0       0           0
+   0            0       3           0
+   1            0       0           0
+   1            0       2           0
+   1            0       3           0
+   2            0       0           0
+   2            1       2           0
+   2            2       2           0
+   2            3       3           0
+   2            4       0           0
+   2            4       2           0
+   2            4       3           0
+   2            5       7           0
+   2            6       7           0
+   2            7       8           0
+   2            8       8           0
+   2            9       1           0
+end
+
+3
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// [0~29]       [0~20]                 [0~30]                    [1~255]       [1~255]       [1~255]     [1~255]     [1~1000]        [0~5]   [0-1]       [InMs]
+// EventIndex   Group   MonsterIndex   SpawnRadius   MapNumber   RangeStartX   RangeStartY   RangeEndX   RangeEndY   MaxSpawnCount   Stage   RegenType   RegenTime   Comment
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   0            0       55             30            0           125           190           140         203         1               0       0           0           // Skeleton King ~ Lorencia ~ Death King
+   0            0       56             30            0           125           190           140         203         10              0       0           0           // Skeleton King ~ Lorencia ~ Death Bone
+   0            0       55             30            3           195           70            205         86          1               0       0           0           // Skeleton King ~ Noria ~ Death King
+   0            0       56             30            3           195           70            205         86          10              0       0           0           // Skeleton King ~ Noria ~ Death Bone
+   1            0       42             30            0           10            10            240         240         1               0       0           0           // Red Dragon ~ Lorencia ~ Red Dragon
+   1            0       42             30            2           10            10            240         240         1               0       0           0           // Red Dragon ~ Devias ~ Red Dragon
+   1            0       42             30            3           10            10            240         240         1               0       0           0           // Red Dragon ~ Noria ~ Red Dragon
+   2            0       43             30            0           10            10            240         240         5               0       0           0           // Golden Dragon ~ Lorencia ~ Golden Budge Dragon
+   2            1       53             30            2           10            10            240         240         5               0       0           0           // Golden Dragon ~ Devias ~ Golden Titan
+   2            2       54             30            2           10            10            240         240         5               0       0           0           // Golden Dragon ~ Devias ~ Golden Soldier
+   2            3       78             30            3           10            10            240         240         5               0       0           0           // Golden Dragon ~ Noria ~ Golden Goblin
+   2            4       79             30            0           10            10            240         240         1               0       0           0           // Golden Dragon ~ Lorencia ~ Golden Derkon
+   2            4       79             30            2           10            10            240         240         1               0       0           0           // Golden Dragon ~ Devias ~ Golden Derkon
+   2            4       79             30            3           10            10            240         240         1               0       0           0           // Golden Dragon ~ Noria ~ Golden Derkon
+   2            5       80             30            7           10            10            240         240         3               0       0           0           // Golden Dragon ~ Atlans ~ Golden Lizard King
+   2            6       81             30            7           10            10            240         240         5               0       0           0           // Golden Dragon ~ Atlans ~ Golden Vepar
+   2            7       82             30            8           10            10            240         240         3               0       0           0           // Golden Dragon ~ Tarkan ~ Golden Tantalos
+   2            8       83             30            8           10            10            240         240         5               0       0           0           // Golden Dragon ~ Tarkan ~ Golden Wheel
+end

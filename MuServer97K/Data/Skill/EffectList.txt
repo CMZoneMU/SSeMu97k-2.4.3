@@ -1,0 +1,29 @@
+// #############################################################################
+// # SSeMU MU Online Emulator
+// # https://www.ssemu.com.ar
+// # https://www.facebook.com/ssemuemulator
+// # https://www.youtube.com/@ssemu
+// # ---------------------------------------------------------------------------
+// # © 2023 SetecSoft Development
+// # This file is part of the SSeMU MuOnline Server files.
+// #############################################################################
+
+// -----------------------------------------------------------------------------------------------------------------------------------
+//                 [*/00,000]   [Max 32 Char]                        [0-1]  [0~2]  [0-1]  [*/InSec]  [*/N]    [*/N]    [*/N]    [*/N]
+// Index   Group   ItemIndex    Name                                 Save   Type   Flag   Duration   Power1   Power2   Power3   Power4
+// -----------------------------------------------------------------------------------------------------------------------------------
+   1       1       *            "Greater Damage"                     1      0      0      *          *        *        *        *
+   2       2       *            "Greater Defense"                    1      0      0      *          *        *        *        *
+   4       4       *            "Mana Shield"                        1      0      0      *          *        *        *        *
+   7       7       *            "BP Recovery"                        0      0      0      *          *        *        *        *
+   8       8       *            "Greater Life"                       1      0      0      *          *        *        *        *
+   12      12      *            "Disable Magic"                      0      0      0      *          *        *        *        *
+   55      27      *            "Poison"                             0      0      1      *          *        *        *        *
+   56      28      *            "Ice"                                0      0      1      *          *        *        *        *
+   57      29      *            "Ice Arrow"                          0      0      1      *          *        *        *        *
+   58      30      *            "Fire Slash"                         1      0      1      *          *        *        *        *
+   59      31      *            "Physi Damage Immunity"              0      0      0      *          *        *        *        *
+   60      32      *            "Magic Damage Immunity"              0      0      0      *          *        *        *        *
+   63      35      *            "Monster Physi Damage Immunity"      0      0      0      *          *        *        *        *
+   64      36      *            "Monster Magic Damage Immunity"      0      0      0      *          *        *        *        *
+end

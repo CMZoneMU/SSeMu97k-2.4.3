@@ -1,0 +1,62 @@
+// #############################################################################
+// # SSeMU MU Online Emulator
+// # https://www.ssemu.com.ar
+// # https://www.facebook.com/ssemuemulator
+// # https://www.youtube.com/@ssemu
+// # ---------------------------------------------------------------------------
+// # © 2023 SetecSoft Development
+// # This file is part of the SSeMU MuOnline Server files.
+// #############################################################################
+
+// -----------------------------------------------------------------------------------------------
+// [00,000]    [0~11]      [0~255]      [0-1]         [0-1]        [0~7]       [0~63]
+// ItemIndex   ItemLevel   Durability   SkillSwitch   LuckSwitch   Aditional   Excellent   Comment
+// -----------------------------------------------------------------------------------------------
+//Helms
+   07,000      0           115            0             1            1           0           //Bronze Helm
+   07,008      0           115            0             1            1           0           //Brass Helm
+   07,006      0           115           0             1            1           0           //Scale Helm
+   07,009      0           115            0             1            1           0           //Plate Helm
+
+//Armor
+   08,000      0           115            0             1            1           0           //Bronze Armor
+   08,008      0           115            0             1            1           0           //Brass Armor
+   08,006      0           115            0             1            1           0           //Scale Armor
+   08,009      0           115            0             1            1           0           //Plate Armor
+
+//Pants
+   09,000      0           115            0             1            1           0           //Bronze Pants
+   09,008      0           115            0             1            1           0           //Brass  Pants
+   09,006      0           115            0             1            1           0           //Scale  Pants
+   09,009      0           115            0             1            1           0           //Plate  Pants
+
+//Gloves
+   10,000      0           115            0             1            1           0           //Bronze Gloves
+   10,008      0           115            0             1            1           0           //Brass  Gloves
+   10,009      0           115            0             1            1           0           //Scale  Gloves
+   10,006      0           115            0             1            1           0           //Plate  Gloves
+
+//Boots
+   11,000      0           115            0             1            1           0           //Bronze Boots
+   11,008      0           115            0             1            1           0           //Brass  Boots
+   11,009      0           115            0             1            1           0           //Scale  Boots
+   11,006      0           115            0             1            1           0           //Plate  Boots
+
+//Armas
+   00,001      0           115            0             1            1           0           //Short Sword
+   00,002      0           115            0             1            1           0           //Sowrd Rapier
+   00,003      0           115            0             1            1           0           //Sowrd Katache
+   00,004      0           115            0             1            1           0           //Sowrd Scimitar
+
+
+//Shields
+   06,001      0           115            0             1            1           0           //Horned Shield
+   06,002      0           115            0             1            1           0           //Kite Shield
+                           
+//Orbs                    
+   12,007      0           115            0             1            1           0           //Orb of Twisting Slash
+   12,019      0           115            0             1            1           0           //Orb of Death Stab
+   12,012      0           115            0             1            1           0           //Orb of Rageful Blow
+   12,014      0           115            0             1            1           0           //Orb of Greater Fortitude
+
+end

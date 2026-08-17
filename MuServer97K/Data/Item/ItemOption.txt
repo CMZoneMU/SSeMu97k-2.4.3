@@ -1,0 +1,124 @@
+// #############################################################################
+// # SSeMU MU Online Emulator
+// # https://www.ssemu.com.ar
+// # https://www.facebook.com/ssemuemulator
+// # https://www.youtube.com/@ssemu
+// # ---------------------------------------------------------------------------
+// # © 2023 SetecSoft Development
+// # This file is part of the SSeMU MuOnline Server files.
+// #############################################################################
+
+// ----------------------------------------------------------------------------------------------------------------------------
+// OptionIndex: "Tools\Reference Item Options.txt"
+// ----------------------------------------------------------------------------------------------------------------------------
+// [0~13]  [80~127]      [0~1000]      [00,000]       [00,000]       [*/0-1]       [*/0-1]      [*/0~8]     [*/0~63]
+// Index   OptionIndex   OptionValue   ItemIndexMin   ItemIndexMax   SkillSwitch   LuckSwitch   Aditional   Excellent   Comment
+// ----------------------------------------------------------------------------------------------------------------------------
+   0       0             0             00,000         04,031         1             *            *           *           //General Weapon
+   1       84            5             00,000         04,031         *             1            *           *           //General Weapon
+   2       80            4             00,000         04,031         *             *            1           *           //General Weapon
+   3       99            12            00,000         04,031         *             *            *           1           //General Weapon
+   4       99            12            00,000         04,031         *             *            *           2           //General Weapon
+   5       97            7             00,000         04,031         *             *            *           4           //General Weapon
+   6       94            2             00,000         04,031         *             *            *           8           //General Weapon
+   7       93            20            00,000         04,031         *             *            *           16          //General Weapon
+   8       92            10            00,000         04,031         *             *            *           32          //General Weapon
+   1       84            5             05,000         05,019         *             1            *           *           //General Staff
+   2       81            4             05,000         05,019         *             *            1           *           //General Staff
+   3       99            12            05,000         05,019         *             *            *           1           //General Staff
+   4       98            12            05,000         05,019         *             *            *           2           //General Staff
+   5       97            7             05,000         05,019         *             *            *           4           //General Staff
+   6       96            2             05,000         05,019         *             *            *           8           //General Staff
+   7       95            20            05,000         05,019         *             *            *           16          //General Staff
+   8       92            10            05,000         05,019         *             *            *           32          //General Staff
+   0       0             0             06,000         06,031         1             *            *           *           //General Shield
+   1       84            5             06,000         06,031         *             1            *           *           //General Shield
+   2       82            5             06,000         06,031         *             *            1           *           //General Shield
+   3       86            30            06,000         06,031         *             *            *           1           //General Shield
+   4       87            10            06,000         06,031         *             *            *           2           //General Shield
+   5       88            5             06,000         06,031         *             *            *           4           //General Shield
+   6       89            4             06,000         06,031         *             *            *           8           //General Shield
+   7       90            4             06,000         06,031         *             *            *           16          //General Shield
+   8       91            4             06,000         06,031         *             *            *           32          //General Shield
+   1       84            5             07,000         11,031         *             1            *           *           //General Armor
+   2       83            4             07,000         11,031         *             *            1           *           //General Armor
+   3       86            30            07,000         11,031         *             *            *           1           //General Armor
+   4       87            10            07,000         11,031         *             *            *           2           //General Armor
+   5       88            5             07,000         11,031         *             *            *           4           //General Armor
+   6       89            4             07,000         11,031         *             *            *           8           //General Armor
+   7       90            4             07,000         11,031         *             *            *           16          //General Armor
+   8       91            4             07,000         11,031         *             *            *           32          //General Armor
+   1       84            5             12,000         12,000         *             1            *           *           //Wings of Fairy
+   2       85            1             12,000         12,000         *             *            1           *           //Wings of Fairy
+   1       84            5             12,001         12,001         *             1            *           *           //Wings of Angel
+   2       81            4             12,001         12,001         *             *            1           *           //Wings of Angel
+   1       84            5             12,002         12,002         *             1            *           *           //Wings of Satan
+   2       80            4             12,002         12,002         *             *            1           *           //Wings of Satan
+   1       84            5             12,003         12,003         *             1            *           *           //Wings of Spirit
+   2       80            4             12,003         12,003         *             *            1           *           //Wings of Spirit
+   2       85            1             12,003         12,003         *             *            1           32          //Wings of Spirit
+   3       100           5             12,003         12,003         *             *            *           1           //Wings of Spirit
+   4       101           5             12,003         12,003         *             *            *           2           //Wings of Spirit
+   5       102           3             12,003         12,003         *             *            *           4           //Wings of Spirit
+   6       103           50            12,003         12,003         *             *            *           8           //Wings of Spirit
+   7       97            5             12,003         12,003         *             *            *           16          //Wings of Spirit
+   1       84            5             12,004         12,004         *             1            *           *           //Wings of Soul
+   2       85            1             12,004         12,004         *             *            1           *           //Wings of Soul
+   2       81            4             12,004         12,004         *             *            1           32          //Wings of Soul
+   3       100           5             12,004         12,004         *             *            *           1           //Wings of Soul
+   4       101           5             12,004         12,004         *             *            *           2           //Wings of Soul
+   5       102           3             12,004         12,004         *             *            *           4           //Wings of Soul
+   6       103           50            12,004         12,004         *             *            *           8           //Wings of Soul
+   7       97            5             12,004         12,004         *             *            *           16          //Wings of Soul
+   1       84            5             12,005         12,005         *             1            *           *           //Wings of Devil
+   2       85            1             12,005         12,005         *             *            1           *           //Wings of Devil
+   2       80            4             12,005         12,005         *             *            1           32          //Wings of Devil
+   3       100           5             12,005         12,005         *             *            *           1           //Wings of Devil
+   4       101           5             12,005         12,005         *             *            *           2           //Wings of Devil
+   5       102           3             12,005         12,005         *             *            *           4           //Wings of Devil
+   6       103           50            12,005         12,005         *             *            *           8           //Wings of Devil
+   7       97            5             12,005         12,005         *             *            *           16          //Wings of Devil
+   1       84            5             12,006         12,006         *             1            *           *           //Wings of Darkness
+   2       81            4             12,006         12,006         *             *            1           *           //Wings of Darkness
+   2       80            4             12,006         12,006         *             *            1           32          //Wings of Darkness
+   3       100           5             12,006         12,006         *             *            *           1           //Wings of Darkness
+   4       101           5             12,006         12,006         *             *            *           2           //Wings of Darkness
+   5       102           3             12,006         12,006         *             *            *           4           //Wings of Darkness
+   6       103           50            12,006         12,006         *             *            *           8           //Wings of Darkness
+   7       97            5             12,006         12,006         *             *            *           16          //Wings of Darkness
+   9       119           50            13,000         13,000         *             *            *           *           //Angel
+   0       49            0             13,003         13,003         *             *            *           *           //Dinorant
+   3       112           0             13,003         13,003         *             *            *           1           //Dinorant
+   4       103           50            13,003         13,003         *             *            *           2           //Dinorant
+   5       97            5             13,003         13,003         *             *            *           4           //Dinorant
+   2       85            1             13,008         13,008         *             *            1           *           //Ring of Ice
+   3       86            30            13,008         13,008         *             *            *           1           //Ring of Ice
+   4       87            10            13,008         13,008         *             *            *           2           //Ring of Ice
+   5       88            5             13,008         13,008         *             *            *           4           //Ring of Ice
+   6       89            4             13,008         13,008         *             *            *           8           //Ring of Ice
+   7       90            4             13,008         13,008         *             *            *           16          //Ring of Ice
+   8       91            4             13,008         13,008         *             *            *           32          //Ring of Ice
+   2       85            1             13,009         13,009         *             *            1           *           //Ring of Poison
+   3       86            30            13,009         13,009         *             *            *           1           //Ring of Poison
+   4       87            10            13,009         13,009         *             *            *           2           //Ring of Poison
+   5       88            5             13,009         13,009         *             *            *           4           //Ring of Poison
+   6       89            4             13,009         13,009         *             *            *           8           //Ring of Poison
+   7       90            4             13,009         13,009         *             *            *           16          //Ring of Poison
+   8       91            4             13,009         13,009         *             *            *           32          //Ring of Poison
+   2       85            1             13,012         13,012         *             *            1           *           //Pendant of Lighting
+   3       99            12            13,012         13,012         *             *            *           1           //Pendant of Lighting
+   4       98            12            13,012         13,012         *             *            *           2           //Pendant of Lighting
+   5       97            7             13,012         13,012         *             *            *           4           //Pendant of Lighting
+   6       96            2             13,012         13,012         *             *            *           8           //Pendant of Lighting
+   7       95            20            13,012         13,012         *             *            *           16          //Pendant of Lighting
+   8       92            10            13,012         13,012         *             *            *           32          //Pendant of Lighting
+   2       85            1             13,013         13,013         *             *            1           *           //Pendant of Fire
+   3       99            12            13,013         13,013         *             *            *           1           //Pendant of Fire
+   4       98            12            13,013         13,013         *             *            *           2           //Pendant of Fire
+   5       97            7             13,013         13,013         *             *            *           4           //Pendant of Fire
+   6       94            2             13,013         13,013         *             *            *           8           //Pendant of Fire
+   7       93            20            13,013         13,013         *             *            *           16          //Pendant of Fire
+   8       92            10            13,013         13,013         *             *            *           32          //Pendant of Fire
+   9       125           10            13,020         13,020         *             *            *           *           //Wizard Ring
+   10      97            10            13,020         13,020         *             *            *           *           //Wizard Ring
+end
