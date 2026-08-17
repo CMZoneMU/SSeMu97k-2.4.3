@@ -1,14 +1,9 @@
-// #############################################################################
-// # SSeMU MU Online Emulator
-// # ---------------------------------------------------------------------------
-// # Website  : https://www.ssemu.com.ar
-// # Forum    : https://www.ssemu.com.ar/forum
-// # YouTube  : https://www.youtube.com/@ssemu
-// # WhatsApp : https://whatsapp.com/channel/0029VaATlSF8F2pDP6OlCG2z
-// # ---------------------------------------------------------------------------
-// # © 2022 SetecSoft Development
-// # This file is part of the SSeMU MuOnline server package.
-// #############################################################################
+# ---------------------------------------------------------------------------
+# Website  : https://www.ssemu.com.ar
+# YouTube  : https://www.youtube.com/@ssemu
+# © SSeMU 2022 SetecSoft Development
+# Arquivos Vazados - Base SSeMU UPDATE 85 2.4.3 97KOR
+# ---------------------------------------------------------------------------
 
 UPDATE CMZ 00 (3.0.0) 17-08-26
 * Foi corrigido o crash crítico do cliente ao aprender ou usar Orbs e Scrolls de habilidades no inventário. [97KOR]
@@ -19,9 +14,6 @@ UPDATE CMZ 00 (3.0.0) 17-08-26
 * Foi corrigida a transferência automática de itens pelo botão direito para o Baú, Trade e Chaos Machine. [97KOR]
 * Foi otimizado o desempenho gráfico do jogo, reduzindo o consumo indevido de CPU e eliminando a limpeza contínua de memória RAM. [97KOR]
 * Foram adicionados temporizadores de alta precisão e maior prioridade de processo para eliminar micro-travamentos (stuttering). [97KOR]
-
-CLIENTE:
-* Foi atualizada a biblioteca do cliente e gerado novamente o arquivo de configurações do servidor. [97KOR]
 
 UPDATE 85 (2.4.3)
 * Se repararon errores de CustomAttack relacionados a buffs o usar skills sin armas tecla F8. [ALL VERSIONS]
