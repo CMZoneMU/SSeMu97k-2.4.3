@@ -1,4 +1,7 @@
-
+## Projeto Free CMZone Fixs 97K - Base SSeMU 97KOR
+## Inicio: 17/08/2026
+## Autor: Nilo Master  
+## Arquivos: Emulador + Cliente Plugin Main.dll
 
 UPDATE CMZ 00 (3.0.0) 17-08-26
 * Foi corrigido o crash crítico do cliente ao aprender ou usar Orbs e Scrolls de habilidades no inventário. [97KOR]
