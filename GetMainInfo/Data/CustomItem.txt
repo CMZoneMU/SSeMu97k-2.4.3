@@ -1,0 +1,17 @@
+// #############################################################################
+// # SSeMU MU Online Emulator
+// # https://www.ssemu.com.ar
+// # https://www.facebook.com/ssemuemulator
+// # https://www.youtube.com/@ssemu
+// # ---------------------------------------------------------------------------
+// # © 2023 SetecSoft Development
+// # This file is part of the SSeMU MuOnline Server files.
+// #############################################################################
+
+// ------------------------------------------------
+// [00,000]    [0~255]  [0~255]  [0~255]
+// ItemIndex   ColorR   ColorG   ColorB   ModelName
+// ------------------------------------------------
+// EXAMPLE
+// 00,035      175      160      0        "Sword01"
+end

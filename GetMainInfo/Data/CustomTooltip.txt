@@ -1,0 +1,21 @@
+// #############################################################################
+// # SSeMU MU Online Emulator
+// # https://www.ssemu.com.ar
+// # https://www.facebook.com/ssemuemulator
+// # https://www.youtube.com/@ssemu
+// # ---------------------------------------------------------------------------
+// # © 2023 SetecSoft Development
+// # This file is part of the SSeMU MuOnline Server files.
+// #############################################################################
+
+// -----------------------------------------------------------------------
+// [00,000]    [*/N]       [*/N]      [0~11]      [0-1]      [Max 64 Char]
+// ItemIndex   ItemLevel   Position   FontColor   FontBold   Text
+// -----------------------------------------------------------------------
+// EXAMPLE
+// 14,200      *           *          0           0           "Custom Jewel 1"
+// 14,201      *           *          1           1           "Custom Jewel 2"
+// 14,202      *           *          0           2           "Custom Jewel 3"
+// 14,203      *           *          0           3           "Custom Jewel 4"
+// 14,204      *           *          0           4           "Custom Jewel 5"
+end

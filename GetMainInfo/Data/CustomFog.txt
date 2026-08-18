@@ -1,0 +1,18 @@
+// #############################################################################
+// # SSeMU MU Online Emulator
+// # https://www.ssemu.com.ar
+// # https://www.facebook.com/ssemuemulator
+// # https://www.youtube.com/@ssemu
+// # ---------------------------------------------------------------------------
+// # © 2023 SetecSoft Development
+// # This file is part of the SSeMU MuOnline Server files.
+// #############################################################################
+
+// -----------------------------------------------------------------
+// [Index]    [-1500]    [1500+]  [0~255]  [0~255]  [0~255]
+// MapIndex   FogStart   FogEnd   ColorR   ColorG   ColorB   Comment
+// -----------------------------------------------------------------
+// EXAMPLE
+// 0          1100       2200     248      230      200      // Lorencia Dust
+// 2          1200       2300     255      255      255      // Devias Fog
+end
