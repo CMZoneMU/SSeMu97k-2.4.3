@@ -3,7 +3,7 @@
 ## Autor: Nilo Master  
 ## Arquivos: Emulador + Cliente Plugin Main.dll
 
-UPDATE CMZ 00 (3.0.0) 17-08-26
+UPDATE CMZ 00 (3.0.0) 29-08-26
 * Foi corrigido o crash crítico do cliente ao aprender ou usar Orbs e Scrolls de habilidades no inventário. [97KOR]
 * Foi corrigida a leitura e codificação das habilidades enviadas pelo servidor ao personagem. [97KOR]
 * Foi ajustada a atualização em tempo real da lista de magias aprendidas e removidas no jogo. [97KOR]
