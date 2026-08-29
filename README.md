@@ -12,6 +12,9 @@ UPDATE CMZ 00 (3.0.0) 17-08-26
 * Foi corrigida a transferência automática de itens pelo botão direito para o Baú, Trade e Chaos Machine. [97KOR]
 * Foi otimizado o desempenho gráfico do jogo, reduzindo o consumo indevido de CPU e eliminando a limpeza contínua de memória RAM. [97KOR]
 * Foram adicionados temporizadores de alta precisão e maior prioridade de processo para eliminar micro-travamentos (stuttering). [97KOR]
+* Foi corrigido o brilho e a transparência dos itens, restaurando o visual original da versão 97d (itens +11 a +13 com brilho sólido e itens +14 a +15 com corpo transparente). [97KOR]
+* Foi corrigido o bug nos comandos /reset e /mreset em que o nível do personagem aumentava (+1) ao invés de voltar para o Level 1. [97KOR]
+* Foi implementado o Sistema Lua de forma estável e otimizada (apenas funções da 97k), atualizado e rodando 100% sem erros e sem crashes. [GameServer][97KOR]
 
 ## Titulo: Arquivos Vazados 2024 - Base SSeMU Update 85 2.4.3 97KOR
 ## Contato Oficial: https://www.ssemu.com.ar
