@@ -1,0 +1,43 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.00000.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConnectServer", "ConnectServer\ConnectServer.vcxproj", "{206DE6CA-4B65-4027-B96D-69DBC02AEF53}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DataServer", "DataServer\DataServer.vcxproj", "{DCCBB883-D3B5-486A-8658-4E469C575023}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameServer", "GameServer\GameServer.vcxproj", "{93F80160-07A8-42A6-B46C-70B72AFF74C4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JoinServer", "JoinServer\JoinServer.vcxproj", "{1BEFA73B-17C6-4E97-A35F-A4CBFA7678A1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		0.97K KOR|Win32 = 0.97K KOR|Win32
+		0.99B CHS|Win32 = 0.99B CHS|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{206DE6CA-4B65-4027-B96D-69DBC02AEF53}.0.97K KOR|Win32.ActiveCfg = 0.97K KOR|Win32
+		{206DE6CA-4B65-4027-B96D-69DBC02AEF53}.0.97K KOR|Win32.Build.0 = 0.97K KOR|Win32
+		{206DE6CA-4B65-4027-B96D-69DBC02AEF53}.0.99B CHS|Win32.ActiveCfg = Release|Win32
+		{206DE6CA-4B65-4027-B96D-69DBC02AEF53}.0.99B CHS|Win32.Build.0 = Release|Win32
+		{DCCBB883-D3B5-486A-8658-4E469C575023}.0.97K KOR|Win32.ActiveCfg = 0.97K KOR|Win32
+		{DCCBB883-D3B5-486A-8658-4E469C575023}.0.97K KOR|Win32.Build.0 = 0.97K KOR|Win32
+		{DCCBB883-D3B5-486A-8658-4E469C575023}.0.99B CHS|Win32.ActiveCfg = Release|Win32
+		{DCCBB883-D3B5-486A-8658-4E469C575023}.0.99B CHS|Win32.Build.0 = Release|Win32
+		{93F80160-07A8-42A6-B46C-70B72AFF74C4}.0.97K KOR|Win32.ActiveCfg = 0.97K KOR|Win32
+		{93F80160-07A8-42A6-B46C-70B72AFF74C4}.0.97K KOR|Win32.Build.0 = 0.97K KOR|Win32
+		{93F80160-07A8-42A6-B46C-70B72AFF74C4}.0.99B CHS|Win32.ActiveCfg = Release|Win32
+		{93F80160-07A8-42A6-B46C-70B72AFF74C4}.0.99B CHS|Win32.Build.0 = Release|Win32
+		{1BEFA73B-17C6-4E97-A35F-A4CBFA7678A1}.0.97K KOR|Win32.ActiveCfg = 0.97K KOR|Win32
+		{1BEFA73B-17C6-4E97-A35F-A4CBFA7678A1}.0.97K KOR|Win32.Build.0 = 0.97K KOR|Win32
+		{1BEFA73B-17C6-4E97-A35F-A4CBFA7678A1}.0.99B CHS|Win32.ActiveCfg = Release|Win32
+		{1BEFA73B-17C6-4E97-A35F-A4CBFA7678A1}.0.99B CHS|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8E524A75-DCB7-4F63-A8FB-BD42B898FED5}
+	EndGlobalSection
+EndGlobal
