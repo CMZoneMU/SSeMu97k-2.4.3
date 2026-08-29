@@ -113,6 +113,23 @@ void InitPatchs()
 	SetCompleteHook(0xE8, 0x0050E6A0, &OpenObjectsEnc);
 
 	SetCompleteHook(0xE8, 0x00525D4C, &CalcFPS);
+
+	// --- Render path principal (gameplay normal) ---
+	// Patch 1: Transparência do corpo do item a partir de +14 (era +12)
+	SetByte(0x0050565F, 0x0D);
+
+	// Patch 2: Alinha o bloco do brilho dourado (overlay 0x240) até +13
+	SetByte(0x005056E3, 0x0E);
+
+	// --- Render path secundário (troca de mapa / recarregar personagem) ---
+	// Patch 3: Transparência no carregamento de mapa
+	SetByte(0x004F825F, 0x0D);
+
+	// Patch 4: Texture lookup path A
+	SetByte(0x004EF126, 0x0D);
+
+	// Patch 5: Texture lookup path B
+	SetByte(0x004EF451, 0x0D);
 }
 
 void CalcFPS() // OK
