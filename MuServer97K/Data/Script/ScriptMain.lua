@@ -26,3 +26,6 @@
 
 require('System\\ScriptCore')
 require('Script\\WelcomeMessage')
+
+
+LogColor(2, "[Script] Sistema Lua carregado com sucesso!")
