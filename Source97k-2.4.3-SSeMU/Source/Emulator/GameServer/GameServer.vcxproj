@@ -188,6 +188,10 @@
     <ClInclude Include="SerialCheck.h" />
     <ClInclude Include="ServerDisplayer.h" />
     <ClInclude Include="ServerInfo.h" />
+    <ClInclude Include="LuaASyncQueue.h" />
+    <ClInclude Include="LuaFunction.h" />
+    <ClInclude Include="Script.h" />
+    <ClInclude Include="ScriptLoader.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="ShopManager.h" />
     <ClInclude Include="Skill.h" />
@@ -305,6 +309,10 @@
     <ClCompile Include="SerialCheck.cpp" />
     <ClCompile Include="ServerDisplayer.cpp" />
     <ClCompile Include="ServerInfo.cpp" />
+    <ClCompile Include="LuaASyncQueue.cpp" />
+    <ClCompile Include="LuaFunction.cpp" />
+    <ClCompile Include="Script.cpp" />
+    <ClCompile Include="ScriptLoader.cpp" />
     <ClCompile Include="Shop.cpp" />
     <ClCompile Include="ShopManager.cpp" />
     <ClCompile Include="Skill.cpp" />

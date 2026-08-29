@@ -41,6 +41,8 @@
 #include <algorithm>
 #include <string>
 #include <atltime.h>
+#include <mutex>
+#include <atomic>
 #include <dbghelp.h>
 #include <Psapi.h>
 #include <sql.h>
@@ -54,5 +56,6 @@
 #pragma comment(lib,"dbghelp.lib")
 #pragma comment(lib,"Psapi.lib")
 #pragma comment(lib,"..\\..\\..\\Util\\lua\\lua52.lib")
+#pragma comment(lib,"legacy_stdio_definitions.lib")
 
 typedef unsigned __int64 QWORD;

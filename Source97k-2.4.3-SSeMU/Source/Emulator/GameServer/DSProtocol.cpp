@@ -32,6 +32,7 @@
 #include "Util.h"
 #include "Viewport.h"
 #include "Warehouse.h"
+#include "ScriptLoader.h"
 
 void DataServerProtocolCore(BYTE head,BYTE* lpMsg,int size) // OK
 {
@@ -475,6 +476,8 @@ void DGCharacterInfoRecv(SDHP_CHARACTER_INFO_RECV* lpMsg) // OK
 	gItemStack.GCItemListStackSend(lpObj->Index);
 
 	gItemValue.GCItemListValueSend(lpObj->Index);
+
+	gScriptLoader.OnCharacterEntry(lpObj->Index);
 
 	gHackMoveSpeedCheck[lpObj->Index].Set(lpObj->Index);
 

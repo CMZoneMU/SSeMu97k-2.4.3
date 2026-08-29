@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Event">
@@ -132,6 +132,18 @@
     </ClInclude>
     <ClInclude Include="ServerInfo.h">
       <Filter>Others</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaASyncQueue.h">
+      <Filter>Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaFunction.h">
+      <Filter>Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="Script.h">
+      <Filter>Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptLoader.h">
+      <Filter>Lua</Filter>
     </ClInclude>
     <ClInclude Include="User.h">
       <Filter>Others</Filter>
@@ -434,6 +446,18 @@
     </ClCompile>
     <ClCompile Include="ServerInfo.cpp">
       <Filter>Others</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaASyncQueue.cpp">
+      <Filter>Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaFunction.cpp">
+      <Filter>Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Script.cpp">
+      <Filter>Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptLoader.cpp">
+      <Filter>Lua</Filter>
     </ClCompile>
     <ClCompile Include="ResetTable.cpp">
       <Filter>Others</Filter>

@@ -32,6 +32,7 @@
 #include "ResetTable.h"
 #include "ServerInfo.h"
 #include "Util.h"
+#include "ScriptLoader.h"
 
 CCommandManager gCommandManager;
 //////////////////////////////////////////////////////////////////////
@@ -296,6 +297,12 @@ void CCommandManager::ManagementCore(LPOBJ lpObj,char* message) // OK
 	if(lpInfo.Money[lpObj->AccountLevel] > lpObj->Money)
 	{
 		gNotice.GCNoticeSend(lpObj->Index,1,0,0,0,0,0,gMessage.GetMessage(306),lpInfo.Money[lpObj->AccountLevel],lpInfo.Command);
+		return;
+	}
+
+	if(gScriptLoader.OnCommandManager(lpObj->Index, lpInfo.Index, argument) == 1)
+	{
+		this->DiscountRequirement(lpObj, lpInfo.Index);
 		return;
 	}
 
@@ -2158,7 +2165,7 @@ void CCommandManager::DGCommandResetRecv(SDHP_COMMAND_RESET_RECV* lpMsg) // OK
 
 	this->DiscountRequirement(lpObj,COMMAND_RESET);
 
-	lpObj->Level = ((gServerInfo.m_CommandResetStartLevel[lpObj->AccountLevel] == -1) ? (lpObj->Level - gServerInfo.m_CommandResetStartLevel[lpObj->AccountLevel]) : gServerInfo.m_CommandResetStartLevel[lpObj->AccountLevel]);
+	lpObj->Level = ((gServerInfo.m_CommandResetStartLevel[lpObj->AccountLevel] == -1) ? ((lpObj->Level > gResetTable.GetResetLevel(lpObj)) ? (lpObj->Level - gResetTable.GetResetLevel(lpObj)) : 1) : gServerInfo.m_CommandResetStartLevel[lpObj->AccountLevel]);
 
 	lpObj->Experience = gLevelExperience[lpObj->Level - 1];
 
@@ -2334,11 +2341,11 @@ void CCommandManager::DGCommandMasterResetRecv(SDHP_COMMAND_MASTER_RESET_RECV* l
 
 	this->DiscountRequirement(lpObj,COMMAND_MASTER_RESET);
 
-	lpObj->Level = ((gServerInfo.m_CommandMasterResetStartLevel[lpObj->AccountLevel] == -1) ? (lpObj->Level - gServerInfo.m_CommandMasterResetStartLevel[lpObj->AccountLevel]) : gServerInfo.m_CommandMasterResetStartLevel[lpObj->AccountLevel]);
+	lpObj->Level = ((gServerInfo.m_CommandMasterResetStartLevel[lpObj->AccountLevel] == -1) ? 1 : gServerInfo.m_CommandMasterResetStartLevel[lpObj->AccountLevel]);
 
 	lpObj->Experience = gLevelExperience[lpObj->Level - 1];
 
-	lpObj->Reset = ((gServerInfo.m_CommandMasterResetStartReset[lpObj->AccountLevel] == -1) ? (lpObj->Reset - gServerInfo.m_CommandMasterResetReset[lpObj->AccountLevel]) : gServerInfo.m_CommandMasterResetStartReset[lpObj->AccountLevel]);
+	lpObj->Reset = ((gServerInfo.m_CommandMasterResetStartReset[lpObj->AccountLevel] == -1) ? ((lpObj->Reset > gServerInfo.m_CommandMasterResetReset[lpObj->AccountLevel]) ? (lpObj->Reset - gServerInfo.m_CommandMasterResetReset[lpObj->AccountLevel]) : 0) : gServerInfo.m_CommandMasterResetStartReset[lpObj->AccountLevel]);
 
 	lpObj->MasterReset += gServerInfo.m_CommandMasterResetCount[lpObj->AccountLevel];
 

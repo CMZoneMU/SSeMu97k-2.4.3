@@ -40,8 +40,10 @@
 #include "SerialCheck.h"
 #include "ServerInfo.h"
 #include "SkillManager.h"
+#include "SkillUseArea.h"
 #include "Trade.h"
 #include "Util.h"
+#include "ScriptLoader.h"
 
 CObjectManager gObjectManager;
 //////////////////////////////////////////////////////////////////////
@@ -526,6 +528,8 @@ bool CObjectManager::CharacterGameClose(int aIndex) // OK
 	{
 		return 0;
 	}
+
+	gScriptLoader.OnCharacterClose(aIndex);
 
 	if(OBJECT_RANGE(lpObj->SummonIndex) != 0)
 	{

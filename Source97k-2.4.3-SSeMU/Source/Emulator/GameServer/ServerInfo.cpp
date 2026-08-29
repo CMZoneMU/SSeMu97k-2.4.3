@@ -61,6 +61,7 @@
 #include "SkillManager.h"
 #include "SkillUseArea.h"
 #include "Util.h"
+#include "ScriptLoader.h"
 
 CServerInfo gServerInfo;
 //////////////////////////////////////////////////////////////////////
@@ -289,6 +290,9 @@ void CServerInfo::ReadQuestInfo() // OK
 
 void CServerInfo::ReadScriptInfo() // OK
 {
+	gScriptLoader.OnShutScript();
+
+	gScriptLoader.Load(gPath.GetFullPath("Script\\ScriptMain.lua"));
 }
 
 void CServerInfo::ReadShopInfo() // OK

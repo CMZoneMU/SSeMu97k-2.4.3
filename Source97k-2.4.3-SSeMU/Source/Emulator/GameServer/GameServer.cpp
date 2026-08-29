@@ -20,6 +20,14 @@
 #include "SocketManager.h"
 #include "SocketManagerUdp.h"
 #include "Util.h"
+#include <stdio.h>
+
+#if _MSC_VER >= 1900
+extern "C" FILE * __cdecl __iob_func(void)
+{
+    return __acrt_iob_func(0);
+}
+#endif
 
 HINSTANCE hInst;
 TCHAR szTitle[MAX_LOADSTRING];
