@@ -3,6 +3,19 @@
 ## Autor: Nilo Master  
 ## Arquivos: Emulador + Cliente Plugin Main.dll
 
+UPDATE CMZ 01 (3.0.1) 04-09-26 / UPDATE 86 (2.4.4 & 2.4.4-1):
+* Foi corrigido o sistema de cliques simultaneos do mouse que causava disparos e ataques descontrolados. [Main.dll][97KOR]
+* Foram implementadas as opcoes HaveSerial e HaveOption em Item.txt e GameServer: [GameServer][97KOR]
+	- HaveSerial: 0 dropa o item sem gerar serial, 1 processa a serializacao pelo DataServer.
+	- HaveOption: 0 impede que o item possua ou gere opcoes excelentes.
+* Foi aprimorada a leitura do MemScript para suportar arquivos .TXT com codificacao UTF-8 BOM e numeros decimais com ponto flutuante. [GameServer][JoinServer][GetMainInfo][97KOR]
+* Foi corrigido o erro com o Dinorant em Icarus, garantindo o deslocamento correto para a safe zone (Gate 22) tanto ao morrer quanto ao desequipar o item sem asas. [GameServer][Attack.cpp][User.cpp][97KOR]
+* Foi corrigido o erro de Guild que exibia membros no servidor -1 ao trocar de servidor ou reconectar. [DataServer][GameServer][97KOR]
+* Foi aprimorada a leitura e validacao de itens por LUA no inventario e mapa, prevenindo crashes por slots fora do range e corrigindo o balanceamento da pilha do interpretador. [GameServer][LuaFunction.cpp][97KOR]
+* Foi corrigida a execucao de comandos por scripts LUA para evitar a queda indevida no bloco de comandos nativos em C++. [GameServer][CommandManager.cpp][97KOR]
+* Foi atualizada a compatibilidade de compilacao do GameServer e DataServer para o Visual Studio 2022/2026 (Toolset v145 e bibliotecas ATL/MFC). [GameServer][DataServer][97KOR]
+
+
 UPDATE CMZ 00 (3.0.0) 29-08-26
 * Foi corrigido o crash crítico do cliente ao aprender ou usar Orbs e Scrolls de habilidades no inventário. [97KOR]
 * Foi corrigida a leitura e codificação das habilidades enviadas pelo servidor ao personagem. [97KOR]
