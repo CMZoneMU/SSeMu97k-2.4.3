@@ -33,6 +33,7 @@
 #include <vector>
 #include <queue>
 #include <string>
+#include <algorithm>
 #include <Rpc.h>
 #include <dbghelp.h>
 #include <Psapi.h>

@@ -1,10 +1,10 @@
 #include "stdafx.h"
 #include "ConnectServerProtocol.h"
-#include "ClientManager.h"
-#include "Log.h"
-#include "ServerList.h"
+#include "../Core/ClientManager.h"
+#include "../Utils/Log.h"
+#include "../Core/ServerList.h"
 #include "SocketManager.h"
-#include "Util.h"
+#include "../Utils/Util.h"
 
 void ConnectServerProtocolCore(int index,BYTE head,BYTE* lpMsg,int size) // OK
 {

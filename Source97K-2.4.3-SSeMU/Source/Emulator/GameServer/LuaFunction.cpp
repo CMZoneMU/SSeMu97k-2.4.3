@@ -2281,16 +2281,23 @@ int LuaInventoryGetItemTable(lua_State *L) {
   int aValue = lua_tointeger(L, 2);
 
   if (OBJECT_RANGE(aIndex) == 0) {
-    return 0;
+    lua_pushnil(L);
+    return 1;
   }
 
   if (gObj[aIndex].Type != OBJECT_USER) {
-    return 0;
+    lua_pushnil(L);
+    return 1;
+  }
+
+  if (INVENTORY_RANGE(aValue) == 0) {
+    lua_pushnil(L);
+    return 1;
   }
 
   if (gObj[aIndex].Inventory[aValue].IsItem() == 0) {
     lua_pushnil(L);
-    return 0;
+    return 1;
   }
 
   lua_newtable(L);
@@ -2343,16 +2350,23 @@ int LuaInventoryGetItemIndex(lua_State *L) {
   int aValue = lua_tointeger(L, 2);
 
   if (OBJECT_RANGE(aIndex) == 0) {
-    return 0;
+    lua_pushnil(L);
+    return 1;
   }
 
   if (gObj[aIndex].Type != OBJECT_USER) {
-    return 0;
+    lua_pushnil(L);
+    return 1;
+  }
+
+  if (INVENTORY_RANGE(aValue) == 0) {
+    lua_pushnil(L);
+    return 1;
   }
 
   if (gObj[aIndex].Inventory[aValue].IsItem() == 0) {
     lua_pushnil(L);
-    return 0;
+    return 1;
   }
 
   lua_pushinteger(L, gObj[aIndex].Inventory[aValue].m_Index);
@@ -2394,6 +2408,10 @@ int LuaInventoryDelItemIndex(lua_State *L) {
   }
 
   if (gObj[aIndex].Type != OBJECT_USER) {
+    return 0;
+  }
+
+  if (INVENTORY_RANGE(aValue) == 0) {
     return 0;
   }
 
@@ -2727,16 +2745,23 @@ int LuaMapGetItemTable(lua_State *L) {
   int aValue = lua_tointeger(L, 2);
 
   if (OBJECT_RANGE(aIndex) == 0) {
-    return 0;
+    lua_pushnil(L);
+    return 1;
   }
 
   if (gObj[aIndex].Type != OBJECT_USER) {
-    return 0;
+    lua_pushnil(L);
+    return 1;
+  }
+
+  if (aValue < 0 || aValue >= MAX_MAP_ITEM) {
+    lua_pushnil(L);
+    return 1;
   }
 
   if (gMap[gObj[aIndex].Map].m_Item[aValue].IsItem() == 0) {
     lua_pushnil(L);
-    return 0;
+    return 1;
   }
 
   lua_newtable(L);

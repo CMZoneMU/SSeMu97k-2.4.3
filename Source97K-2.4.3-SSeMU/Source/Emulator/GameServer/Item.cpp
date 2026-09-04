@@ -131,6 +131,11 @@ void CItem::Convert(int index,BYTE Option1,BYTE Option2,BYTE Option3,BYTE NewOpt
 		return;
 	}
 
+	if(ItemInfo.HaveOption == 0)
+	{
+		NewOption = 0;
+	}
+
 	this->m_Index = index;
 
 	this->m_Level &= 15;

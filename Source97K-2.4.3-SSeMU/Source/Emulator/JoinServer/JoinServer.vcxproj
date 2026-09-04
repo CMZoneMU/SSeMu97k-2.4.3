@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="0.97K KOR|Win32">
@@ -64,6 +64,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;JOINSERVER_UPDATE=99;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>.;Core;Network;Utils;Database;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -82,6 +83,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;JOINSERVER_UPDATE=97;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <AdditionalIncludeDirectories>.;Core;Network;Utils;Database;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -92,49 +94,49 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Util\Sha256\Sha256.h" />
-    <ClInclude Include="AccountManager.h" />
-    <ClInclude Include="AllowableIpList.h" />
-    <ClInclude Include="CriticalSection.h" />
-    <ClInclude Include="JoinServer.h" />
-    <ClInclude Include="JoinServerProtocol.h" />
-    <ClInclude Include="Log.h" />
-    <ClInclude Include="MD5.h" />
-    <ClInclude Include="MD5_KEYVAL.H" />
-    <ClInclude Include="MemScript.h" />
-    <ClInclude Include="MiniDump.h" />
-    <ClInclude Include="QueryManager.h" />
-    <ClInclude Include="Queue.h" />
+    <ClInclude Include="Core\AccountManager.h" />
+    <ClInclude Include="Core\AllowableIpList.h" />
+    <ClInclude Include="Utils\CriticalSection.h" />
+    <ClInclude Include="Core\JoinServer.h" />
+    <ClInclude Include="Network\JoinServerProtocol.h" />
+    <ClInclude Include="Utils\Log.h" />
+    <ClInclude Include="Utils\MD5.h" />
+    <ClInclude Include="Utils\MD5_KEYVAL.H" />
+    <ClInclude Include="Utils\MemScript.h" />
+    <ClInclude Include="Utils\MiniDump.h" />
+    <ClInclude Include="Database\QueryManager.h" />
+    <ClInclude Include="Utils\Queue.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="ServerDisplayer.h" />
-    <ClInclude Include="ServerManager.h" />
-    <ClInclude Include="SocketManager.h" />
-    <ClInclude Include="SocketManagerUdp.h" />
+    <ClInclude Include="Core\ServerDisplayer.h" />
+    <ClInclude Include="Core\ServerManager.h" />
+    <ClInclude Include="Network\SocketManager.h" />
+    <ClInclude Include="Network\SocketManagerUdp.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="ThemidaSDK.h" />
-    <ClInclude Include="Util.h" />
+    <ClInclude Include="Utils\Util.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Util\Sha256\Sha256.cpp" />
-    <ClCompile Include="AccountManager.cpp" />
-    <ClCompile Include="AllowableIpList.cpp" />
-    <ClCompile Include="CriticalSection.cpp" />
-    <ClCompile Include="JoinServer.cpp" />
-    <ClCompile Include="JoinServerProtocol.cpp" />
-    <ClCompile Include="Log.cpp" />
-    <ClCompile Include="MD5.cpp" />
-    <ClCompile Include="MemScript.cpp" />
-    <ClCompile Include="MiniDump.cpp" />
-    <ClCompile Include="QueryManager.cpp" />
-    <ClCompile Include="Queue.cpp" />
-    <ClCompile Include="ServerDisplayer.cpp" />
-    <ClCompile Include="ServerManager.cpp" />
-    <ClCompile Include="SocketManager.cpp" />
-    <ClCompile Include="SocketManagerUdp.cpp" />
+    <ClCompile Include="Core\AccountManager.cpp" />
+    <ClCompile Include="Core\AllowableIpList.cpp" />
+    <ClCompile Include="Utils\CriticalSection.cpp" />
+    <ClCompile Include="Core\JoinServer.cpp" />
+    <ClCompile Include="Network\JoinServerProtocol.cpp" />
+    <ClCompile Include="Utils\Log.cpp" />
+    <ClCompile Include="Utils\MD5.cpp" />
+    <ClCompile Include="Utils\MemScript.cpp" />
+    <ClCompile Include="Utils\MiniDump.cpp" />
+    <ClCompile Include="Database\QueryManager.cpp" />
+    <ClCompile Include="Utils\Queue.cpp" />
+    <ClCompile Include="Core\ServerDisplayer.cpp" />
+    <ClCompile Include="Core\ServerManager.cpp" />
+    <ClCompile Include="Network\SocketManager.cpp" />
+    <ClCompile Include="Network\SocketManagerUdp.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='0.97K KOR|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Util.cpp" />
+    <ClCompile Include="Utils\Util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="JoinServer.rc" />

@@ -890,6 +890,19 @@ void GDCreateItemSend(int aIndex,BYTE map,BYTE x,BYTE y,int index,BYTE level,BYT
 		return;
 	}
 
+	ITEM_INFO ItemInfo;
+
+	if(gItemManager.GetInfo(index,&ItemInfo) == 0)
+	{
+		return;
+	}
+
+	if(ItemInfo.HaveSerial == 0 && map < MAX_MAP)
+	{
+		gMap[map].MonsterItemDrop(index,level,dur,x,y,Option1,Option2,Option3,NewOption,SetOption,LootIndex,0,duration);
+		return;
+	}
+
 	SDHP_CREATE_ITEM_SEND pMsg;
 
 	pMsg.header.set(0x07,sizeof(pMsg));

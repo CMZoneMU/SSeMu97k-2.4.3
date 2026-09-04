@@ -708,6 +708,8 @@ void CAttack::DamageSprite(LPOBJ lpObj,int damage) // OK
 
 	if(lpItem->m_Durability < 1)
 	{
+		short ItemIndex = lpItem->m_Index;
+
 		gItemManager.InventoryDelItem(lpObj->Index,8);
 
 		gItemManager.GCItemDeleteSend(lpObj->Index,8,0);
@@ -716,7 +718,7 @@ void CAttack::DamageSprite(LPOBJ lpObj,int damage) // OK
 
 		gItemManager.GCItemChangeSend(lpObj->Index,8);
 
-		if(lpObj->Map == MAP_ICARUS && lpObj->Inventory[INVENTORY_SLOT_WING].IsItem() == 0 && lpItem->m_Index == GET_ITEM(13,3))
+		if(lpObj->Map == MAP_ICARUS && lpObj->Inventory[INVENTORY_SLOT_WING].IsItem() == 0 && ItemIndex == GET_ITEM(13,3))
 		{
 			gObjMoveGate(lpObj->Index,22);
 		}

@@ -21,7 +21,7 @@ struct GUILD_MEMBER_INFO
 	}
 
 	char Name[11];
-	WORD Server;
+	int Server;
 };
 
 struct GUILD_INFO

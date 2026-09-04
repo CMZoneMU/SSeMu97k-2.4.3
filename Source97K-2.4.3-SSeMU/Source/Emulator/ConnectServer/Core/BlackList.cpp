@@ -4,8 +4,8 @@
 
 #include "stdafx.h"
 #include "BlackList.h"
-#include "MemScript.h"
-#include "Util.h"
+#include "../Utils/MemScript.h"
+#include "../Utils/Util.h"
 
 CBlackList gBlackList;
 //////////////////////////////////////////////////////////////////////

@@ -217,7 +217,7 @@ void CGuild::DGGuildInfoRecv(SDHP_GUILD_INFO_RECV* lpMsg) // OK
 
 		if(gGuildManager.AddMember(lpMsg->Name,lpInfo->Name,-1,lpInfo->Server) == 0)
 		{
-			break;
+			continue;
 		}
 	}
 }

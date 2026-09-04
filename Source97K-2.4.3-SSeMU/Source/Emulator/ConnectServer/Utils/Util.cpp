@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "Util.h"
-#include "ClientManager.h"
+#include "../Core/ClientManager.h"
 #include "Log.h"
-#include "SocketManager.h"
-#include "ThemidaSDK.h"
+#include "../Network/SocketManager.h"
+#include "../ThemidaSDK.h"
 
 int gClientCount = 0;
 

@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "SocketManager.h"
+#include "../Network/SocketManager.h"
 
 #define MAX_CLIENT 100
 

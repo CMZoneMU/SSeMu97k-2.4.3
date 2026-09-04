@@ -4,9 +4,9 @@
 
 #include "stdafx.h"
 #include "ClientManager.h"
-#include "ConnectServerProtocol.h"
-#include "IpManager.h"
-#include "Util.h"
+#include "../Network/ConnectServerProtocol.h"
+#include "../Network/IpManager.h"
+#include "../Utils/Util.h"
 
 CClientManager gClientManager[MAX_CLIENT];
 //////////////////////////////////////////////////////////////////////

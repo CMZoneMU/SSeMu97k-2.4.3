@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="0.97K KOR|Win32">
@@ -61,6 +61,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;CONNECTSERVER_UPDATE=99;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;Core;Network;Utils;Database;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -79,6 +80,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;CONNECTSERVER_UPDATE=97;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <AdditionalIncludeDirectories>.;Core;Network;Utils;Database;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -90,46 +92,46 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Util\Sha256\Sha256.h" />
-    <ClInclude Include="BlackList.h" />
-    <ClInclude Include="ClientManager.h" />
-    <ClInclude Include="ConnectServer.h" />
-    <ClInclude Include="ConnectServerProtocol.h" />
-    <ClInclude Include="CriticalSection.h" />
-    <ClInclude Include="IpManager.h" />
-    <ClInclude Include="Log.h" />
-    <ClInclude Include="MemScript.h" />
-    <ClInclude Include="MiniDump.h" />
-    <ClInclude Include="Queue.h" />
+    <ClInclude Include="Core\BlackList.h" />
+    <ClInclude Include="Core\ClientManager.h" />
+    <ClInclude Include="Core\ConnectServer.h" />
+    <ClInclude Include="Network\ConnectServerProtocol.h" />
+    <ClInclude Include="Utils\CriticalSection.h" />
+    <ClInclude Include="Network\IpManager.h" />
+    <ClInclude Include="Utils\Log.h" />
+    <ClInclude Include="Utils\MemScript.h" />
+    <ClInclude Include="Utils\MiniDump.h" />
+    <ClInclude Include="Utils\Queue.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="ServerDisplayer.h" />
-    <ClInclude Include="ServerList.h" />
-    <ClInclude Include="SocketManager.h" />
-    <ClInclude Include="SocketManagerUdp.h" />
+    <ClInclude Include="Core\ServerDisplayer.h" />
+    <ClInclude Include="Core\ServerList.h" />
+    <ClInclude Include="Network\SocketManager.h" />
+    <ClInclude Include="Network\SocketManagerUdp.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="ThemidaSDK.h" />
-    <ClInclude Include="Util.h" />
+    <ClInclude Include="Utils\Util.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Util\Sha256\Sha256.cpp" />
-    <ClCompile Include="BlackList.cpp" />
-    <ClCompile Include="ClientManager.cpp" />
-    <ClCompile Include="ConnectServer.cpp" />
-    <ClCompile Include="ConnectServerProtocol.cpp" />
-    <ClCompile Include="CriticalSection.cpp" />
-    <ClCompile Include="IpManager.cpp" />
-    <ClCompile Include="Log.cpp" />
-    <ClCompile Include="MemScript.cpp" />
-    <ClCompile Include="MiniDump.cpp" />
-    <ClCompile Include="Queue.cpp" />
-    <ClCompile Include="ServerDisplayer.cpp" />
-    <ClCompile Include="ServerList.cpp" />
-    <ClCompile Include="SocketManager.cpp" />
-    <ClCompile Include="SocketManagerUdp.cpp" />
+    <ClCompile Include="Core\BlackList.cpp" />
+    <ClCompile Include="Core\ClientManager.cpp" />
+    <ClCompile Include="Core\ConnectServer.cpp" />
+    <ClCompile Include="Network\ConnectServerProtocol.cpp" />
+    <ClCompile Include="Utils\CriticalSection.cpp" />
+    <ClCompile Include="Network\IpManager.cpp" />
+    <ClCompile Include="Utils\Log.cpp" />
+    <ClCompile Include="Utils\MemScript.cpp" />
+    <ClCompile Include="Utils\MiniDump.cpp" />
+    <ClCompile Include="Utils\Queue.cpp" />
+    <ClCompile Include="Core\ServerDisplayer.cpp" />
+    <ClCompile Include="Core\ServerList.cpp" />
+    <ClCompile Include="Network\SocketManager.cpp" />
+    <ClCompile Include="Network\SocketManagerUdp.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='0.97K KOR|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Util.cpp" />
+    <ClCompile Include="Utils\Util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ConnectServer.rc" />

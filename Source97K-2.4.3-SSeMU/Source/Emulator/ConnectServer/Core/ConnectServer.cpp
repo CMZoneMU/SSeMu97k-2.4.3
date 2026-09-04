@@ -1,14 +1,14 @@
 #include "stdafx.h"
-#include "resource.h"
+#include "../resource.h"
 #include "BlackList.h"
 #include "ConnectServer.h"
-#include "MiniDump.h"
+#include "../Utils/MiniDump.h"
 #include "ServerDisplayer.h"
 #include "ServerList.h"
-#include "SocketManager.h"
-#include "SocketManagerUdp.h"
-#include "ThemidaSDK.h"
-#include "Util.h"
+#include "../Network/SocketManager.h"
+#include "../Network/SocketManagerUdp.h"
+#include "../ThemidaSDK.h"
+#include "../Utils/Util.h"
 
 HINSTANCE hInst;
 TCHAR szTitle[MAX_LOADSTRING];

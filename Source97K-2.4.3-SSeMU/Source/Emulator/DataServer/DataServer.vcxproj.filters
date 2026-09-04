@@ -1,183 +1,183 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="Core">
+      <UniqueIdentifier>{3030391c-1688-453d-a622-f3b215268ed2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{3daf93e0-7739-462a-b028-6fdbee359766}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{0fec830f-a30d-4150-945d-53820a0b91ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Database">
+      <UniqueIdentifier>{dc8f0d00-d851-4ec8-90ad-96efe1a55a9b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <UniqueIdentifier>{0530ca26-92ac-4cca-bed4-69331631260d}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\..\..\Util\Sha256\Sha256.h">
     </ClInclude>
-    <ClInclude Include="DataServer.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Core\AllowableIpList.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="AllowableIpList.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Core\BadSyntax.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="BadSyntax.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Core\CharacterManager.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="CriticalSection.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Core\CommandManager.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="DataServerProtocol.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Utils\CriticalSection.h">
+      <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="QueryManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Core\CustomPick.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Queue.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Core\DataServer.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="ServerDisplayer.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Network\DataServerProtocol.h">
+      <Filter>Network</Filter>
     </ClInclude>
-    <ClInclude Include="ServerManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Core\GoldenArcher.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="SocketManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Core\Guild.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Util.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Core\GuildManager.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="MemScript.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Core\ItemManager.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Log.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Utils\Log.h">
+      <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="MiniDump.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Utils\MemScript.h">
+      <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="CharacterManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Utils\MiniDump.h">
+      <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Warehouse.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Core\PeriodicItem.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Quest.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Database\QueryManager.h">
+      <Filter>Database</Filter>
     </ClInclude>
-    <ClInclude Include="GuildManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Core\Quest.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="CommandManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GoldenArcher.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CustomPick.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Utils\Queue.h">
+      <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Guild.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Core\ServerDisplayer.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ServerManager.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\SocketManager.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
     </ClInclude>
     <ClInclude Include="ThemidaSDK.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Util\Sha256\Sha256.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Utils\Util.h">
+      <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="PeriodicItem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Core\Warehouse.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DataServer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AllowableIpList.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BadSyntax.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CriticalSection.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DataServerProtocol.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MemScript.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="QueryManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Queue.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ServerDisplayer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ServerManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SocketManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Util.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Log.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MiniDump.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CharacterManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Warehouse.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Quest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GuildManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CommandManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GoldenArcher.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CustomPick.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Guild.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Util\Sha256\Sha256.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PeriodicItem.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Core\AllowableIpList.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="ItemManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Core\BadSyntax.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\CharacterManager.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\CommandManager.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\CriticalSection.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\CustomPick.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\DataServer.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Network\DataServerProtocol.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\GoldenArcher.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Guild.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\GuildManager.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\ItemManager.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\Log.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\MemScript.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\MiniDump.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\PeriodicItem.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Database\QueryManager.cpp">
+      <Filter>Database</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Quest.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\Queue.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\ServerDisplayer.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\ServerManager.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Network\SocketManager.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='0.97K KOR|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Utils\Util.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Warehouse.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

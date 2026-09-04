@@ -300,9 +300,15 @@ void CCommandManager::ManagementCore(LPOBJ lpObj,char* message) // OK
 		return;
 	}
 
-	if(gScriptLoader.OnCommandManager(lpObj->Index, lpInfo.Index, argument) == 1)
+	int result = gScriptLoader.OnCommandManager(lpObj->Index, lpInfo.Index, argument);
+
+	if(result != 0)
 	{
-		this->DiscountRequirement(lpObj, lpInfo.Index);
+		if(result == 1)
+		{
+			this->DiscountRequirement(lpObj, lpInfo.Index);
+		}
+
 		return;
 	}
 

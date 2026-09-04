@@ -1,13 +1,14 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="Core">
+      <UniqueIdentifier>{87571e08-cf1f-4e11-a78e-94f8ef7b089a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    <Filter Include="Network">
+      <UniqueIdentifier>{18beccb8-0b79-49c2-b877-7e9d97f4522a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{c0371d96-7344-4551-92e6-ae525497d4ee}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
@@ -15,115 +16,106 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="ThemidaSDK.h" />
+    <ClInclude Include="..\..\..\Util\Sha256\Sha256.h" />
+    <ClInclude Include="Core\BlackList.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Core\ClientManager.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="ConnectServer.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Core\ConnectServer.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="MiniDump.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Core\ServerDisplayer.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="ServerDisplayer.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Core\ServerList.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Log.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Network\ConnectServerProtocol.h">
+      <Filter>Network</Filter>
     </ClInclude>
-    <ClInclude Include="SocketManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Network\IpManager.h">
+      <Filter>Network</Filter>
     </ClInclude>
-    <ClInclude Include="CriticalSection.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Network\SocketManager.h">
+      <Filter>Network</Filter>
     </ClInclude>
-    <ClInclude Include="Queue.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Network\SocketManagerUdp.h">
+      <Filter>Network</Filter>
     </ClInclude>
-    <ClInclude Include="Util.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Utils\CriticalSection.h">
+      <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="SocketManagerUdp.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Utils\Log.h">
+      <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="IpManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Utils\MemScript.h">
+      <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="ClientManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Utils\MiniDump.h">
+      <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="MemScript.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Utils\Queue.h">
+      <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="ServerList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ConnectServerProtocol.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BlackList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ThemidaSDK.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Util\Sha256\Sha256.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Utils\Util.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='0.97K KOR|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="ConnectServer.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\..\..\Util\Sha256\Sha256.cpp" />
+    <ClCompile Include="Core\BlackList.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="MiniDump.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Core\ClientManager.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="ServerDisplayer.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Core\ConnectServer.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="Log.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Core\ServerDisplayer.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="SocketManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Core\ServerList.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="Queue.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Network\ConnectServerProtocol.cpp">
+      <Filter>Network</Filter>
     </ClCompile>
-    <ClCompile Include="CriticalSection.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Network\IpManager.cpp">
+      <Filter>Network</Filter>
     </ClCompile>
-    <ClCompile Include="Util.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Network\SocketManager.cpp">
+      <Filter>Network</Filter>
     </ClCompile>
-    <ClCompile Include="SocketManagerUdp.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Network\SocketManagerUdp.cpp">
+      <Filter>Network</Filter>
     </ClCompile>
-    <ClCompile Include="IpManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Utils\CriticalSection.cpp">
+      <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="ClientManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Utils\Log.cpp">
+      <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="MemScript.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Utils\MemScript.cpp">
+      <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="ServerList.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Utils\MiniDump.cpp">
+      <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="ConnectServerProtocol.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Utils\Queue.cpp">
+      <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="BlackList.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Util\Sha256\Sha256.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Utils\Util.cpp">
+      <Filter>Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

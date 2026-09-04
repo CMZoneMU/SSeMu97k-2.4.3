@@ -76,7 +76,7 @@ void CGuildManager::Init() // OK
 
 			if(lpGuild != 0)
 			{
-				if(strcmp(lpGuild->Master,MemberName) != 0)
+				if(_stricmp(lpGuild->Master,MemberName) != 0)
 				{
 					for(int n=1;n < MAX_GUILD_MEMBER;n++)
 					{
@@ -123,12 +123,9 @@ GUILD_INFO* CGuildManager::GetGuild(char* name) // OK
 {
 	for(std::map<int,GUILD_INFO*>::iterator it = this->m_GuildList.begin(); it != this->m_GuildList.end(); it++)
 	{
-		if(it->second->Name[0] == name[0])
+		if(_stricmp(it->second->Name,name) == 0)
 		{
-			if(_stricmp(it->second->Name,name) == 0)
-			{
-				return it->second;
-			}
+			return it->second;
 		}
 	}
 
@@ -141,12 +138,9 @@ GUILD_INFO* CGuildManager::GetGuildMember(char* member) // OK
 	{
 		for(int n=0;n < MAX_GUILD_MEMBER;n++)
 		{
-			if(it->second->Member[n].Name[0] == member[0])
+			if(_stricmp(it->second->Member[n].Name,member) == 0)
 			{
-				if(strcmp(it->second->Member[n].Name,member) == 0)
-				{
-					return it->second;
-				}
+				return it->second;
 			}
 		}
 	}
@@ -160,12 +154,9 @@ GUILD_MEMBER_INFO* CGuildManager::GetMemberInfo(char* member) // OK
 	{
 		for(int n=0;n < MAX_GUILD_MEMBER;n++)
 		{
-			if(it->second->Member[n].Name[0] == member[0])
+			if(_stricmp(it->second->Member[n].Name,member) == 0)
 			{
-				if(strcmp(it->second->Member[n].Name,member) == 0)
-				{
-					return &it->second->Member[n];
-				}
+				return &it->second->Member[n];
 			}
 		}
 	}

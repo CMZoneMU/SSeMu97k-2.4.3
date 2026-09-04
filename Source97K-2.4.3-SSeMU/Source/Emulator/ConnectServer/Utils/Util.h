@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ServerDisplayer.h"
+#include "../Core/ServerDisplayer.h"
 
 void PacketArgumentEncrypt(char* out_buff,char* in_buff,int size);
 void ErrorMessageBox(char* message,...);

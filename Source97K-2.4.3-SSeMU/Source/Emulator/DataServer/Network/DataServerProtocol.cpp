@@ -909,11 +909,6 @@ void GDConnectCharacterRecv(SDHP_CONNECT_CHARACTER_RECV* lpMsg,int index) // OK
 {
 	CHARACTER_INFO CharacterInfo;
 
-	if(gCharacterManager.GetCharacterInfo(&CharacterInfo,lpMsg->name) != 0)
-	{
-		return;
-	}
-
 	strcpy_s(CharacterInfo.Name,lpMsg->name);
 
 	strcpy_s(CharacterInfo.Account,lpMsg->account);

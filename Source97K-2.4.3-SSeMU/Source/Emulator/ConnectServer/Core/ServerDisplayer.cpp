@@ -5,11 +5,11 @@
 #include "stdafx.h"
 #include "ServerDisplayer.h"
 #include "ClientManager.h"
-#include "Log.h"
-#include "Resource.h"
+#include "../Utils/Log.h"
+#include "../Resource.h"
 #include "ServerList.h"
-#include "SocketManager.h"
-#include "Util.h"
+#include "../Network/SocketManager.h"
+#include "../Utils/Util.h"
 
 CServerDisplayer gServerDisplayer;
 //////////////////////////////////////////////////////////////////////

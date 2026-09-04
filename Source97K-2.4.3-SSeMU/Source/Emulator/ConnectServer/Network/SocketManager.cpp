@@ -4,12 +4,12 @@
 
 #include "stdafx.h"
 #include "SocketManager.h"
-#include "BlackList.h"
-#include "ClientManager.h"
+#include "../Core/BlackList.h"
+#include "../Core/ClientManager.h"
 #include "ConnectServerProtocol.h"
 #include "IpManager.h"
-#include "Log.h"
-#include "Util.h"
+#include "../Utils/Log.h"
+#include "../Utils/Util.h"
 
 CSocketManager gSocketManager;
 //////////////////////////////////////////////////////////////////////

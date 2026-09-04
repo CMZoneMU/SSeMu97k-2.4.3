@@ -22,14 +22,14 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='0.97K KOR|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -61,6 +61,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;DATASERVER_UPDATE=99;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;Core;Network;Utils;Database;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -78,6 +79,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;DATASERVER_UPDATE=97;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <AdditionalIncludeDirectories>.;Core;Network;Utils;Database;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -88,64 +90,64 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Util\Sha256\Sha256.h" />
-    <ClInclude Include="AllowableIpList.h" />
-    <ClInclude Include="BadSyntax.h" />
-    <ClInclude Include="CharacterManager.h" />
-    <ClInclude Include="CommandManager.h" />
-    <ClInclude Include="CriticalSection.h" />
-    <ClInclude Include="CustomPick.h" />
-    <ClInclude Include="DataServer.h" />
-    <ClInclude Include="DataServerProtocol.h" />
-    <ClInclude Include="GoldenArcher.h" />
-    <ClInclude Include="Guild.h" />
-    <ClInclude Include="GuildManager.h" />
-    <ClInclude Include="ItemManager.h" />
-    <ClInclude Include="Log.h" />
-    <ClInclude Include="MemScript.h" />
-    <ClInclude Include="MiniDump.h" />
-    <ClInclude Include="PeriodicItem.h" />
-    <ClInclude Include="QueryManager.h" />
-    <ClInclude Include="Quest.h" />
-    <ClInclude Include="Queue.h" />
+    <ClInclude Include="Core\AllowableIpList.h" />
+    <ClInclude Include="Core\BadSyntax.h" />
+    <ClInclude Include="Core\CharacterManager.h" />
+    <ClInclude Include="Core\CommandManager.h" />
+    <ClInclude Include="Utils\CriticalSection.h" />
+    <ClInclude Include="Core\CustomPick.h" />
+    <ClInclude Include="Core\DataServer.h" />
+    <ClInclude Include="Network\DataServerProtocol.h" />
+    <ClInclude Include="Core\GoldenArcher.h" />
+    <ClInclude Include="Core\Guild.h" />
+    <ClInclude Include="Core\GuildManager.h" />
+    <ClInclude Include="Core\ItemManager.h" />
+    <ClInclude Include="Utils\Log.h" />
+    <ClInclude Include="Utils\MemScript.h" />
+    <ClInclude Include="Utils\MiniDump.h" />
+    <ClInclude Include="Core\PeriodicItem.h" />
+    <ClInclude Include="Database\QueryManager.h" />
+    <ClInclude Include="Core\Quest.h" />
+    <ClInclude Include="Utils\Queue.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="ServerDisplayer.h" />
-    <ClInclude Include="ServerManager.h" />
-    <ClInclude Include="SocketManager.h" />
+    <ClInclude Include="Core\ServerDisplayer.h" />
+    <ClInclude Include="Core\ServerManager.h" />
+    <ClInclude Include="Network\SocketManager.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="ThemidaSDK.h" />
-    <ClInclude Include="Util.h" />
-    <ClInclude Include="Warehouse.h" />
+    <ClInclude Include="Utils\Util.h" />
+    <ClInclude Include="Core\Warehouse.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Util\Sha256\Sha256.cpp" />
-    <ClCompile Include="AllowableIpList.cpp" />
-    <ClCompile Include="BadSyntax.cpp" />
-    <ClCompile Include="CharacterManager.cpp" />
-    <ClCompile Include="CommandManager.cpp" />
-    <ClCompile Include="CriticalSection.cpp" />
-    <ClCompile Include="CustomPick.cpp" />
-    <ClCompile Include="DataServer.cpp" />
-    <ClCompile Include="DataServerProtocol.cpp" />
-    <ClCompile Include="GoldenArcher.cpp" />
-    <ClCompile Include="Guild.cpp" />
-    <ClCompile Include="GuildManager.cpp" />
-    <ClCompile Include="ItemManager.cpp" />
-    <ClCompile Include="Log.cpp" />
-    <ClCompile Include="MemScript.cpp" />
-    <ClCompile Include="MiniDump.cpp" />
-    <ClCompile Include="PeriodicItem.cpp" />
-    <ClCompile Include="QueryManager.cpp" />
-    <ClCompile Include="Quest.cpp" />
-    <ClCompile Include="Queue.cpp" />
-    <ClCompile Include="ServerDisplayer.cpp" />
-    <ClCompile Include="ServerManager.cpp" />
-    <ClCompile Include="SocketManager.cpp" />
+    <ClCompile Include="Core\AllowableIpList.cpp" />
+    <ClCompile Include="Core\BadSyntax.cpp" />
+    <ClCompile Include="Core\CharacterManager.cpp" />
+    <ClCompile Include="Core\CommandManager.cpp" />
+    <ClCompile Include="Utils\CriticalSection.cpp" />
+    <ClCompile Include="Core\CustomPick.cpp" />
+    <ClCompile Include="Core\DataServer.cpp" />
+    <ClCompile Include="Network\DataServerProtocol.cpp" />
+    <ClCompile Include="Core\GoldenArcher.cpp" />
+    <ClCompile Include="Core\Guild.cpp" />
+    <ClCompile Include="Core\GuildManager.cpp" />
+    <ClCompile Include="Core\ItemManager.cpp" />
+    <ClCompile Include="Utils\Log.cpp" />
+    <ClCompile Include="Utils\MemScript.cpp" />
+    <ClCompile Include="Utils\MiniDump.cpp" />
+    <ClCompile Include="Core\PeriodicItem.cpp" />
+    <ClCompile Include="Database\QueryManager.cpp" />
+    <ClCompile Include="Core\Quest.cpp" />
+    <ClCompile Include="Utils\Queue.cpp" />
+    <ClCompile Include="Core\ServerDisplayer.cpp" />
+    <ClCompile Include="Core\ServerManager.cpp" />
+    <ClCompile Include="Network\SocketManager.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='0.97K KOR|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Util.cpp" />
-    <ClCompile Include="Warehouse.cpp" />
+    <ClCompile Include="Utils\Util.cpp" />
+    <ClCompile Include="Core\Warehouse.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DataServer.rc" />

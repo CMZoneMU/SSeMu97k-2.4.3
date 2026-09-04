@@ -81,12 +81,9 @@ GUILD_INFO* CGuildManager::GetGuild(char* name) // OK
 {
 	for(std::map<int,GUILD_INFO*>::iterator it = this->m_GuildList.begin(); it != this->m_GuildList.end(); it++)
 	{
-		if(it->second->Name[0] == name[0])
+		if(_stricmp(it->second->Name,name) == 0)
 		{
-			if(_stricmp(it->second->Name,name) == 0)
-			{
-				return it->second;
-			}
+			return it->second;
 		}
 	}
 
@@ -99,12 +96,9 @@ GUILD_MEMBER_INFO* CGuildManager::GetMemberInfo(char* member) // OK
 	{
 		for(int n=0;n < MAX_GUILD_MEMBER;n++)
 		{
-			if(it->second->Member[n].Name[0] == member[0])
+			if(_stricmp(it->second->Member[n].Name,member) == 0)
 			{
-				if(strcmp(it->second->Member[n].Name,member) == 0)
-				{
-					return &it->second->Member[n];
-				}
+				return &it->second->Member[n];
 			}
 		}
 	}
@@ -121,7 +115,7 @@ int CGuildManager::AddMember(char* name,char* member,int index,int server) // OK
 		return 0;
 	};
 
-	if(strcmp(member,pGuild->Master) == 0)
+	if(_stricmp(member,pGuild->Master) == 0)
 	{
 		strcpy_s(pGuild->Member[0].Name,member);
 		
@@ -139,13 +133,14 @@ int CGuildManager::AddMember(char* name,char* member,int index,int server) // OK
 
 	if(lpMember != 0)
 	{
+		lpMember->Server = server;
+
 		if(index != -1)
 		{
 			lpMember->Index = index;
-			lpMember->Server = server;
 		}
 
-		return 0;
+		return 1;
 	}
 
 	for(int n=1;n < MAX_GUILD_MEMBER;n++)
@@ -189,7 +184,7 @@ void CGuildManager::ConnectUser(char* name,char* member,int index,int server) //
 		return;
 	}
 
-	if(strcmp(member,lpGuild->Master) == 0)
+	if(_stricmp(member,lpGuild->Master) == 0)
 	{
 		lpGuild->WarDeclare = 0;
 		lpGuild->WarState = 0;

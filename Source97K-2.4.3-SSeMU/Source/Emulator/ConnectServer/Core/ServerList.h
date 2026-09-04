@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "ConnectServerProtocol.h"
+#include "../Network/ConnectServerProtocol.h"
 
 #define MAX_JOIN_SERVER_QUEUE_SIZE 100
 

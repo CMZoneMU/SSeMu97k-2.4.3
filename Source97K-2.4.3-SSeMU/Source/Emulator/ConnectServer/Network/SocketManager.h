@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "CriticalSection.h"
-#include "Queue.h"
+#include "../Utils/CriticalSection.h"
+#include "../Utils/Queue.h"
 
 #define MAX_MAIN_PACKET_SIZE 2048
 #define MAX_SIDE_PACKET_SIZE 2048
