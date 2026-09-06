@@ -1,3 +1,4 @@
+// Update 89 2.4.7 -> 97K - Filtro de palavras e nomes reconstruído
 // Filter.cpp: implementation of the CFilter class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -6,6 +7,7 @@
 #include "Filter.h"
 #include "MemScript.h"
 #include "Util.h"
+#include <algorithm>
 
 CFilter gFilter;
 //////////////////////////////////////////////////////////////////////
@@ -55,13 +57,11 @@ void CFilter::Load(char* path) // OK
 				break;
 			}
 
-			FILTER_INFO info;
+			std::string Syntax(lpMemScript->GetString());
 
-			memset(&info,0,sizeof(info));
+			std::transform(Syntax.begin(),Syntax.end(),Syntax.begin(),tolower);
 
-			strcpy_s(info.Text,CharToLower(lpMemScript->GetString()));
-
-			this->m_FilterInfo.insert(std::pair<std::string,FILTER_INFO>(info.Text,info));
+			this->m_FilterInfo.insert(Syntax);
 		}
 	}
 	catch(...)
@@ -70,19 +70,36 @@ void CFilter::Load(char* path) // OK
 	}
 
 	delete lpMemScript;
+
+	LogAdd(LOG_BLUE,"[Filter] Total entries: %d",this->m_FilterInfo.size());
 }
 
-bool CFilter::CheckSyntax(char* text) // OK
+void CFilter::CheckSyntax(char* text) // OK
 {
-	char* buff = CharToLower(text);
+	std::string originalText(text);
 
-	for(std::map<std::string,FILTER_INFO>::iterator it=this->m_FilterInfo.begin();it != this->m_FilterInfo.end();it++)
+	std::string lowerText = originalText;
+
+	std::transform(lowerText.begin(),lowerText.end(),lowerText.begin(),tolower);
+
+	for(std::set<std::string>::iterator it = this->m_FilterInfo.begin(); it != this->m_FilterInfo.end(); ++it)
 	{
-		if(strstr(buff,it->second.Text) != 0)
+		const std::string& lowerLabel = *it;
+
+		if(lowerLabel.empty())
 		{
-			return 1;
+			continue;
+		}
+
+		size_t pos = lowerText.find(lowerLabel);
+
+		while(pos != std::string::npos)
+		{
+			std::fill(originalText.begin()+pos,originalText.begin()+pos+lowerLabel.size(),'*');
+
+			pos = lowerText.find(lowerLabel,pos+lowerLabel.size());
 		}
 	}
 
-	return 0;
+	strcpy_s(text,strlen(text)+1,originalText.c_str());
 }

@@ -5,6 +5,7 @@
 #include "stdafx.h"
 #include "HackSkillSpeedCheck.h"
 #include "Console.h"
+#include "Log.h"
 #include "MemScript.h"
 #include "Message.h"
 #include "Notice.h"
@@ -154,6 +155,9 @@ bool CHackSkillSpeedCheck::CheckSkillSpeed(int aIndex,int index) // OK
 		{
 			if(this->CheckSkillMaxCount(aIndex,index,lpInfo.MaxCount) == 0)
 			{
+				// Update 91 2.4.9 -> 97K - Registro de auditoria no log de seguranca para HackSkillSpeedCheck
+				gLog.Output(LOG_HACK,"[HackSkillSpeedCheck][%s][%s] Skill Speed count error (Index: %d, Speed: %d, Count: [%d][%d])",gObj[aIndex].Account,gObj[aIndex].Name,index,Speed,gObj[aIndex].HackSkillCount[index],lpInfo.MaxCount);
+
 				Console(1,"[HackSkillSpeedCheck][%s] Speed [%d] Count [%d][%d]",gObj[aIndex].Name,Speed,gObj[aIndex].HackSkillCount[index],lpInfo.MaxCount);
 
 				if(lpInfo.Action == 1)

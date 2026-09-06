@@ -13,5 +13,11 @@
 // ItemIndex   ItemLevel   AccountLevel   Comment
 // ----------------------------------------------
 // EXAMPLE
-// 12,015      *           *              // No pick Jewel of Chaos
+// Se quiser BLOQUEAR algum item para nao ser coletado pelo /pick, adicione aqui:
+// Section   Index   Level
+// 14        14      *       // Nao coletar Jewel of Soul (Exemplo)
+// 14        13      *       // Nao coletar Jewel of Bless (Exemplo)
+// 14        22      *       // Nao coletar Jewel of Creation (Exemplo)
+// 14        16      *       // Nao coletar Jewel of Life (Exemplo)
+// 12        15      *       // Nao coletar Jewel of Chaos (Exemplo)
 end

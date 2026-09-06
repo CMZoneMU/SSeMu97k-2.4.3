@@ -1,0 +1,152 @@
+00:38:42 [SocketManager] Server started at port [55900]
+00:38:43 [Blood Castle] (1) Sync Start Time. [1] hour [21] min remain
+00:38:43 [Blood Castle] (1) SetState EMPTY
+00:38:43 [Blood Castle] (2) Sync Start Time. [1] hour [21] min remain
+00:38:43 [Blood Castle] (2) SetState EMPTY
+00:38:43 [Blood Castle] (3) Sync Start Time. [1] hour [21] min remain
+00:38:43 [Blood Castle] (3) SetState EMPTY
+00:38:43 [Blood Castle] (4) Sync Start Time. [1] hour [21] min remain
+00:38:43 [Blood Castle] (4) SetState EMPTY
+00:38:43 [Blood Castle] (5) Sync Start Time. [1] hour [21] min remain
+00:38:43 [Blood Castle] (5) SetState EMPTY
+00:38:43 [Blood Castle] (6) Sync Start Time. [1] hour [21] min remain
+00:38:43 [Blood Castle] (6) SetState EMPTY
+00:38:43 [Devil Square] (1) Sync Start Time. [3] hour [51] min remain
+00:38:43 [Devil Square] (1) SetState EMPTY
+00:38:43 [Devil Square] (2) Sync Start Time. [3] hour [51] min remain
+00:38:43 [Devil Square] (2) SetState EMPTY
+00:38:43 [Devil Square] (3) Sync Start Time. [3] hour [51] min remain
+00:38:43 [Devil Square] (3) SetState EMPTY
+00:38:43 [Devil Square] (4) Sync Start Time. [3] hour [51] min remain
+00:38:43 [Devil Square] (4) SetState EMPTY
+00:38:43 [Invasion Manager] (0) Sync Start Time. [3] hour [26] min remain
+00:38:43 [Invasion Manager] (1) Sync Start Time. [3] hour [36] min remain
+00:38:43 [Invasion Manager] (2) Sync Start Time. [3] hour [46] min remain
+00:43:39 [SocketManager] Server started at port [55900]
+00:43:40 [Blood Castle] (1) Sync Start Time. [1] hour [16] min remain
+00:43:40 [Blood Castle] (1) SetState EMPTY
+00:43:40 [Blood Castle] (2) Sync Start Time. [1] hour [16] min remain
+00:43:40 [Blood Castle] (2) SetState EMPTY
+00:43:40 [Blood Castle] (3) Sync Start Time. [1] hour [16] min remain
+00:43:40 [Blood Castle] (3) SetState EMPTY
+00:43:40 [Blood Castle] (4) Sync Start Time. [1] hour [16] min remain
+00:43:40 [Blood Castle] (4) SetState EMPTY
+00:43:40 [Blood Castle] (5) Sync Start Time. [1] hour [16] min remain
+00:43:40 [Blood Castle] (5) SetState EMPTY
+00:43:40 [Blood Castle] (6) Sync Start Time. [1] hour [16] min remain
+00:43:40 [Blood Castle] (6) SetState EMPTY
+00:43:40 [Devil Square] (1) Sync Start Time. [3] hour [46] min remain
+00:43:40 [Devil Square] (1) SetState EMPTY
+00:43:40 [Devil Square] (2) Sync Start Time. [3] hour [46] min remain
+00:43:40 [Devil Square] (2) SetState EMPTY
+00:43:40 [Devil Square] (3) Sync Start Time. [3] hour [46] min remain
+00:43:40 [Devil Square] (3) SetState EMPTY
+00:43:40 [Devil Square] (4) Sync Start Time. [3] hour [46] min remain
+00:43:40 [Devil Square] (4) SetState EMPTY
+00:43:40 [Invasion Manager] (0) Sync Start Time. [3] hour [21] min remain
+00:43:40 [Invasion Manager] (1) Sync Start Time. [3] hour [31] min remain
+00:43:40 [Invasion Manager] (2) Sync Start Time. [3] hour [41] min remain
+00:44:12 [JoinServer] Connection failure.
+00:44:14 [DataServer] Connection failure.
+00:46:57 [SocketManager] Server started at port [55900]
+00:46:57 [Blood Castle] (1) Sync Start Time. [1] hour [13] min remain
+00:46:57 [Blood Castle] (1) SetState EMPTY
+00:46:57 [Blood Castle] (2) Sync Start Time. [1] hour [13] min remain
+00:46:57 [Blood Castle] (2) SetState EMPTY
+00:46:57 [Blood Castle] (3) Sync Start Time. [1] hour [13] min remain
+00:46:57 [Blood Castle] (3) SetState EMPTY
+00:46:57 [Blood Castle] (4) Sync Start Time. [1] hour [13] min remain
+00:46:57 [Blood Castle] (4) SetState EMPTY
+00:46:57 [Blood Castle] (5) Sync Start Time. [1] hour [13] min remain
+00:46:57 [Blood Castle] (5) SetState EMPTY
+00:46:57 [Blood Castle] (6) Sync Start Time. [1] hour [13] min remain
+00:46:57 [Blood Castle] (6) SetState EMPTY
+00:46:57 [Devil Square] (1) Sync Start Time. [3] hour [43] min remain
+00:46:57 [Devil Square] (1) SetState EMPTY
+00:46:57 [Devil Square] (2) Sync Start Time. [3] hour [43] min remain
+00:46:57 [Devil Square] (2) SetState EMPTY
+00:46:57 [Devil Square] (3) Sync Start Time. [3] hour [43] min remain
+00:46:57 [Devil Square] (3) SetState EMPTY
+00:46:57 [Devil Square] (4) Sync Start Time. [3] hour [43] min remain
+00:46:58 [Devil Square] (4) SetState EMPTY
+00:46:58 [Invasion Manager] (0) Sync Start Time. [3] hour [18] min remain
+00:46:58 [Invasion Manager] (1) Sync Start Time. [3] hour [28] min remain
+00:46:58 [Invasion Manager] (2) Sync Start Time. [3] hour [38] min remain
+13:45:56 [SocketManager] Server started at port [55900]
+13:45:56 [Blood Castle] (1) Sync Start Time. [14] min remain
+13:45:56 [Blood Castle] (1) SetState EMPTY
+13:45:56 [Blood Castle] (2) Sync Start Time. [14] min remain
+13:45:56 [Blood Castle] (2) SetState EMPTY
+13:45:56 [Blood Castle] (3) Sync Start Time. [14] min remain
+13:45:56 [Blood Castle] (3) SetState EMPTY
+13:45:56 [Blood Castle] (4) Sync Start Time. [14] min remain
+13:45:56 [Blood Castle] (4) SetState EMPTY
+13:45:56 [Blood Castle] (5) Sync Start Time. [14] min remain
+13:45:56 [Blood Castle] (5) SetState EMPTY
+13:45:56 [Blood Castle] (6) Sync Start Time. [14] min remain
+13:45:56 [Blood Castle] (6) SetState EMPTY
+13:45:56 [Devil Square] (1) Sync Start Time. [2] hour [44] min remain
+13:45:56 [Devil Square] (1) SetState EMPTY
+13:45:56 [Devil Square] (2) Sync Start Time. [2] hour [44] min remain
+13:45:56 [Devil Square] (2) SetState EMPTY
+13:45:56 [Devil Square] (3) Sync Start Time. [2] hour [44] min remain
+13:45:56 [Devil Square] (3) SetState EMPTY
+13:45:56 [Devil Square] (4) Sync Start Time. [2] hour [44] min remain
+13:45:56 [Devil Square] (4) SetState EMPTY
+13:45:56 [Invasion Manager] (0) Sync Start Time. [2] hour [19] min remain
+13:45:56 [Invasion Manager] (1) Sync Start Time. [2] hour [29] min remain
+13:45:56 [Invasion Manager] (2) Sync Start Time. [2] hour [39] min remain
+14:00:00 [Blood Castle] (1) SetState READY
+14:00:00 [Blood Castle] (2) SetState READY
+14:00:00 [Blood Castle] (3) SetState READY
+14:00:00 [Blood Castle] (4) SetState READY
+14:00:00 [Blood Castle] (5) SetState READY
+14:00:00 [Blood Castle] (6) SetState READY
+21:23:26 [SocketManager] Server started at port [55900]
+21:23:26 [Blood Castle] (1) Sync Start Time. [36] min remain
+21:23:26 [Blood Castle] (1) SetState EMPTY
+21:23:27 [Blood Castle] (2) Sync Start Time. [36] min remain
+21:23:27 [Blood Castle] (2) SetState EMPTY
+21:23:27 [Blood Castle] (3) Sync Start Time. [36] min remain
+21:23:27 [Blood Castle] (3) SetState EMPTY
+21:23:27 [Blood Castle] (4) Sync Start Time. [36] min remain
+21:23:27 [Blood Castle] (4) SetState EMPTY
+21:23:27 [Blood Castle] (5) Sync Start Time. [36] min remain
+21:23:27 [Blood Castle] (5) SetState EMPTY
+21:23:27 [Blood Castle] (6) Sync Start Time. [36] min remain
+21:23:27 [Blood Castle] (6) SetState EMPTY
+21:23:27 [Devil Square] (1) Sync Start Time. [3] hour [6] min remain
+21:23:27 [Devil Square] (1) SetState EMPTY
+21:23:27 [Devil Square] (2) Sync Start Time. [3] hour [6] min remain
+21:23:27 [Devil Square] (2) SetState EMPTY
+21:23:27 [Devil Square] (3) Sync Start Time. [3] hour [6] min remain
+21:23:27 [Devil Square] (3) SetState EMPTY
+21:23:27 [Devil Square] (4) Sync Start Time. [3] hour [6] min remain
+21:23:27 [Devil Square] (4) SetState EMPTY
+21:23:27 [Invasion Manager] (0) Sync Start Time. [2] hour [41] min remain
+21:23:27 [Invasion Manager] (1) Sync Start Time. [2] hour [51] min remain
+21:23:27 [Invasion Manager] (2) Sync Start Time. [3] hour [1] min remain
+22:00:00 [Blood Castle] (1) SetState READY
+22:00:00 [Blood Castle] (2) SetState READY
+22:00:00 [Blood Castle] (3) SetState READY
+22:00:00 [Blood Castle] (4) SetState READY
+22:00:00 [Blood Castle] (5) SetState READY
+22:00:00 [Blood Castle] (6) SetState READY
+22:05:00 [Blood Castle] (1) SetState STAND
+22:05:00 [Blood Castle] (2) SetState STAND
+22:05:00 [Blood Castle] (3) SetState STAND
+22:05:00 [Blood Castle] (4) SetState STAND
+22:05:00 [Blood Castle] (5) SetState STAND
+22:05:00 [Blood Castle] (6) SetState STAND
+22:05:01 [Blood Castle] (1) Sync Start Time. [1] hour [54] min remain
+22:05:01 [Blood Castle] (1) SetState EMPTY
+22:05:01 [Blood Castle] (2) Sync Start Time. [1] hour [54] min remain
+22:05:01 [Blood Castle] (2) SetState EMPTY
+22:05:01 [Blood Castle] (3) Sync Start Time. [1] hour [54] min remain
+22:05:01 [Blood Castle] (3) SetState EMPTY
+22:05:01 [Blood Castle] (4) Sync Start Time. [1] hour [54] min remain
+22:05:01 [Blood Castle] (4) SetState EMPTY
+22:05:01 [Blood Castle] (5) Sync Start Time. [1] hour [54] min remain
+22:05:01 [Blood Castle] (5) SetState EMPTY
+22:05:01 [Blood Castle] (6) Sync Start Time. [1] hour [54] min remain
+22:05:01 [Blood Castle] (6) SetState EMPTY

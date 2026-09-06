@@ -24,6 +24,7 @@ CMapItem::~CMapItem() // OK
 void CMapItem::Init() // OK
 {
 	this->m_State = OBJECT_EMPTY;
+	this->m_Picking = 0;
 }
 
 void CMapItem::CreateItem(int index,int level,int x,int y,float dur,BYTE Option1,BYTE Option2,BYTE Option3,BYTE NewOption,BYTE SetOption,DWORD serial,DWORD duration) // OK
@@ -59,6 +60,8 @@ void CMapItem::CreateItem(int index,int level,int x,int y,float dur,BYTE Option1
 	this->m_CreateTime = GetTickCount();
 
 	this->m_Serial = serial;
+
+	this->m_Picking = 0;
 }
 
 void CMapItem::DropCreateItem(int index,int level,int x,int y,float dur,BYTE Option1,BYTE Option2,BYTE Option3,BYTE NewOption,BYTE SetOption,DWORD serial,int PetLevel,int PetExp,DWORD duration) // OK
@@ -96,4 +99,6 @@ void CMapItem::DropCreateItem(int index,int level,int x,int y,float dur,BYTE Opt
 	this->m_CreateTime = GetTickCount();
 
 	this->m_Serial = serial;
+
+	this->m_Picking = 0;
 }

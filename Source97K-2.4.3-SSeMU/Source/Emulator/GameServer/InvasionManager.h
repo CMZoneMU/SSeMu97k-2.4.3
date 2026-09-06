@@ -7,7 +7,8 @@
 #include "User.h"
 #include "Map.h"
 
-#define MAX_INVASION 20
+// Update 92 2.5.0 -> 97K - Expansao do limite de invasoes para 30
+#define MAX_INVASION 30
 #define MAX_INVASION_MONSTER 500
 #define MAX_INVASION_RESPAWN_GROUP 20
 

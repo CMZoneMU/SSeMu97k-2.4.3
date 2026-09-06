@@ -1,0 +1,7 @@
+13:49:22 [General][test][PREDATOR] - (Message: ^^)
+13:49:46 [General][test][PREDATOR] - (Message: /post Ola)
+13:50:51 [General][test][PREDATOR] - (Message: FLW!)
+21:24:02 [General][test][PREDATOR] - (Message: ^^)
+21:24:05 [General][test][PREDATOR] - (Message: 97K)
+21:24:11 [General][test][PREDATOR] - (Message: /post Teste)
+21:24:30 [General][test][PREDATOR] - (Message: SO NAO APRENDE QUEM NAO QUER!!)

@@ -80,6 +80,8 @@ public:
 	int GetState(int index);
 	int GetRemainTime(int index);
 	int DropItem(LPOBJ lpObj,LPOBJ lpTarget);
+	// Update 92 2.5.0 -> 97K - Forcar inicio manual de Drop Event via menu do GameServer
+	void ForceStart(int index);
 public:
 	DROP_EVENT_INFO m_EventDropInfo[MAX_DROP_EVENT];
 };

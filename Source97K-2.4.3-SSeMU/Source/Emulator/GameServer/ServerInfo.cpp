@@ -11,6 +11,7 @@
 #include "ConnectMember.h"
 #include "CustomArena.h"
 #include "CustomAttack.h"
+#include "CustomDailyReward.h"
 #include "CustomMonster.h"
 #include "CustomPick.h"
 #include "DamageTable.h"
@@ -171,6 +172,9 @@ void CServerInfo::ReadCustomInfo() // OK
 	gCustomMonster.Load(gPath.GetFullPath("Custom\\CustomMonster.txt"));
 
 	gCustomPick.Load(gPath.GetFullPath("Custom\\CustomPick.txt"));
+
+	// Update 88 2.4.6 -> 97K - Sistema de recompensas diárias
+	gCustomDailyReward.Load(gPath.GetFullPath("Custom\\CustomDailyReward.txt"));
 }
 
 void CServerInfo::ReadEventInfo() // OK
@@ -883,6 +887,9 @@ void CServerInfo::ReadCommandInfo(char* section,char* path) // OK
 
 	this->m_CommandPostType = GetPrivateProfileInt(section,"CommandPostType",0,path);
 
+	// Update 89 2.4.7 -> 97K - Comando /post personalizável
+	this->m_CommandPostMessage = GetPrivateProfileInt(section,"CommandPostMessage",323,path);
+
 	this->m_CommandPKClearType = GetPrivateProfileInt(section,"CommandPKClearType",0,path);
 	this->m_CommandPKClearMoney[0] = GetPrivateProfileInt(section,"CommandPKClearMoney_AL0",0,path);
 	this->m_CommandPKClearMoney[1] = GetPrivateProfileInt(section,"CommandPKClearMoney_AL1",0,path);
@@ -1186,7 +1193,17 @@ void CServerInfo::ReadCommonInfo(char* section,char* path) // OK
 	this->m_GuildInsertMaxUser2 = GetPrivateProfileInt(section,"GuildInsertMaxUser2",0,path);
 	#endif
 
+	// Update 89 2.4.7 -> 97K - Guild War & Battle Soccer Configurações
+	this->m_GuildWarSwitch = GetPrivateProfileInt(section,"GuildWarSwitch",1,path);
 	this->m_GuildWarAttackEnable = GetPrivateProfileInt(section,"GuildWarAttackEnable",0,path);
+	this->m_GuildWarScoreMax1 = GetPrivateProfileInt(section,"GuildWarScoreMax1",20,path);
+	this->m_GuildWarScoreMax2 = GetPrivateProfileInt(section,"GuildWarScoreMax2",100,path);
+	this->m_GuildWarKillScore1 = GetPrivateProfileInt(section,"GuildWarKillScore1",1,path);
+	this->m_GuildWarKillScore2 = GetPrivateProfileInt(section,"GuildWarKillScore2",2,path);
+	this->m_GuildWarKillScore3 = GetPrivateProfileInt(section,"GuildWarKillScore3",20,path);
+	this->m_GuildWarWinnerScore1 = GetPrivateProfileInt(section,"GuildWarWinnerScore1",3,path);
+	this->m_GuildWarWinnerScore2 = GetPrivateProfileInt(section,"GuildWarWinnerScore2",2,path);
+	this->m_GuildWarWinnerScore3 = GetPrivateProfileInt(section,"GuildWarWinnerScore3",1,path);
 
 	this->m_PetExperienceRateDivisor = GetPrivateProfileInt(section,"PetExperienceRateDivisor",0,path);
 
@@ -1295,7 +1312,16 @@ void CServerInfo::ReadCommonInfo(char* section,char* path) // OK
 	this->m_CharacterDeleteSwitch = GetPrivateProfileInt(section,"CharacterDeleteSwitch",0,path);
 	this->m_CharacterDeleteMaxLevel = GetPrivateProfileInt(section,"CharacterDeleteMaxLevel",0,path);
 
-	this->m_PartyReconnectTime = GetPrivateProfileInt(section,"PartyReconnectTime",0,path);
+	// Update 89 2.4.7 -> 97K - Reconnect Time Unificado
+	this->m_ReconnectTime = GetPrivateProfileInt(section,"ReconnectTime",300,path);
+	// Update 90 2.4.8 -> 97K - Aprimoramento de opcoes de Reconnect
+	this->m_ReconnectAttackSwitch = GetPrivateProfileInt(section,"ReconnectAttackSwitch",0,path);
+	this->m_ReconnectCommandSwitch = GetPrivateProfileInt(section,"ReconnectCommandSwitch",1,path);
+	this->m_ReconnectEventSwitch = GetPrivateProfileInt(section,"ReconnectEventSwitch",0,path);
+	this->m_ReconnectEventMaxTime = GetPrivateProfileInt(section,"ReconnectEventMaxTime",30,path);
+	this->m_ReconnectPartySwitch = GetPrivateProfileInt(section,"ReconnectPartySwitch",1,path);
+	this->m_ReconnectPickSwitch = GetPrivateProfileInt(section,"ReconnectPickSwitch",0,path);
+	this->m_ReconnectOfflineSwitch = GetPrivateProfileInt(section,"ReconnectOfflineSwitch",0,path);
 
 	this->m_PartyMoneyDistribute = GetPrivateProfileInt(section,"PartyMoneyDistribute",0,path);
 

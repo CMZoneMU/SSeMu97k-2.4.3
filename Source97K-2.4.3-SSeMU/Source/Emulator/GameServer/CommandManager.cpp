@@ -601,9 +601,12 @@ void CCommandManager::CommandPost(LPOBJ lpObj,char* arg) // OK
 		return;
 	}
 
+	// Update 89 2.4.7 -> 97K - Comando /post personalizável
+	int messageIndex = (gServerInfo.m_CommandPostMessage == 0) ? 323 : gServerInfo.m_CommandPostMessage;
+
 	char buff[256] = {0};
 
-	wsprintf(buff,gMessage.GetMessage(323),arg);
+	wsprintf(buff,gMessage.GetMessage(messageIndex),arg);
 
 	if(gServerInfo.m_CommandPostGlobal == 0)
 	{
@@ -1082,6 +1085,11 @@ void CCommandManager::CommandClearInventory(LPOBJ lpObj) // OK
 
 void CCommandManager::CommandRedistribute(LPOBJ lpObj) // OK
 {
+	if(lpObj->Interface.use != 0 || lpObj->State == OBJECT_DELCMD || lpObj->DieRegen != 0 || lpObj->Teleport != 0 || lpObj->PShopOpen != 0 || lpObj->SkillSummonPartyTime != 0)
+	{
+		return;
+	}
+
 	int Point = 0;
 
 	int str = gDefaultClassInfo.GetCharacterDefaultStat(lpObj->Class,0);
@@ -1126,7 +1134,8 @@ void CCommandManager::CommandRename(LPOBJ lpObj,char* arg) // OK
 
 	this->GetString(arg,name,sizeof(name),0);
 
-	if(CheckSymbol(name) != 0)
+	// Update 90 2.4.8 -> 97K - CheckNameSyntax para comando rename
+	if(CheckNameSyntax(name) == 0 || CheckSymbol(name) != 0)
 	{
 		gNotice.GCNoticeSend(lpObj->Index,1,0,0,0,0,0,gMessage.GetMessage(692));
 		return;
@@ -2171,7 +2180,10 @@ void CCommandManager::DGCommandResetRecv(SDHP_COMMAND_RESET_RECV* lpMsg) // OK
 
 	this->DiscountRequirement(lpObj,COMMAND_RESET);
 
-	lpObj->Level = ((gServerInfo.m_CommandResetStartLevel[lpObj->AccountLevel] == -1) ? ((lpObj->Level > gResetTable.GetResetLevel(lpObj)) ? (lpObj->Level - gResetTable.GetResetLevel(lpObj)) : 1) : gServerInfo.m_CommandResetStartLevel[lpObj->AccountLevel]);
+	// Update 89 2.4.7 -> 97K - Correção na subtração de níveis no reset
+	lpObj->Level = ((gServerInfo.m_CommandResetStartLevel[lpObj->AccountLevel] == -1) ? (lpObj->Level - gServerInfo.m_CommandResetLevel[lpObj->AccountLevel]) : gServerInfo.m_CommandResetStartLevel[lpObj->AccountLevel]);
+
+	lpObj->Level = ((lpObj->Level < 1) ? 1 : lpObj->Level);
 
 	lpObj->Experience = gLevelExperience[lpObj->Level - 1];
 
@@ -2213,11 +2225,30 @@ void CCommandManager::DGCommandResetRecv(SDHP_COMMAND_RESET_RECV* lpMsg) // OK
 		gQuest.GCQuestInfoSend(lpObj->Index);
 	}
 
+	// Update 89 2.4.7 -> 97K - Preservação de habilidades nativas e de armas no reset
 	if(gServerInfo.m_CommandResetClearSkill[lpObj->AccountLevel] != 0)
 	{
 		for(int n=0;n < MAX_SKILL_LIST;n++)
 		{
 			lpObj->Skill[n].Clear();
+		}
+
+		if(lpObj->Class == CLASS_DW)
+		{
+			gSkillManager.AddSkill(lpObj,SKILL_ENERGY_BALL);
+		}
+		else if(lpObj->Class == CLASS_DL)
+		{
+			gSkillManager.AddSkill(lpObj,SKILL_FORCE);
+			gSkillManager.AddSkill(lpObj,SKILL_FIRE_BURST);
+		}
+
+		for(int n = 0; n < INVENTORY_WEAR_SIZE; n++)
+		{
+			if(lpObj->Inventory[n].IsItem() != 0 && lpObj->Inventory[n].m_Option1 != 0)
+			{
+				gSkillManager.AddSkillWeapon(lpObj, lpObj->Inventory[n].m_SpecialIndex[SPECIAL_OPTION1], lpObj->Inventory[n].m_Level);
+			}
 		}
 
 		gSkillManager.GCSkillListSend(lpObj);
@@ -2280,6 +2311,9 @@ void CCommandManager::DGCommandResetRecv(SDHP_COMMAND_RESET_RECV* lpMsg) // OK
 			gObjMoveGate(lpObj->Index,27);
 			break;
 		case CLASS_MG:
+			gObjMoveGate(lpObj->Index,17);
+			break;
+		case CLASS_DL:
 			gObjMoveGate(lpObj->Index,17);
 			break;
 		}
@@ -2347,11 +2381,17 @@ void CCommandManager::DGCommandMasterResetRecv(SDHP_COMMAND_MASTER_RESET_RECV* l
 
 	this->DiscountRequirement(lpObj,COMMAND_MASTER_RESET);
 
-	lpObj->Level = ((gServerInfo.m_CommandMasterResetStartLevel[lpObj->AccountLevel] == -1) ? 1 : gServerInfo.m_CommandMasterResetStartLevel[lpObj->AccountLevel]);
+	// Update 89 2.4.7 -> 97K - Correção na subtração de níveis no master reset
+	lpObj->Level = ((gServerInfo.m_CommandMasterResetStartLevel[lpObj->AccountLevel] == -1) ? (lpObj->Level - gServerInfo.m_CommandMasterResetLevel[lpObj->AccountLevel]) : gServerInfo.m_CommandMasterResetStartLevel[lpObj->AccountLevel]);
+
+	lpObj->Level = ((lpObj->Level < 1) ? 1 : lpObj->Level);
 
 	lpObj->Experience = gLevelExperience[lpObj->Level - 1];
 
-	lpObj->Reset = ((gServerInfo.m_CommandMasterResetStartReset[lpObj->AccountLevel] == -1) ? ((lpObj->Reset > gServerInfo.m_CommandMasterResetReset[lpObj->AccountLevel]) ? (lpObj->Reset - gServerInfo.m_CommandMasterResetReset[lpObj->AccountLevel]) : 0) : gServerInfo.m_CommandMasterResetStartReset[lpObj->AccountLevel]);
+	// Update 89 2.4.7 -> 97K - Correção na subtração de resets no master reset
+	lpObj->Reset = ((gServerInfo.m_CommandMasterResetStartReset[lpObj->AccountLevel] == -1) ? (lpObj->Reset - gServerInfo.m_CommandMasterResetReset[lpObj->AccountLevel]) : gServerInfo.m_CommandMasterResetStartReset[lpObj->AccountLevel]);
+
+	lpObj->Reset = ((lpObj->Reset < 0) ? 0 : lpObj->Reset);
 
 	lpObj->MasterReset += gServerInfo.m_CommandMasterResetCount[lpObj->AccountLevel];
 
@@ -2379,11 +2419,30 @@ void CCommandManager::DGCommandMasterResetRecv(SDHP_COMMAND_MASTER_RESET_RECV* l
 		gQuest.GCQuestInfoSend(lpObj->Index);
 	}
 
+	// Update 89 2.4.7 -> 97K - Preservação de habilidades nativas e de armas no master reset
 	if(gServerInfo.m_CommandMasterResetClearSkill[lpObj->AccountLevel] != 0)
 	{
 		for(int n = 0; n < MAX_SKILL_LIST; n++)
 		{
 			lpObj->Skill[n].Clear();
+		}
+
+		if(lpObj->Class == CLASS_DW)
+		{
+			gSkillManager.AddSkill(lpObj,SKILL_ENERGY_BALL);
+		}
+		else if(lpObj->Class == CLASS_DL)
+		{
+			gSkillManager.AddSkill(lpObj,SKILL_FORCE);
+			gSkillManager.AddSkill(lpObj,SKILL_FIRE_BURST);
+		}
+
+		for(int n = 0; n < INVENTORY_WEAR_SIZE; n++)
+		{
+			if(lpObj->Inventory[n].IsItem() != 0 && lpObj->Inventory[n].m_Option1 != 0)
+			{
+				gSkillManager.AddSkillWeapon(lpObj, lpObj->Inventory[n].m_SpecialIndex[SPECIAL_OPTION1], lpObj->Inventory[n].m_Level);
+			}
 		}
 
 		gSkillManager.GCSkillListSend(lpObj);
@@ -2448,6 +2507,9 @@ void CCommandManager::DGCommandMasterResetRecv(SDHP_COMMAND_MASTER_RESET_RECV* l
 			gObjMoveGate(lpObj->Index,27);
 			break;
 		case CLASS_MG:
+			gObjMoveGate(lpObj->Index,17);
+			break;
+		case CLASS_DL:
 			gObjMoveGate(lpObj->Index,17);
 			break;
 		}

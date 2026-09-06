@@ -3,6 +3,7 @@
 #include "BloodCastle.h"
 #include "ChaosBox.h"
 #include "CommandManager.h"
+#include "CustomDailyReward.h"
 #include "CustomPick.h"
 #include "Filter.h"
 #include "Fruit.h"
@@ -14,6 +15,7 @@
 #include "HackMoveSpeedCheck.h"
 #include "InvasionManager.h"
 #include "ItemBagManager.h"
+#include "ItemManager.h"
 #include "ItemStack.h"
 #include "ItemValue.h"
 #include "JSProtocol.h"
@@ -61,6 +63,9 @@ void DataServerProtocolCore(BYTE head,BYTE* lpMsg,int size) // OK
 					break;
 			}
 			break;
+		case 0x06:
+			gItemManager.DGGetItemSerialRecv((SDHP_GET_ITEM_SERIAL_RECV*)lpMsg);
+			break;
 		case 0x07:
 			DGCreateItemRecv((SDHP_CREATE_ITEM_RECV*)lpMsg);
 			break;
@@ -97,6 +102,10 @@ void DataServerProtocolCore(BYTE head,BYTE* lpMsg,int size) // OK
 					gCustomPick.DGCustomPickRecv((SDHP_CUSTOM_PICK_RECV*)lpMsg);
 					break;
 			}
+			break;
+		// Update 88 2.4.6 -> 97K - Sistema de recompensas diárias
+		case 0x16:
+			gCustomDailyReward.DGDailyRewardCheckRecv((SDHP_DAILY_REWARD_INFO_RECV*)lpMsg);
 			break;
 		case 0x20:
 			DGGlobalPostRecv((SDHP_GLOBAL_POST_RECV*)lpMsg);
@@ -160,6 +169,15 @@ void DataServerProtocolCore(BYTE head,BYTE* lpMsg,int size) // OK
 					gGuild.DGGuildMemberUpdateRecv((SDHP_GUILD_MEMBER_UPDATE_RECV*)lpMsg);
 					break;
 				}
+			break;
+		// Update 89 2.4.7 -> 97K - Sistema de Reconexão (Fase 1: Persistência no DataServer)
+		case 0xC0:
+			switch(((lpMsg[0]==0xC1)?lpMsg[3]:lpMsg[4]))
+			{
+				case 0x00:
+					gReconnect.DGReconnectInfoInsertRecv((SDHP_RECONNECT_INFO_INSERT_RECV*)lpMsg);
+					break;
+			}
 			break;
 	}
 }
@@ -479,7 +497,11 @@ void DGCharacterInfoRecv(SDHP_CHARACTER_INFO_RECV* lpMsg) // OK
 
 	gScriptLoader.OnCharacterEntry(lpObj->Index);
 
-	gHackMoveSpeedCheck[lpObj->Index].Set(lpObj->Index);
+	// Update 91 2.4.9 -> 97K - Inicializacao de rastreamento de movimento no login
+	gHackMoveSpeedCheck.Reset(lpObj);
+
+	// Update 88 2.4.6 -> 97K - Sistema de recompensas diárias
+	gCustomDailyReward.GDDailyRewardCheckSend(lpObj->Index);
 
 	gLog.Output(LOG_CONNECT,"[ObjectManager][%d] AddCharacterInfo [%s] [%s][%s]",lpObj->Index,lpObj->Name,lpObj->IpAddr,lpObj->HardwareId);
 }
@@ -758,11 +780,8 @@ void DGGlobalWhisperEchoRecv(SDHP_GLOBAL_WHISPER_ECHO_RECV* lpMsg) // OK
 
 	lpMsg->message[(sizeof(lpMsg->message)-1)] = ((strlen(lpMsg->message)>(sizeof(lpMsg->message)-1))?0:lpMsg->message[(sizeof(lpMsg->message)-1)]);
 
-	if(gFilter.CheckSyntax(lpMsg->message) != 0)
-	{
-		gNotice.GCNoticeSend(lpMsg->index,1,0,0,0,0,0,gMessage.GetMessage(723));
-		return;
-	}
+	// Update 89 2.4.7 -> 97K - Mascaramento de palavras censuradas com asteriscos
+	gFilter.CheckSyntax(lpMsg->message);
 
 	GCChatWhisperSend(lpMsg->index,lpMsg->SourceName,lpMsg->message);
 }
@@ -897,35 +916,46 @@ void GDCreateItemSend(int aIndex,BYTE map,BYTE x,BYTE y,int index,BYTE level,BYT
 		return;
 	}
 
+	dur = ((dur==0)?gItemManager.GetItemDurability(index,level,NewOption,SetOption):dur);
+
+	Option1 = ((gItemManager.GetItemSkill(index) == 0) ? 0 : Option1);
+
 	if(ItemInfo.HaveSerial == 0 && map < MAX_MAP)
 	{
 		gMap[map].MonsterItemDrop(index,level,dur,x,y,Option1,Option2,Option3,NewOption,SetOption,LootIndex,0,duration);
 		return;
 	}
 
-	SDHP_CREATE_ITEM_SEND pMsg;
+	if(map == 0xEB || map == 0xEC || map == 0xED || map == 0xFE || map == 0xFF || index == GET_ITEM(13,19))
+	{
+		SDHP_CREATE_ITEM_SEND pMsg;
 
-	pMsg.header.set(0x07,sizeof(pMsg));
+		pMsg.header.set(0x07,sizeof(pMsg));
 
-	pMsg.index = aIndex;
+		pMsg.index = aIndex;
 
-	memcpy(pMsg.account,gObj[aIndex].Account,sizeof(pMsg.account));
+		memcpy(pMsg.account,gObj[aIndex].Account,sizeof(pMsg.account));
 
-	pMsg.X = x;
-	pMsg.Y = y;
-	pMsg.Map = map;
-	pMsg.ItemIndex = index;
-	pMsg.Level = level;
-	pMsg.Dur = ((dur==0)?gItemManager.GetItemDurability(index,level,NewOption,SetOption):dur);
-	pMsg.Option1 = ((gItemManager.GetItemSkill(index) == 0) ? 0 : Option1);
-	pMsg.Option2 = Option2;
-	pMsg.Option3 = Option3;
-	pMsg.NewOption = NewOption;
-	pMsg.LootIndex = LootIndex;
-	pMsg.SetOption = SetOption;
-	pMsg.Duration = duration;
+		pMsg.X = x;
+		pMsg.Y = y;
+		pMsg.Map = map;
+		pMsg.ItemIndex = index;
+		pMsg.Level = level;
+		pMsg.Dur = dur;
+		pMsg.Option1 = Option1;
+		pMsg.Option2 = Option2;
+		pMsg.Option3 = Option3;
+		pMsg.NewOption = NewOption;
+		pMsg.LootIndex = LootIndex;
+		pMsg.SetOption = SetOption;
+		pMsg.Duration = duration;
 
-	gDataServerConnection.DataSend((BYTE*)&pMsg,pMsg.header.size);
+		gDataServerConnection.DataSend((BYTE*)&pMsg,pMsg.header.size);
+	}
+	else
+	{
+		gMap[map].MonsterItemDrop(index,level,dur,x,y,Option1,Option2,Option3,NewOption,SetOption,LootIndex,-1,duration);
+	}
 }
 
 void GDOptionDataSend(int aIndex) // OK

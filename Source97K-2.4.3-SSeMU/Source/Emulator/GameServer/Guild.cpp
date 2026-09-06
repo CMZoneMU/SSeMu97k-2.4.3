@@ -705,9 +705,10 @@ void CGuild::CGGuildCreateRecv(PMSG_GUILD_CREATE_RECV* lpMsg,int aIndex) // OK
 
 	memcpy(GuildName,lpMsg->GuildName,sizeof(lpMsg->GuildName));
 
-	if(CheckSymbol(GuildName) != 0)
+	// Update 90 2.4.8 -> 97K - Validacao de caracteres maliciosos em nomes de guild
+	if(CheckNameSyntax(GuildName) == 0 || CheckSymbol(GuildName) != 0)
 	{
-		gLog.Output(LOG_HACK,"[CheckSymbol][%s][%s] Guild Create error. [%s]",lpObj->Account,lpObj->Name,GuildName);
+		gLog.Output(LOG_HACK,"[CheckNameSyntax][%s][%s] Guild Create error. [%s]",lpObj->Account,lpObj->Name,GuildName);
 		this->GCGuildCreateResultSend(aIndex,5);
 	}
 	else if(strlen(GuildName) < 3 || strlen(GuildName) > 9)
@@ -1050,6 +1051,12 @@ void CGuild::GuildWarRequestSend(int aIndex,char* GuildName,int type) // OK
 		return;
 	}
 
+	// Update 89 2.4.7 -> 97K - Guild War Switch
+	if(gServerInfo.m_GuildWarSwitch == 0)
+	{
+		return;
+	}
+
 	if(gMapManager.GetMapGuildWarEnable(lpObj->Map) == 0)
 	{
 		return;
@@ -1254,6 +1261,7 @@ void CGuild::gObjGuildWarEnd(GUILD_INFO* lpGuild1,GUILD_INFO* lpGuild2) // OK
 	}
 }
 
+// Update 89 2.4.7 -> 97K - Pontuação configurável e correção no cálculo de pontos de vitória
 int CGuild::gObjGuildWarProc(GUILD_INFO* lpGuild1,GUILD_INFO* lpGuild2,int score) // OK
 {
 	if(lpGuild1 == 0 || lpGuild2 == 0)
@@ -1261,23 +1269,23 @@ int CGuild::gObjGuildWarProc(GUILD_INFO* lpGuild1,GUILD_INFO* lpGuild2,int score
 		return 0;
 	}
 
-	int MaxScore = (lpGuild1->WarType==GUILD_WAR_TYPE_SOCCER)?100:20;
+	int MaxScore = (lpGuild1->WarType==GUILD_WAR_TYPE_SOCCER)?gServerInfo.m_GuildWarScoreMax2:gServerInfo.m_GuildWarScoreMax1;
 
 	lpGuild1->WarScore += score;
 
 	if(lpGuild1->WarScore >= MaxScore)
 	{
-		if(lpGuild1->WarScore > MaxScore && lpGuild2->WarScore == 0)
+		if(lpGuild2->WarScore == 0)
 		{
-			lpGuild1->Score += 3;
+			lpGuild1->Score += gServerInfo.m_GuildWarWinnerScore1;
 		}
-		else if(lpGuild1->WarScore > MaxScore && lpGuild2->WarScore <= 10)
+		else if(lpGuild2->WarScore <= (MaxScore/2))
 		{
-			lpGuild1->Score += 2;
+			lpGuild1->Score += gServerInfo.m_GuildWarWinnerScore2;
 		}
 		else
 		{
-			lpGuild1->Score += 1;
+			lpGuild1->Score += gServerInfo.m_GuildWarWinnerScore3;
 		}
 
 		this->GDGuildScoreSend(lpGuild1->Name,lpGuild1->Score);
@@ -1306,6 +1314,7 @@ int CGuild::gObjGuildWarProc(GUILD_INFO* lpGuild1,GUILD_INFO* lpGuild2,int score
 	return 0;
 }
 
+// Update 89 2.4.7 -> 97K - Pontuação por morte configurável
 int CGuild::gObjGuildWarCheck(LPOBJ lpObj,LPOBJ lpTarget) // OK
 {
 	if(gObjTargetGuildWarCheck(lpObj,lpTarget) == 0)
@@ -1317,7 +1326,7 @@ int CGuild::gObjGuildWarCheck(LPOBJ lpObj,LPOBJ lpTarget) // OK
 
 	GUILD_INFO* lpGuild2 = lpTarget->Guild;
 
-	int Score = (strcmp(lpTarget->Name,lpTarget->Guild->Master)==0)?2:1;
+	int Score = (strcmp(lpTarget->Name,lpTarget->Guild->Master)==0)?gServerInfo.m_GuildWarKillScore2:gServerInfo.m_GuildWarKillScore1;
 
 	if(gObjGuildWarProc(lpGuild1,lpGuild2,Score) == 1)
 	{

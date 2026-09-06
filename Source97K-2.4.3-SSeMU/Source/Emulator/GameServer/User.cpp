@@ -365,6 +365,8 @@ void gObjCharZeroSet(int aIndex) // OK
 	lpObj->DrinkDamage = 0;
 	lpObj->DrinkDamageLastTime = 0;
 	lpObj->MonsterDeleteTime = 0;
+	// Update 88 2.4.6 -> 97K - Suporte a SpecialBag em CustomMonster.txt
+	lpObj->CustomMonsterDrop = false;
 	lpObj->KalimaGateExist = 0;
 	lpObj->KalimaGateIndex = -1;
 	lpObj->KalimaGateEnterCount = 0;
@@ -542,6 +544,14 @@ void gObjCharZeroSet(int aIndex) // OK
 	lpObj->Pick.ItemCount = 0;
 
 	lpObj->WindowTimeOpen = false;
+	// Update 90 2.4.8 -> 97K - EventFlag e EventLevel
+	lpObj->EventFlag = 0;
+	lpObj->EventLevel = (BYTE)-1;
+
+	// Update 91 2.4.9 -> 97K - Rastreamento individual de movimento para deteccao de speed hack
+	lpObj->MoveTime = 0;
+	lpObj->LastX = 0;
+	lpObj->LastY = 0;
 }
 
 void gObjClearPlayerOption(LPOBJ lpObj) // OK
@@ -1480,7 +1490,7 @@ void gObjTeleportMagicUse(int aIndex,int x,int y) // OK
 
 	gObjViewportListProtocolDestroy(lpObj);
 
-	gHackMoveSpeedCheck[lpObj->Index].Reset();
+	gHackMoveSpeedCheck.Reset(lpObj);
 }
 
 void gObjInterfaceCheckTime(LPOBJ lpObj) // OK
@@ -1774,18 +1784,23 @@ void gObjPlayerDiePenalty(LPOBJ lpObj,LPOBJ lpTarget) // OK
 	{
 		if(lpObj->Money > 0)
 		{
-			int money = (lpObj->Money*gServerInfo.m_MoneyDeduceRate/100);
+			DWORD money = (DWORD)(((QWORD)lpObj->Money * gServerInfo.m_MoneyDeduceRate) / 100);
 
-			lpObj->Money -= money;
-
-			if(lpObj->Money < 0)
+			if(money > 0)
 			{
-				lpObj->Money = 0;
+				if(lpObj->Money <= money)
+				{
+					lpObj->Money = 0;
+				}
+				else
+				{
+					lpObj->Money -= money;
+				}
+
+				gLog.Output(LOG_PENALTY,"[PenaltyMoneyDecrease][%s][%s] - (Rate:%d, PKLevel:%d, Money: %d)",lpObj->Account,lpObj->Name,gServerInfo.m_MoneyDeduceRate,lpObj->PKLevel,money);
+
+				GCMoneySend(lpObj->Index,lpObj->Money);
 			}
-
-			gLog.Output(LOG_PENALTY,"[PenaltyMoneyDecrease][%s][%s] - (Rate:%d, PKLevel:%d, Money: %d)",lpObj->Account,lpObj->Name,gServerInfo.m_MoneyDeduceRate,lpObj->PKLevel,money);
-
-			GCMoneySend(lpObj->Index,lpObj->Money);
 		}
 	}
 
@@ -2119,7 +2134,7 @@ int gObjMoveGate(int aIndex,int gate) // OK
 		lpObj->LastTeleportTime = 10;
 	}
 
-	gHackMoveSpeedCheck[lpObj->Index].Reset();
+	gHackMoveSpeedCheck.Reset(lpObj);
 
 	return 1;
 
@@ -2185,7 +2200,7 @@ void gObjTeleport(int aIndex,int map,int x,int y) // OK
 	lpObj->RegenMapY = (BYTE)lpObj->Y;
 	lpObj->RegenOk = 1;
 
-	gHackMoveSpeedCheck[lpObj->Index].Reset();
+	gHackMoveSpeedCheck.Reset(lpObj);
 }
 
 void gObjSummonAlly(LPOBJ lpObj,int map,int x,int y) // OK
@@ -2229,7 +2244,7 @@ void gObjSummonAlly(LPOBJ lpObj,int map,int x,int y) // OK
 	lpObj->RegenMapY = (BYTE)lpObj->Y;
 	lpObj->RegenOk = 1;
 
-	gHackMoveSpeedCheck[lpObj->Index].Reset();
+	gHackMoveSpeedCheck.Reset(lpObj);
 }
 
 void gObjSkillUseProc(LPOBJ lpObj) // OK
@@ -2828,6 +2843,9 @@ void gObjSetPosition(int aIndex,int x,int y) // OK
 
 	lpObj->OldX = x;
 	lpObj->OldY = y;
+	lpObj->LastX = x;
+	lpObj->LastY = y;
+	lpObj->MoveTime = GetTickCount();
 
 	CGPositionRecv(&pMove,lpObj->Index);
 }

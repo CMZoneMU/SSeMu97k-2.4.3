@@ -122,6 +122,12 @@ void CItemBag::Load(char* path) // OK
 
 					info.NewOption = lpMemScript->GetAsNumber();
 
+					// Update 88 2.4.6 -> 97K - Logs de auditoria para itens inválidos em Bags
+					if(gItemManager.CheckItemIndex(info.ItemIndex) == 0)
+					{
+						LogAdd(LOG_RED,"[ItemBag][%s] Invalid Item Index (%02d,%03d)",path,info.ItemIndex/MAX_ITEM_TYPE,info.ItemIndex%MAX_ITEM_TYPE);
+					}
+
 					this->SetInfo(info);
 				}
 				else
@@ -212,6 +218,9 @@ bool CItemBag::GetItem(LPOBJ lpObj,CItem* lpItem) // OK
 			{
 				Option3 = 0;
 			}
+
+			// Update 92 2.5.0 -> 97K - Limite de Option3 de acordo com a configuracao do servidor
+			Option3 = ((Option3>gServerInfo.m_MaxItemOption)?gServerInfo.m_MaxItemOption:Option3);
 		}
 
 		if(SetOption != 0)
@@ -220,10 +229,12 @@ bool CItemBag::GetItem(LPOBJ lpObj,CItem* lpItem) // OK
 		}
 	}
 
+	// Update 92 2.5.0 -> 97K - Otimizacao do calculo de nivel do item sorteado
 	gItemOptionRate.MakeLevelOption(lpInfo->MinLevel,lpInfo->MaxLevel,&lpItem->m_Level);
 	gItemOptionRate.MakeNewOption(lpInfo->ItemIndex,this->m_ItemDropType,lpInfo->NewOption,&lpItem->m_NewOption);
 
-	lpItem->Convert(lpInfo->ItemIndex,Option1,Option2,Option3,lpItem->m_NewOption,lpItem->m_SetOption);
+	// Update 92 2.5.0 -> 97K - Correcao no repasse de SetOption para o item convertido
+	lpItem->Convert(lpInfo->ItemIndex,Option1,Option2,Option3,lpItem->m_NewOption,SetOption);
 
 	return 1;
 }
@@ -235,7 +246,17 @@ bool CItemBag::DropItem(LPOBJ lpObj,int map,int x,int y) // OK
 		return this->m_ItemBagEx.DropItem(lpObj,map,x,y);
 	}
 
-	int DropCount = (this->m_MinItemDropCount+(GetLargeRand()%((this->m_MaxItemDropCount-this->m_MinItemDropCount)+1)));
+	// Update 92 2.5.0 -> 97K - Suporte a contagem dinamica e total de drops (-1)
+	int DropCount = 0;
+
+	if(this->m_MaxItemDropCount < 0)
+	{
+		DropCount = ((this->m_MaxItemDropCount == -1)?this->m_count:(1+(GetLargeRand()%(abs(this->m_MaxItemDropCount)))));
+	}
+	else
+	{
+		DropCount = (this->m_MinItemDropCount+(GetLargeRand()%((this->m_MaxItemDropCount-this->m_MinItemDropCount)+1)));
+	}
 
 	for(int n=0;n < DropCount;n++)
 	{
@@ -251,10 +272,14 @@ bool CItemBag::DropItem(LPOBJ lpObj,int map,int x,int y) // OK
 			}
 		}
 
-		if((GetLargeRand()%100) >= this->m_ItemDropRate)
+		// Update 92 2.5.0 -> 97K - Drop de Zen condicional seguro evitando descarte nulo de drop
+		if(this->m_ItemDropRate < 100 && this->m_DropZen > 0)
 		{
-			gMap[map].MoneyItemDrop(this->m_DropZen,px,py);
-			continue;
+			if((GetLargeRand()%100) >= this->m_ItemDropRate)
+			{
+				gMap[map].MoneyItemDrop(this->m_DropZen,px,py);
+				continue;
+			}
 		}
 
 		CItem item;

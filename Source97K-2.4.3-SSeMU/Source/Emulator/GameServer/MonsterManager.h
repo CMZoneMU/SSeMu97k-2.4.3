@@ -10,6 +10,9 @@
 #define MAX_MONSTER_LEVEL 150
 #define MAX_MONSTER_ITEM 100
 
+// Update 88 2.4.6 -> 97K - Correção do cálculo de vida, defesa, dano e ataques em MonsterList.txt
+#define GET_MAX_VALUE(x) (((x)>2100000000)?2100000000:(((x)<0)?2100000000:(x)))
+
 struct MONSTER_INFO
 {
 	int Index;

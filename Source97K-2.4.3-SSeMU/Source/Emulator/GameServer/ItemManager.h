@@ -43,6 +43,37 @@ enum eInventorySlot
 };
 
 //**********************************************//
+//********** DataServer -> GameServer **********//
+//**********************************************//
+
+struct SDHP_GET_ITEM_SERIAL_RECV
+{
+	PBMSG_HEAD header; // C1:06
+	WORD aIndex;
+	char account[11];
+	DWORD index;
+	WORD map;
+	WORD x;
+	WORD y;
+	DWORD Serial;
+};
+
+//**********************************************//
+//********** GameServer -> DataServer **********//
+//**********************************************//
+
+struct SDHP_GET_ITEM_SERIAL_SEND
+{
+	PBMSG_HEAD header; // C1:06
+	WORD aIndex;
+	char account[11];
+	DWORD index;
+	WORD map;
+	WORD x;
+	WORD y;
+};
+
+//**********************************************//
 //************ Client -> GameServer ************//
 //**********************************************//
 
@@ -353,6 +384,8 @@ public:
 	void GCItemListSend(int aIndex);
 	void GCItemEquipmentSend(int aIndex);
 	void GCItemModifySend(int aIndex,BYTE slot);
+	void DGGetItemSerialRecv(SDHP_GET_ITEM_SERIAL_RECV* lpMsg);
+	void GDGetItemSerialSend(int aIndex,int index,int map,int x,int y);
 private:
 	std::map<int,ITEM_INFO> m_ItemInfo;
 };

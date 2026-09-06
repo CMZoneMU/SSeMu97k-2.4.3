@@ -101,18 +101,16 @@ void CCommandManager::GDCommandRenameRecv(SDHP_COMMAND_RENAME_RECV* lpMsg, int i
 
 	memcpy(pMsg.newname,lpMsg->newname,sizeof(pMsg.newname));
 
-	if(CheckTextSyntax(lpMsg->newname,sizeof(lpMsg->newname)) == 0 || gBadSyntax.CheckSyntax(lpMsg->newname) == 0)
+	if(CheckTextSyntax(lpMsg->newname,sizeof(lpMsg->newname)) == 0)
 	{
 		pMsg.result = 2;
 	}
 
 	if(pMsg.result == 0)
 	{
-		gQueryManager.BindParameterAsString(1,lpMsg->name,sizeof(lpMsg->name));
+		gQueryManager.BindParameterAsString(1,lpMsg->newname,sizeof(lpMsg->newname));
 
-		gQueryManager.BindParameterAsString(2,lpMsg->newname,sizeof(lpMsg->newname));
-
-		if(gQueryManager.ExecQuery("EXEC WZ_RenameCharacter '%s','?','?'",lpMsg->account) == 0 || gQueryManager.Fetch() == SQL_NO_DATA)
+		if(gQueryManager.ExecQuery("EXEC WZ_RenameCharacter '%s','%s',?",lpMsg->account,lpMsg->name) == 0 || gQueryManager.Fetch() == SQL_NO_DATA)
 		{
 			gQueryManager.Close();
 		}

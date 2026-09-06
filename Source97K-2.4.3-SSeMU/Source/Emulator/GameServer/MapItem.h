@@ -27,4 +27,5 @@ public:
 	int m_LootUserIndex;
 	DWORD m_LootTime;
 	DWORD m_CreateTime;
+	bool m_Picking;
 };

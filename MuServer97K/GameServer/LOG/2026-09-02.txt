@@ -1,0 +1,63 @@
+00:21:03 [SocketManager] Server started at port [55900]
+00:21:04 [Script] Sistema Lua carregado com sucesso!
+00:21:05 [Blood Castle] (1) Sync Start Time. [1] hour [38] min remain
+00:21:05 [Blood Castle] (1) SetState EMPTY
+00:21:05 [Blood Castle] (2) Sync Start Time. [1] hour [38] min remain
+00:21:05 [Blood Castle] (2) SetState EMPTY
+00:21:05 [Blood Castle] (3) Sync Start Time. [1] hour [38] min remain
+00:21:05 [Blood Castle] (3) SetState EMPTY
+00:21:05 [Blood Castle] (4) Sync Start Time. [1] hour [38] min remain
+00:21:05 [Blood Castle] (4) SetState EMPTY
+00:21:05 [Blood Castle] (5) Sync Start Time. [1] hour [38] min remain
+00:21:05 [Blood Castle] (5) SetState EMPTY
+00:21:05 [Blood Castle] (6) Sync Start Time. [1] hour [38] min remain
+00:21:05 [Blood Castle] (6) SetState EMPTY
+00:21:05 [Devil Square] (1) Sync Start Time. [8] min remain
+00:21:05 [Devil Square] (1) SetState EMPTY
+00:21:05 [Devil Square] (2) Sync Start Time. [8] min remain
+00:21:05 [Devil Square] (2) SetState EMPTY
+00:21:05 [Devil Square] (3) Sync Start Time. [8] min remain
+00:21:05 [Devil Square] (3) SetState EMPTY
+00:21:05 [Devil Square] (4) Sync Start Time. [8] min remain
+00:21:05 [Devil Square] (4) SetState EMPTY
+00:21:05 [Invasion Manager] (0) Sync Start Time. [3] hour [43] min remain
+00:21:05 [Invasion Manager] (1) Sync Start Time. [3] hour [53] min remain
+00:21:05 [Invasion Manager] (2) Sync Start Time. [3] min remain
+00:25:00 [Invasion Manager] (2) SetState START
+00:25:00 [Invasion Manager] (2) Spawn Monster [43] Map:0 X:223 Y:207
+00:25:00 [Invasion Manager] (2) Spawn Monster [43] Map:0 X:5 Y:90
+00:25:00 [Invasion Manager] (2) Spawn Monster [43] Map:0 X:197 Y:123
+00:25:00 [Invasion Manager] (2) Spawn Monster [43] Map:0 X:141 Y:33
+00:25:00 [Invasion Manager] (2) Spawn Monster [43] Map:0 X:74 Y:108
+00:25:00 [Invasion Manager] (2) Spawn Monster [53] Map:2 X:83 Y:229
+00:25:00 [Invasion Manager] (2) Spawn Monster [53] Map:2 X:95 Y:22
+00:25:00 [Invasion Manager] (2) Spawn Monster [53] Map:2 X:147 Y:114
+00:25:00 [Invasion Manager] (2) Spawn Monster [53] Map:2 X:169 Y:54
+00:25:00 [Invasion Manager] (2) Spawn Monster [53] Map:2 X:48 Y:145
+00:25:00 [Invasion Manager] (2) Spawn Monster [54] Map:2 X:136 Y:129
+00:25:00 [Invasion Manager] (2) Spawn Monster [54] Map:2 X:78 Y:19
+00:25:00 [Invasion Manager] (2) Spawn Monster [54] Map:2 X:31 Y:228
+00:25:00 [Invasion Manager] (2) Spawn Monster [54] Map:2 X:167 Y:230
+00:25:00 [Invasion Manager] (2) Spawn Monster [54] Map:2 X:200 Y:201
+00:25:00 [Invasion Manager] (2) Spawn Monster [78] Map:3 X:105 Y:158
+00:25:00 [Invasion Manager] (2) Spawn Monster [78] Map:3 X:116 Y:91
+00:25:00 [Invasion Manager] (2) Spawn Monster [78] Map:3 X:80 Y:156
+00:25:00 [Invasion Manager] (2) Spawn Monster [78] Map:3 X:102 Y:14
+00:25:00 [Invasion Manager] (2) Spawn Monster [78] Map:3 X:232 Y:191
+00:25:00 [Invasion Manager] (2) Spawn Monster [79] Map:3 X:185 Y:162
+00:25:00 [Invasion Manager] (2) Spawn Monster [80] Map:7 X:81 Y:11
+00:25:00 [Invasion Manager] (2) Spawn Monster [80] Map:7 X:27 Y:94
+00:25:00 [Invasion Manager] (2) Spawn Monster [80] Map:7 X:108 Y:179
+00:25:00 [Invasion Manager] (2) Spawn Monster [81] Map:7 X:210 Y:64
+00:25:00 [Invasion Manager] (2) Spawn Monster [81] Map:7 X:49 Y:152
+00:25:00 [Invasion Manager] (2) Spawn Monster [81] Map:7 X:51 Y:47
+00:25:00 [Invasion Manager] (2) Spawn Monster [81] Map:7 X:34 Y:206
+00:25:00 [Invasion Manager] (2) Spawn Monster [81] Map:7 X:13 Y:161
+00:25:00 [Invasion Manager] (2) Spawn Monster [82] Map:8 X:17 Y:131
+00:25:00 [Invasion Manager] (2) Spawn Monster [82] Map:8 X:36 Y:153
+00:25:00 [Invasion Manager] (2) Spawn Monster [82] Map:8 X:69 Y:81
+00:25:00 [Invasion Manager] (2) Spawn Monster [83] Map:8 X:93 Y:99
+00:25:00 [Invasion Manager] (2) Spawn Monster [83] Map:8 X:131 Y:150
+00:25:00 [Invasion Manager] (2) Spawn Monster [83] Map:8 X:55 Y:103
+00:25:00 [Invasion Manager] (2) Spawn Monster [83] Map:8 X:176 Y:127
+00:25:00 [Invasion Manager] (2) Spawn Monster [83] Map:8 X:142 Y:72

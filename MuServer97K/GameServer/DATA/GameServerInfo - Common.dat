@@ -7,7 +7,7 @@ CustomerLicenseId = MuOnline
 ;==================================================
 ; Server Settings
 ;==================================================
-ServerName = UPAR + PVP
+ServerName = GameServer_0
 ServerCode = 0
 ServerLock = 0
 ServerPort = 55900
@@ -92,6 +92,12 @@ MonsterGetTopHitDamageUserMaxTime = 30
 ; Reconnect Settings
 ;==================================================
 ReconnectTime = 300
+ReconnectAttackSwitch = 0
+ReconnectCommandSwitch = 1
+ReconnectEventSwitch = 0
+ReconnectEventMaxTime = 30
+ReconnectPartySwitch = 1
+ReconnectPickSwitch = 0
 ReconnectOfflineSwitch = 0
 
 ;==================================================

@@ -895,6 +895,9 @@ bool CBloodCastle::AddUser(BLOOD_CASTLE_LEVEL* lpLevel,int aIndex) // OK
 		lpLevel->User[n].Score = 0;
 		lpLevel->User[n].RewardExperience = 0;
 		lpLevel->User[n].RewardMoney = 0;
+		// Update 90 2.4.8 -> 97K - EventFlag e EventLevel
+		gObj[aIndex].EventFlag = 2;
+		gObj[aIndex].EventLevel = lpLevel->Level;
 		gObjEventEntrySaveSend(&gObj[aIndex],0);
 		return 1;
 	}
@@ -930,6 +933,9 @@ bool CBloodCastle::DelUser(BLOOD_CASTLE_LEVEL* lpLevel,int aIndex) // OK
 	lpUser->Score = 0;
 	lpUser->RewardExperience = 0;
 	lpUser->RewardMoney = 0;
+	// Update 90 2.4.8 -> 97K - EventFlag e EventLevel
+	gObj[aIndex].EventFlag = 0;
+	gObj[aIndex].EventLevel = (BYTE)-1;
 	return 1;
 }
 
@@ -970,6 +976,10 @@ void CBloodCastle::ClearUser(BLOOD_CASTLE_LEVEL* lpLevel) // OK
 		{
 			continue;
 		}
+
+		// Update 90 2.4.8 -> 97K - EventFlag e EventLevel
+		gObj[lpLevel->User[n].Index].EventFlag = 0;
+		gObj[lpLevel->User[n].Index].EventLevel = (BYTE)-1;
 
 		gObjMoveGate(lpLevel->User[n].Index,22);
 

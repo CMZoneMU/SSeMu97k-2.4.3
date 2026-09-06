@@ -1,0 +1,9 @@
+00:16:24 UPDATE GameServerInfo SET ItemCount=3
+00:16:24 [QueryManager] State (01000), Diagnostic: [Microsoft][ODBC SQL Server Driver][Shared Memory]ConnectionWrite (send()).
+00:16:24 [QueryManager] State (08S01), Diagnostic: [Microsoft][ODBC SQL Server Driver][Shared Memory]Erro geral de rede. Verifique a documentação da rede.
+00:52:33 [SocketUDP] GameServer disconnected [GameServer_0] [127.0.0.1:55900][0]
+00:52:44 [SocketUDP] GameServer connected [GameServer_0] [127.0.0.1:55900][0]
+01:14:01 [SocketTCP] Server started at port [55960]
+09:08:28 [SocketTCP] Server started at port [55960]
+09:08:35 [SocketTCP] Server started at port [55960]
+09:08:39 [SocketTCP] Server started at port [55960]

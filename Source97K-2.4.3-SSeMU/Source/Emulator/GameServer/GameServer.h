@@ -17,3 +17,5 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT message,WPARAM wParam,LPARAM lParam);
 LRESULT CALLBACK About(HWND hDlg,UINT message,WPARAM wParam,LPARAM lParam);
 LRESULT CALLBACK Users(HWND hDlg,UINT message,WPARAM wParam,LPARAM lParam);
 LRESULT CALLBACK MapViewer(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
+// Update 92 2.5.0 -> 97K - Gerenciamento e atualizacao dinamica de menus do GameServer
+void EditMenuLabel(BYTE slot1,BYTE slot2,UINT itemID,LPCSTR newLabel,bool state);

@@ -26,6 +26,8 @@ bool IsValidMonster(int index);
 char* CharToLower(char* text);
 char* CharReverse(char* text);
 bool CheckSymbol(char* text);
+// Update 90 2.4.8 -> 97K - Validacao de caracteres maliciosos em nomes
+bool CheckNameSyntax(char* text);
 int LevelSmallConvert(int level);
 
 extern short RoadPathTable[MAX_ROAD_PATH_TABLE];

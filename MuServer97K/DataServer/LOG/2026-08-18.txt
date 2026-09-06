@@ -1,0 +1,20 @@
+00:38:08 [SocketTCP] Server started at port [55960]
+00:38:43 [SocketUDP] GameServer connected [GameServer_0] [127.0.0.1:55900][0]
+00:43:08 [SocketUDP] GameServer disconnected [GameServer_0] [127.0.0.1:55900][0]
+00:43:37 [SocketTCP] Server started at port [55960]
+00:43:40 [SocketUDP] GameServer connected [GameServer_0] [127.0.0.1:55900][0]
+00:44:19 Could not connect to database (ODBC Error)
+00:46:02 Could not connect to database (ODBC Error)
+00:46:44 [SocketTCP] Server started at port [55960]
+00:46:58 [SocketUDP] GameServer connected [GameServer_0] [127.0.0.1:55900][0]
+13:45:51 [SocketTCP] Server started at port [55960]
+13:45:56 [SocketUDP] GameServer connected [GameServer_0] [127.0.0.1:55900][0]
+14:00:10 [SocketTCP] Server started at port [55960]
+21:22:54 [SocketTCP] Server started at port [55960]
+21:23:27 [SocketUDP] GameServer connected [GameServer_0] [127.0.0.1:55900][0]
+22:21:29 SELECT Id FROM AccountCharacter WHERE Id='test'
+22:21:29 [QueryManager] State (01000), Diagnostic: [Microsoft][ODBC SQL Server Driver][Shared Memory]ConnectionWrite (send()).
+22:21:29 [QueryManager] State (08S01), Diagnostic: [Microsoft][ODBC SQL Server Driver][Shared Memory]Erro geral de rede. Verifique a documentação da rede.
+22:21:29 INSERT INTO AccountCharacter (Id) VALUES ('test')
+22:21:29 [QueryManager] State (23000), Diagnostic: [Microsoft][ODBC SQL Server Driver][SQL Server]Violation of PRIMARY KEY constraint 'PK_AccountCharacter'. Cannot insert duplicate key in object 'dbo.AccountCharacter'. The duplicate key value is (test).
+22:21:29 [QueryManager] State (01000), Diagnostic: [Microsoft][ODBC SQL Server Driver][SQL Server]The statement has been terminated.

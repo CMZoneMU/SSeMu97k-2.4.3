@@ -1,0 +1,2 @@
+13:49:46 [CommandPost][test][PREDATOR] - (Message: Ola)
+21:24:11 [CommandPost][test][PREDATOR] - (Message: Teste)

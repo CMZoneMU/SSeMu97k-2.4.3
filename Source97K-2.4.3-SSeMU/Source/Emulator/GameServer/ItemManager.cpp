@@ -10,6 +10,7 @@
 #include "EffectManager.h"
 #include "EventEntryLevel.h"
 #include "Fruit.h"
+#include "GameMain.h"
 #include "ItemBagManager.h"
 #include "ItemLevel.h"
 #include "ItemMove.h"
@@ -247,6 +248,9 @@ void CItemManager::Load(char* path) // OK
 	}
 
 	delete lpMemScript;
+
+	// Update 88 2.4.6 -> 97K - Logs de controle e auditoria
+	LogAdd(LOG_BLUE, "[Item] Total item entries: %d", this->m_ItemInfo.size());
 }
 
 bool CItemManager::GetInfo(int index, ITEM_INFO* lpInfo) // OK
@@ -580,7 +584,7 @@ int CItemManager::GetInventoryEmptySlotCount(LPOBJ lpObj) // OK
 
 char* CItemManager::GetItemName(int index,int level) // OK
 {
-	for each(ITEM_LEVEL_INFO lpInfo in gItemLevel.m_ItemLevelInfo)
+	for(auto& lpInfo : gItemLevel.m_ItemLevelInfo)
 	{
 		if(lpInfo.ItemIndex == index && lpInfo.Level == level)
 		{
@@ -2556,6 +2560,12 @@ bool CItemManager::CGItemGetRecv(PMSG_ITEM_GET_RECV* lpMsg, int aIndex) // OK
 
 	CItem item = (*lpItem);
 
+	if (lpItem->m_Picking != 0)
+	{
+		DataSend(aIndex, (BYTE*)&pMsg, pMsg.header.size);
+		return 0;
+	}
+
 	if (this->InventoryInsertItemStack(lpObj, &item) != 0)
 	{
 		gMap[lpObj->Map].ItemGive(aIndex, index);
@@ -2563,6 +2573,20 @@ bool CItemManager::CGItemGetRecv(PMSG_ITEM_GET_RECV* lpMsg, int aIndex) // OK
 		pMsg.result = 0xFD;
 		DataSend(aIndex, (BYTE*)&pMsg, pMsg.header.size);
 		return 1;
+	}
+
+	if (lpItem->m_Serial == -1)
+	{
+		if (this->CheckItemInventorySpace(lpObj, lpItem->m_Index) == 0)
+		{
+			DataSend(aIndex, (BYTE*)&pMsg, pMsg.header.size);
+			return 0;
+		}
+
+		lpItem->m_Picking = 1;
+
+		this->GDGetItemSerialSend(aIndex, index, lpObj->Map, lpObj->X, lpObj->Y);
+		return 0;
 	}
 
 	pMsg.result = this->InventoryInsertItem(aIndex, item);
@@ -2775,7 +2799,7 @@ void CItemManager::CGItemMoveRecv(PMSG_ITEM_MOVE_RECV* lpMsg, int aIndex) // OK
 
 	if (lpMsg->SourceFlag == 5 || lpMsg->TargetFlag == 5) // Trainer
 	{
-		if (lpObj->Interface.use == INTERFACE_NONE || lpObj->Interface.type != INTERFACE_TRAINER || lpObj->ChaosLock != 0)
+		if (lpObj->Interface.use == 0 || lpObj->Interface.type != INTERFACE_TRAINER || lpObj->ChaosLock != 0)
 		{
 			DataSend(aIndex, (BYTE*)&pMsg, pMsg.header.size);
 			return;
@@ -3436,4 +3460,132 @@ void CItemManager::GCItemModifySend(int aIndex, BYTE slot) // OK
 	this->ItemByteConvert(pMsg.ItemInfo, lpObj->Inventory[slot]);
 
 	DataSend(aIndex, (BYTE*)&pMsg, pMsg.header.size);
+}
+
+void CItemManager::DGGetItemSerialRecv(SDHP_GET_ITEM_SERIAL_RECV* lpMsg) // OK
+{
+	if(gObjIsAccountValid(lpMsg->aIndex,lpMsg->account) == 0)
+	{
+		LogAdd(LOG_RED,"[DGItemGetSerialRecv] Invalid Account [%d](%s)",lpMsg->aIndex,lpMsg->account);
+		CloseClient(lpMsg->aIndex);
+		return;
+	}
+
+	LPOBJ lpObj = &gObj[lpMsg->aIndex];
+
+	PMSG_ITEM_GET_SEND pMsg;
+
+	pMsg.header.setE(0x22,sizeof(pMsg));
+
+	pMsg.result = 0xFF;
+
+	memset(pMsg.ItemInfo,0,sizeof(pMsg.ItemInfo));
+
+	if(MAP_ITEM_RANGE(lpMsg->index) == 0)
+	{
+		DataSend(lpObj->Index,(BYTE*)&pMsg,pMsg.header.size);
+		return;
+	}
+
+	CMapItem* lpItem = &gMap[lpObj->Map].m_Item[lpMsg->index];
+
+	if(lpItem->IsItem() == 0)
+	{
+		DataSend(lpObj->Index,(BYTE*)&pMsg,pMsg.header.size);
+		return;
+	}
+
+	if(lpObj->DieRegen != 0)
+	{
+		lpItem->m_Picking = 0;
+		DataSend(lpObj->Index,(BYTE*)&pMsg,pMsg.header.size);
+		return;
+	}
+
+	if(lpObj->Interface.use != 0 && lpObj->Interface.type != INTERFACE_SHOP)
+	{
+		lpItem->m_Picking = 0;
+		DataSend(lpObj->Index,(BYTE*)&pMsg,pMsg.header.size);
+		return;
+	}
+
+	if(gObjCalcDistance(lpObj,lpMsg->x,lpMsg->y) > 5)
+	{
+		lpItem->m_Picking = 0;
+		DataSend(lpObj->Index,(BYTE*)&pMsg,pMsg.header.size);
+		return;
+	}
+
+	if(gMapManager.IsValidMap(lpMsg->map) == 0)
+	{
+		lpItem->m_Picking = 0;
+		DataSend(lpObj->Index,(BYTE*)&pMsg,pMsg.header.size);
+		return;
+	}
+
+#if(GAMESERVER_EXTRA==1)
+	pMsg.ViewIndex = lpMsg->index;
+#endif
+
+	CItem item = (*lpItem);
+
+	item.m_Serial = lpMsg->Serial;
+
+	pMsg.result = this->InventoryInsertItem(lpMsg->aIndex,item);
+
+	if(pMsg.result == 0xFF)
+	{
+		lpItem->m_Picking = 0;
+		DataSend(lpObj->Index,(BYTE*)&pMsg,pMsg.header.size);
+		return;
+	}
+
+	gMap[lpObj->Map].ItemGive(lpMsg->aIndex,lpMsg->index);
+
+	this->ItemByteConvert(pMsg.ItemInfo,item);
+
+	DataSend(lpObj->Index,(BYTE*)&pMsg,pMsg.header.size);
+
+	GCPartyItemInfoSend(lpMsg->aIndex,&item);
+
+	if(item.m_IsPeriodicItem != 0)
+	{
+		gPeriodicItem.GCPeriodicItemSend(lpObj->Index,-1,pMsg.result,item.m_PeriodicItemTime);
+	}
+
+	if(BC_MAP_RANGE(lpObj->Map) != 0)
+	{
+		if(gBloodCastle.CheckEventItemSerial(lpObj->Map,lpItem) != 0)
+		{
+			gBloodCastle.GetEventItem(lpObj->Map,lpMsg->aIndex,lpItem);
+		}
+	}
+}
+
+void CItemManager::GDGetItemSerialSend(int aIndex,int index,int map,int x,int y) // OK
+{
+	LPOBJ lpObj = &gObj[aIndex];
+
+	if(gObjIsConnectedGP(aIndex) == 0)
+	{
+		return;
+	}
+
+	SDHP_GET_ITEM_SERIAL_SEND pMsg;
+
+	pMsg.header.set(0x06,sizeof(pMsg));
+
+	pMsg.aIndex = aIndex;
+
+	memcpy(pMsg.account,lpObj->Account,sizeof(pMsg.account));
+
+	pMsg.index = index;
+
+	pMsg.map = map;
+
+	pMsg.x = x;
+
+	pMsg.y = y;
+
+	gDataServerConnection.DataSend((BYTE*)&pMsg,sizeof(pMsg));
 }

@@ -239,160 +239,187 @@ bool CSocketManager::CreateServerQueue() // OK
 
 bool CSocketManager::DataRecv(int index,IO_MAIN_BUFFER* lpIoBuffer) // OK
 {
+	// Update 92 2.5.0 -> 97K - Controle de buffer de rede e prevencao de buffer overflow
 	if(lpIoBuffer->size < 3)
 	{
 		return 1;
 	}
 
 	BYTE* lpMsg = lpIoBuffer->buff;
+	int count = 0;
 
-	int count=0,size=0,DecSize=0,DecEncrypt=0,DecSerial=0;
-	static BYTE DecBuff[MAX_MAIN_PACKET_SIZE];
-	static QUEUE_INFO QueueInfo;
-	BYTE header,head;
+	std::vector<BYTE> decBuff(MAX_MAIN_PACKET_SIZE,0);
 
-	while(true)
+	while((lpIoBuffer->size - count) >= 3)
 	{
-		if(lpMsg[count] == 0xC1 || lpMsg[count] == 0xC3)
+		BYTE header = lpMsg[count];
+		int size = 0;
+		BYTE head = 0;
+
+		switch(header)
 		{
-			header = lpMsg[count];
-			size = lpMsg[count+1];
-			head = lpMsg[count+2];
-		}
-		else if(lpMsg[count] == 0xC2 || lpMsg[count] == 0xC4)
-		{
-			header = lpMsg[count];
-			size = MAKEWORD(lpMsg[count+2],lpMsg[count+1]);
-			head = lpMsg[count+3];
-		}
-		else
-		{
-			return 0;
+			case 0xC1:
+			case 0xC3:
+			{
+				if((lpIoBuffer->size - count) < 3)
+				{
+					return 1; // Dados insuficientes para o cabecalho
+				}
+
+				size = lpMsg[count+1];
+				head = lpMsg[count+2];
+				break;
+			}
+			case 0xC2:
+			case 0xC4:
+			{
+				if((lpIoBuffer->size - count) < 4)
+				{
+					return 1; // Dados insuficientes para o cabecalho
+				}
+
+				size = MAKEWORD(lpMsg[count+2],lpMsg[count+1]);
+				head = lpMsg[count+3];
+				break;
+			}
+			default:
+			{
+				LogAdd(LOG_RED,"[SocketTCP] Protocol header error (Index: %d, Header: 0x%X)",index,header);
+				return 0;
+			}
 		}
 
 		if(size < 3 || size > MAX_MAIN_PACKET_SIZE)
 		{
+			LogAdd(LOG_RED,"[SocketTCP] Protocol size error (Index: %d,Header: %x,Size: %d,Head: %x)",index,header,size,head);
 			return 0;
 		}
 
-		if(size <= lpIoBuffer->size)
+		if((lpIoBuffer->size - count) < size)
 		{
-			if(header == 0xC3 || header == 0xC4)
+			break; // Pacote incompleto, aguardar mais dados
+		}
+
+		int decSize = 0;
+		int decSerial = -1;
+
+		QUEUE_INFO queueInfo;
+		memset(&queueInfo,0,sizeof(queueInfo));
+
+		switch(header)
+		{
+			case 0xC3: // Descriptografar deixando 1 byte para o cabecalho C1
 			{
-				if(header == 0xC3)
+				decSize = gPacketManager.Decrypt(&decBuff[1],&lpMsg[count+2],(size-2))+1;
+
+				if(decSize <= 0 || decSize >= MAX_MAIN_PACKET_SIZE)
 				{
-					DecSize = gPacketManager.Decrypt(&DecBuff[1],&lpMsg[count+2],(size-2))+1;
-
-					DecSerial = DecBuff[1];
-
-					header = 0xC1;
-					head = DecBuff[2];
-
-					DecBuff[0] = header;
-					DecBuff[1] = DecSize;
-
-					if(gPacketManager.AddData(&DecBuff[0],DecSize) == 0 || gPacketManager.ExtractPacket(DecBuff) == 0)
-					{
-						return 0;
-					}
-
-					QueueInfo.index = index;
-
-					QueueInfo.head = head;
-
-					memcpy(QueueInfo.buff,DecBuff,DecSize);
-
-					QueueInfo.size = DecSize;
-
-					QueueInfo.encrypt = 1;
-
-					QueueInfo.serial = DecSerial;
-
-					if(this->m_ServerQueue.AddToQueue(&QueueInfo) != 0)
-					{
-						ReleaseSemaphore(this->m_ServerQueueSemaphore,1,0);
-					}
+					LogAdd(LOG_RED,"[SocketTCP] C3 Decrypt failed or invalid size (Index: %d)",index);
+					return 0;
 				}
-				else
-				{
-					DecSize = gPacketManager.Decrypt(&DecBuff[2],&lpMsg[count+3],(size-3))+2;
 
-					DecSerial = DecBuff[2];
+				decSerial = decBuff[1];
+				head = decBuff[2];
 
-					header = 0xC2;
-					head = DecBuff[3];
+				decBuff[0] = 0xC1;
+				decBuff[1] = (BYTE)decSize;
 
-					DecBuff[0] = header;
-					DecBuff[1] = HIBYTE(DecSize);
-					DecBuff[2] = LOBYTE(DecSize);
-
-					if(gPacketManager.AddData(DecBuff,DecSize) == 0 || gPacketManager.ExtractPacket(DecBuff) == 0)
-					{
-						return 0;
-					}
-
-					QueueInfo.index = index;
-
-					QueueInfo.head = head;
-
-					memcpy(QueueInfo.buff,DecBuff,DecSize);
-
-					QueueInfo.size = DecSize;
-
-					QueueInfo.encrypt = 1;
-
-					QueueInfo.serial = DecSerial;
-
-					if(this->m_ServerQueue.AddToQueue(&QueueInfo) != 0)
-					{
-						ReleaseSemaphore(this->m_ServerQueueSemaphore,1,0);
-					}
-				}
-			}
-			else
-			{
-				if(gPacketManager.AddData(&lpMsg[count],size) == 0 || gPacketManager.ExtractPacket(DecBuff) == 0)
+				if(gPacketManager.AddData(decBuff.data(),decSize) == 0 || gPacketManager.ExtractPacket(decBuff.data()) == 0)
 				{
 					return 0;
 				}
 
-				QueueInfo.index = index;
+				queueInfo.index = index;
+				queueInfo.head = head;
+				queueInfo.size = decSize;
+				queueInfo.encrypt = 1;
+				queueInfo.serial = decSerial;
 
-				QueueInfo.head = head;
-
-				memcpy(QueueInfo.buff,DecBuff,size);
-
-				QueueInfo.size = size;
-
-				QueueInfo.encrypt = 0;
-
-				QueueInfo.serial = -1;
-
-				if(this->m_ServerQueue.AddToQueue(&QueueInfo) != 0)
+				if(decSize > sizeof(queueInfo.buff))
 				{
-					ReleaseSemaphore(this->m_ServerQueueSemaphore,1,0);
+					LogAdd(LOG_RED,"[SocketTCP] Decrypted packet size too large for buffer: %d",decSize);
+					return 0;
 				}
+
+				memcpy(queueInfo.buff,decBuff.data(),decSize);
+				break;
 			}
-
-			count += size;
-
-			lpIoBuffer->size -= size;
-
-			if(lpIoBuffer->size <= 0)
+			case 0xC4: // Descriptografar deixando espaco para cabecalho C2 (2 bytes)
 			{
+				decSize = gPacketManager.Decrypt(&decBuff[2],&lpMsg[count+3],(size-3))+2;
+
+				if(decSize <= 0 || decSize >= MAX_MAIN_PACKET_SIZE)
+				{
+					LogAdd(LOG_RED,"[SocketTCP] C4 Decrypt failed or invalid size (Index: %d)",index);
+					return 0;
+				}
+
+				decSerial = decBuff[2];
+				head = decBuff[3];
+
+				decBuff[0] = 0xC2;
+				decBuff[1] = HIBYTE(decSize);
+				decBuff[2] = LOBYTE(decSize);
+
+				if(gPacketManager.AddData(decBuff.data(),decSize) == 0 || gPacketManager.ExtractPacket(decBuff.data()) == 0)
+				{
+					return 0;
+				}
+
+				queueInfo.index = index;
+				queueInfo.head = head;
+				queueInfo.size = decSize;
+				queueInfo.encrypt = 1;
+				queueInfo.serial = decSerial;
+
+				if(decSize > sizeof(queueInfo.buff))
+				{
+					LogAdd(LOG_RED,"[SocketTCP] Decrypted packet size too large for buffer: %d",decSize);
+					return 0;
+				}
+
+				memcpy(queueInfo.buff,decBuff.data(),decSize);
+				break;
+			}
+			default: // Pacotes sem encriptacao (C1, C2)
+			{
+				if(gPacketManager.AddData(&lpMsg[count],size) == 0 || gPacketManager.ExtractPacket(decBuff.data()) == 0)
+				{
+					return 0;
+				}
+
+				queueInfo.index = index;
+				queueInfo.head = head;
+				queueInfo.size = size;
+				queueInfo.encrypt = 0;
+				queueInfo.serial = -1;
+
+				if(size > sizeof(queueInfo.buff))
+				{
+					LogAdd(LOG_RED,"[SocketTCP] Packet size too large for buffer: %d",size);
+					return 0;
+				}
+
+				memcpy(queueInfo.buff,decBuff.data(),size);
 				break;
 			}
 		}
-		else
-		{
-			if(count > 0 && lpIoBuffer->size > 0 && lpIoBuffer->size <= (MAX_MAIN_PACKET_SIZE-count))
-			{
-				memmove(lpMsg,&lpMsg[count],lpIoBuffer->size);
-			}
 
-			break;
+		if(this->m_ServerQueue.AddToQueue(&queueInfo) != 0)
+		{
+			ReleaseSemaphore(this->m_ServerQueueSemaphore,1,0);
 		}
+
+		count += size;
 	}
+
+	// Update 92 2.5.0 -> 97K - Remontagem segura do buffer de pacotes remanescentes sem risco de corrupcao
+	if(count > 0 && lpIoBuffer->size > count)
+	{
+		memmove(lpMsg,&lpMsg[count],(lpIoBuffer->size - count));
+	}
+
+	lpIoBuffer->size -= count;
 
 	return 1;
 }

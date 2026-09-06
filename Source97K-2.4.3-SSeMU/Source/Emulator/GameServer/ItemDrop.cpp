@@ -151,9 +151,12 @@ int CItemDrop::DropItem(LPOBJ lpObj,LPOBJ lpTarget) // OK
 			continue;
 		}
 
-		if(it->DropRate == -1 || (GetLargeRand()%1000000) < it->DropRate)
+		// Update 91 2.4.9 -> 97K - Prevencao de divisao por zero na taxa de drop
+		int DropRate = it->DropRate;
+
+		if(DropRate != 0 && (DropRate == -1 || (GetLargeRand()%1000000) < DropRate))
 		{
-			int rate = (1000000/((it->DropRate==-1)?1000000:it->DropRate));
+			int rate = (DropRate==-1)?1:(1000000/DropRate);
 
 			RandomManager.AddElement((int)(&(*it)),rate);
 		}

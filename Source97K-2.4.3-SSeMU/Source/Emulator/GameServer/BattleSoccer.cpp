@@ -9,6 +9,7 @@
 #include "MapManager.h"
 #include "Monster.h"
 #include "Party.h"
+#include "ServerInfo.h"
 #include "Util.h"
 
 CBattleSoccer gBattleSoccer;
@@ -431,7 +432,8 @@ void CBattleSoccer::MonsterProc(LPOBJ lpObj) // OK
 		{
 			gObjMonsterRegen(lpObj);
 
-			if(gGuild.gObjGuildWarProc(lpInfo1->Guild,lpInfo2->Guild,20) == 1)
+			// Update 89 2.4.7 -> 97K - Pontuação de gol no soccer configurável
+			if(gGuild.gObjGuildWarProc(lpInfo1->Guild,lpInfo2->Guild,gServerInfo.m_GuildWarKillScore3) == 1)
 			{
 				if(lpInfo1->Guild->WarType == GUILD_WAR_TYPE_SOCCER)
 				{

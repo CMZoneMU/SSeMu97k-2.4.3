@@ -116,7 +116,8 @@ void CMonsterSetBase::Load(char* path,int MapNumber) // OK
 
 				info.Y = lpMemScript->GetAsNumber();
 
-				if(section == 1)
+				// Update 91 2.4.9 -> 97K - Correcao na leitura de spawns em area para eventos (section 1 e 3)
+				if(section == 1 || section == 3)
 				{
 					info.TX = lpMemScript->GetAsNumber();
 					info.TY = lpMemScript->GetAsNumber();
@@ -129,7 +130,7 @@ void CMonsterSetBase::Load(char* path,int MapNumber) // OK
 
 				info.Dir = lpMemScript->GetAsNumber();
 
-				if(section == 1)
+				if(section == 1 || section == 3)
 				{
 					int count = lpMemScript->GetAsNumber();
 
@@ -153,9 +154,15 @@ void CMonsterSetBase::Load(char* path,int MapNumber) // OK
 	delete lpMemScript;
 }
 
+// Update 91 2.4.9 -> 97K - Validacao de mapa ao registrar spawn de monstro
 void CMonsterSetBase::SetInfo(MONSTER_SET_BASE_INFO info) // OK
 {
 	if(this->m_count < 0 || this->m_count >= MAX_MSB_MONSTER)
+	{
+		return;
+	}
+
+	if(gMapManager.IsValidMap(info.Map) == 0)
 	{
 		return;
 	}

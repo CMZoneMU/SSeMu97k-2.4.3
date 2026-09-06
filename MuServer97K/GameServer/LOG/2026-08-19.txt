@@ -1,0 +1,146 @@
+00:00:00 [Blood Castle] (1) SetState READY
+00:00:00 [Blood Castle] (2) SetState READY
+00:00:00 [Blood Castle] (3) SetState READY
+00:00:00 [Blood Castle] (4) SetState READY
+00:00:00 [Blood Castle] (5) SetState READY
+00:00:00 [Blood Castle] (6) SetState READY
+00:05:00 [Blood Castle] (1) SetState STAND
+00:05:00 [Blood Castle] (2) SetState STAND
+00:05:00 [Blood Castle] (3) SetState STAND
+00:05:00 [Blood Castle] (4) SetState STAND
+00:05:00 [Blood Castle] (5) SetState STAND
+00:05:00 [Blood Castle] (6) SetState STAND
+00:05:00 [Invasion Manager] (0) SetState START
+00:05:00 [Invasion Manager] (0) Spawn Monster [55] Map:3 X:203 Y:77
+00:05:00 [Invasion Manager] (0) Spawn Monster [56] Map:3 X:192 Y:71
+00:05:00 [Invasion Manager] (0) Spawn Monster [56] Map:3 X:185 Y:82
+00:05:00 [Invasion Manager] (0) Spawn Monster [56] Map:3 X:205 Y:86
+00:05:00 [Invasion Manager] (0) Spawn Monster [56] Map:3 X:199 Y:70
+00:05:00 [Invasion Manager] (0) Spawn Monster [56] Map:3 X:204 Y:60
+00:05:00 [Invasion Manager] (0) Spawn Monster [56] Map:3 X:200 Y:75
+00:05:00 [Invasion Manager] (0) Spawn Monster [56] Map:3 X:204 Y:78
+00:05:00 [Invasion Manager] (0) Spawn Monster [56] Map:3 X:190 Y:69
+00:05:00 [Invasion Manager] (0) Spawn Monster [56] Map:3 X:197 Y:63
+00:05:00 [Invasion Manager] (0) Spawn Monster [56] Map:3 X:202 Y:79
+00:05:01 [Blood Castle] (1) Sync Start Time. [1] hour [54] min remain
+00:05:01 [Blood Castle] (1) SetState EMPTY
+00:05:01 [Blood Castle] (2) Sync Start Time. [1] hour [54] min remain
+00:05:01 [Blood Castle] (2) SetState EMPTY
+00:05:01 [Blood Castle] (3) Sync Start Time. [1] hour [54] min remain
+00:05:01 [Blood Castle] (3) SetState EMPTY
+00:05:01 [Blood Castle] (4) Sync Start Time. [1] hour [54] min remain
+00:05:01 [Blood Castle] (4) SetState EMPTY
+00:05:01 [Blood Castle] (5) Sync Start Time. [1] hour [54] min remain
+00:05:01 [Blood Castle] (5) SetState EMPTY
+00:05:01 [Blood Castle] (6) Sync Start Time. [1] hour [54] min remain
+00:05:01 [Blood Castle] (6) SetState EMPTY
+00:15:00 [Invasion Manager] (0) SetState EMPTY
+00:15:00 [Invasion Manager] (0) Sync Start Time. [3] hour [50] min remain
+00:15:00 [Invasion Manager] (1) SetState START
+00:15:00 [Invasion Manager] (1) Spawn Monster [42] Map:2 X:154 Y:218
+00:25:00 [Invasion Manager] (1) SetState EMPTY
+00:25:00 [Invasion Manager] (1) Sync Start Time. [3] hour [50] min remain
+00:25:00 [Invasion Manager] (2) SetState START
+00:25:00 [Invasion Manager] (2) Spawn Monster [43] Map:0 X:89 Y:119
+00:25:00 [Invasion Manager] (2) Spawn Monster [43] Map:0 X:80 Y:182
+00:25:00 [Invasion Manager] (2) Spawn Monster [43] Map:0 X:106 Y:79
+00:25:00 [Invasion Manager] (2) Spawn Monster [43] Map:0 X:161 Y:57
+00:25:00 [Invasion Manager] (2) Spawn Monster [43] Map:0 X:69 Y:57
+00:25:00 [Invasion Manager] (2) Spawn Monster [53] Map:2 X:120 Y:103
+00:25:00 [Invasion Manager] (2) Spawn Monster [53] Map:2 X:192 Y:220
+00:25:00 [Invasion Manager] (2) Spawn Monster [53] Map:2 X:208 Y:83
+00:25:00 [Invasion Manager] (2) Spawn Monster [53] Map:2 X:64 Y:99
+00:25:00 [Invasion Manager] (2) Spawn Monster [53] Map:2 X:23 Y:145
+00:25:00 [Invasion Manager] (2) Spawn Monster [54] Map:2 X:50 Y:36
+00:25:00 [Invasion Manager] (2) Spawn Monster [54] Map:2 X:86 Y:106
+00:25:00 [Invasion Manager] (2) Spawn Monster [54] Map:2 X:193 Y:236
+00:25:00 [Invasion Manager] (2) Spawn Monster [54] Map:2 X:126 Y:19
+00:25:00 [Invasion Manager] (2) Spawn Monster [54] Map:2 X:88 Y:134
+00:25:00 [Invasion Manager] (2) Spawn Monster [78] Map:3 X:16 Y:173
+00:25:00 [Invasion Manager] (2) Spawn Monster [78] Map:3 X:218 Y:83
+00:25:00 [Invasion Manager] (2) Spawn Monster [78] Map:3 X:114 Y:104
+00:25:00 [Invasion Manager] (2) Spawn Monster [78] Map:3 X:23 Y:108
+00:25:00 [Invasion Manager] (2) Spawn Monster [78] Map:3 X:48 Y:104
+00:25:00 [Invasion Manager] (2) Spawn Monster [79] Map:2 X:40 Y:76
+00:25:00 [Invasion Manager] (2) Spawn Monster [80] Map:7 X:109 Y:144
+00:25:00 [Invasion Manager] (2) Spawn Monster [80] Map:7 X:25 Y:228
+00:25:00 [Invasion Manager] (2) Spawn Monster [80] Map:7 X:34 Y:173
+00:25:00 [Invasion Manager] (2) Spawn Monster [81] Map:7 X:131 Y:72
+00:25:00 [Invasion Manager] (2) Spawn Monster [81] Map:7 X:181 Y:23
+00:25:00 [Invasion Manager] (2) Spawn Monster [81] Map:7 X:49 Y:182
+00:25:00 [Invasion Manager] (2) Spawn Monster [81] Map:7 X:180 Y:104
+00:25:00 [Invasion Manager] (2) Spawn Monster [81] Map:7 X:135 Y:63
+00:25:00 [Invasion Manager] (2) Spawn Monster [82] Map:8 X:178 Y:114
+00:25:00 [Invasion Manager] (2) Spawn Monster [82] Map:8 X:157 Y:198
+00:25:00 [Invasion Manager] (2) Spawn Monster [82] Map:8 X:50 Y:234
+00:25:00 [Invasion Manager] (2) Spawn Monster [83] Map:8 X:63 Y:190
+00:25:00 [Invasion Manager] (2) Spawn Monster [83] Map:8 X:121 Y:226
+00:25:00 [Invasion Manager] (2) Spawn Monster [83] Map:8 X:155 Y:140
+00:25:00 [Invasion Manager] (2) Spawn Monster [83] Map:8 X:88 Y:207
+00:25:00 [Invasion Manager] (2) Spawn Monster [83] Map:8 X:156 Y:144
+00:30:00 [Devil Square] (1) SetState READY
+00:30:00 [Devil Square] (2) SetState READY
+00:30:00 [Devil Square] (3) SetState READY
+00:30:00 [Devil Square] (4) SetState READY
+00:35:00 [Devil Square] (1) SetState STAND
+00:35:00 [Devil Square] (2) SetState STAND
+00:35:00 [Devil Square] (3) SetState STAND
+00:35:00 [Devil Square] (4) SetState STAND
+00:35:00 [Invasion Manager] (2) SetState EMPTY
+00:35:00 [Invasion Manager] (2) Sync Start Time. [3] hour [50] min remain
+00:35:01 [Devil Square] (1) Sync Start Time. [3] hour [54] min remain
+00:35:01 [Devil Square] (1) SetState EMPTY
+00:35:01 [Devil Square] (2) Sync Start Time. [3] hour [54] min remain
+00:35:01 [Devil Square] (2) SetState EMPTY
+00:35:01 [Devil Square] (3) Sync Start Time. [3] hour [54] min remain
+00:35:01 [Devil Square] (3) SetState EMPTY
+00:35:01 [Devil Square] (4) Sync Start Time. [3] hour [54] min remain
+00:35:01 [Devil Square] (4) SetState EMPTY
+00:52:09 [Blood Castle] (1) Sync Start Time. [1] hour [7] min remain
+00:52:09 [Blood Castle] (1) SetState EMPTY
+00:52:09 [Blood Castle] (2) Sync Start Time. [1] hour [7] min remain
+00:52:09 [Blood Castle] (2) SetState EMPTY
+00:52:09 [Blood Castle] (3) Sync Start Time. [1] hour [7] min remain
+00:52:09 [Blood Castle] (3) SetState EMPTY
+00:52:09 [Blood Castle] (4) Sync Start Time. [1] hour [7] min remain
+00:52:09 [Blood Castle] (4) SetState EMPTY
+00:52:09 [Blood Castle] (5) Sync Start Time. [1] hour [7] min remain
+00:52:09 [Blood Castle] (5) SetState EMPTY
+00:52:09 [Blood Castle] (6) Sync Start Time. [1] hour [7] min remain
+00:52:09 [Blood Castle] (6) SetState EMPTY
+00:52:09 [Devil Square] (1) Sync Start Time. [3] hour [37] min remain
+00:52:09 [Devil Square] (1) SetState EMPTY
+00:52:09 [Devil Square] (2) Sync Start Time. [3] hour [37] min remain
+00:52:09 [Devil Square] (2) SetState EMPTY
+00:52:09 [Devil Square] (3) Sync Start Time. [3] hour [37] min remain
+00:52:09 [Devil Square] (3) SetState EMPTY
+00:52:09 [Devil Square] (4) Sync Start Time. [3] hour [37] min remain
+00:52:09 [Devil Square] (4) SetState EMPTY
+00:52:09 [Invasion Manager] (0) Sync Start Time. [3] hour [12] min remain
+00:52:09 [Invasion Manager] (1) Sync Start Time. [3] hour [22] min remain
+00:52:09 [Invasion Manager] (2) Sync Start Time. [3] hour [32] min remain
+00:52:09 [ServerInfo] All options reloaded successfully
+00:52:44 [SocketManager] Server started at port [55900]
+00:52:44 [Blood Castle] (1) Sync Start Time. [1] hour [7] min remain
+00:52:44 [Blood Castle] (1) SetState EMPTY
+00:52:44 [Blood Castle] (2) Sync Start Time. [1] hour [7] min remain
+00:52:44 [Blood Castle] (2) SetState EMPTY
+00:52:44 [Blood Castle] (3) Sync Start Time. [1] hour [7] min remain
+00:52:44 [Blood Castle] (3) SetState EMPTY
+00:52:44 [Blood Castle] (4) Sync Start Time. [1] hour [7] min remain
+00:52:44 [Blood Castle] (4) SetState EMPTY
+00:52:44 [Blood Castle] (5) Sync Start Time. [1] hour [7] min remain
+00:52:44 [Blood Castle] (5) SetState EMPTY
+00:52:44 [Blood Castle] (6) Sync Start Time. [1] hour [7] min remain
+00:52:44 [Blood Castle] (6) SetState EMPTY
+00:52:44 [Devil Square] (1) Sync Start Time. [3] hour [37] min remain
+00:52:44 [Devil Square] (1) SetState EMPTY
+00:52:44 [Devil Square] (2) Sync Start Time. [3] hour [37] min remain
+00:52:44 [Devil Square] (2) SetState EMPTY
+00:52:44 [Devil Square] (3) Sync Start Time. [3] hour [37] min remain
+00:52:44 [Devil Square] (3) SetState EMPTY
+00:52:44 [Devil Square] (4) Sync Start Time. [3] hour [37] min remain
+00:52:44 [Devil Square] (4) SetState EMPTY
+00:52:44 [Invasion Manager] (0) Sync Start Time. [3] hour [12] min remain
+00:52:44 [Invasion Manager] (1) Sync Start Time. [3] hour [22] min remain
+00:52:44 [Invasion Manager] (2) Sync Start Time. [3] hour [32] min remain

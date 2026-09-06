@@ -160,6 +160,17 @@ struct SDHP_CHARACTER_INFO_RECV
 	char name[11];
 };
 
+struct SDHP_GET_ITEM_SERIAL_RECV
+{
+	PBMSG_HEAD header; // C1:06
+	WORD aIndex;
+	char account[11];
+	DWORD index;
+	WORD map;
+	WORD x;
+	WORD y;
+};
+
 struct SDHP_CREATE_ITEM_RECV
 {
 	PBMSG_HEAD header; // C1:07
@@ -527,6 +538,18 @@ struct SDHP_CHARACTER_INFO_SEND
 	WORD DSCount;
 };
 
+struct SDHP_GET_ITEM_SERIAL_SEND
+{
+	PBMSG_HEAD header; // C1:06
+	WORD aIndex;
+	char account[11];
+	DWORD index;
+	WORD map;
+	WORD x;
+	WORD y;
+	DWORD Serial;
+};
+
 struct SDHP_CREATE_ITEM_SEND
 {
 	PBMSG_HEAD header; // C1:07
@@ -640,6 +663,7 @@ void GDCharacterListRecv(SDHP_CHARACTER_LIST_RECV* lpMsg,int index);
 void GDCharacterCreateRecv(SDHP_CHARACTER_CREATE_RECV* lpMsg,int index);
 void GDCharacterDeleteRecv(SDHP_CHARACTER_DELETE_RECV* lpMsg,int index);
 void GDCharacterInfoRecv(SDHP_CHARACTER_INFO_RECV* lpMsg,int index);
+void GDGetItemSerialRecv(SDHP_GET_ITEM_SERIAL_RECV* lpMsg,int index);
 void GDCreateItemRecv(SDHP_CREATE_ITEM_RECV* lpMsg,int index);
 void GDOptionDataRecv(SDHP_OPTION_DATA_RECV* lpMsg,int index);
 void GDPetItemInfoRecv(SDHP_PET_ITEM_INFO_RECV* lpMsg,int index);

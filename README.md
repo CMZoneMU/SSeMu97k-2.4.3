@@ -3,6 +3,49 @@
 ## Autor: Nilo Master  
 ## Arquivos: Emulador + Cliente Plugin Main.dll
 
+UPDATE CMZ 06 (3.0.6) 06-09-26 / UPDATE 91 (2.4.9):
+* Sistema de Anti-Hack de Movimento e Velocidade (HackMoveSpeedCheck): reestruturada a classe para modelo singleton stateless com rastreamento de MoveTime, LastX e LastY por jogador no OBJECTSTRUCT; adicionada tolerancia de distancia extra (+2) para jogadores montados em Uniria ou Dinorant; e integrados logs de auditoria detalhados ([HackMoveCheck]) no console e arquivo de log. [GameServer][HackMoveSpeedCheck.h/.cpp][User.h/.cpp][DSProtocol.cpp][ObjectManager.cpp][97KOR]
+* Sistema de Anti-Hack de Skills (HackSkillSpeedCheck): adicionado log de auditoria [HackSkillCheck] com registro de conta, nome, mapa e tempos de animacao para analise de velocidade de ataque anormal. [GameServer][HackSkillSpeedCheck.cpp][97KOR]
+* Correcoes no Sistema de Drops e Fallback de Itens Excelentes: adicionado fallback seguro para o fluxo padrao de drop quando a busca por DropIndex falha em ExcItemDrop (DropIndex < 0), prevenindo monstros que morrem sem soltar itens configurados; corrigido nivel aleatorio no drop de Summon Orb de Elf Soldier (ItemIndex 12,11) com GetLargeRand()%6; e adicionada protecao contra divisao por zero no calculo de taxa de drop em ItemDrop. [GameServer][Monster.cpp][ItemDrop.cpp][97KOR]
+* Spawns de Monstros em Mapas e Eventos (MonsterSetBase): adicionado suporte completo para a secao 3 (Section 3 - Spawns em area com coordenadas TX/TY e quantidade count) permitindo spawns dinamicos em eventos como Blood Castle; e adicionada validacao de mapa com gMapManager.IsValidMap no carregamento de monstros. [GameServer][MonsterSetBase.cpp][97KOR]
+
+
+UPDATE CMZ 05 (3.0.5) 06-09-26 / UPDATE 90 (2.4.8):
+* DataServer - Correcao na Geracao de Seriais: adicionada checagem e insercao automatica do registro GameServerInfo com Number = 0 no procedimento GDServerInfoRecv para garantir a inicializacao e geracao correta de seriais (WZ_GetItemSerial) em bancos de dados recem-criados. [DataServer][DataServerProtocol.cpp][97KOR]
+* Sistema de Reconexao (Fase 2 - Devil Square & Blood Castle): implementado suporte a reconexao em eventos locais (Devil Square e Blood Castle) com rastreamento de EventFlag e EventLevel no OBJECTSTRUCT, salvamento de Account/IpAddr/HardwareId no mapa local de reconexao, e restauracao automatica de posicao e estado (ResumeLocalEvent) com validacao de tempo limite (ReconnectEventMaxTime) e vagas disponiveis. [GameServer][Reconnect.h/.cpp][User.h/.cpp][DevilSquare.cpp][BloodCastle.cpp][ServerInfo.h/.cpp][97KOR]
+* Sistema de Reconexao (Opcoes Configuraveis): adicionadas chaves de controle em GameServerInfo - Common.dat (ReconnectAttackSwitch, ReconnectCommandSwitch, ReconnectEventSwitch, ReconnectEventMaxTime, ReconnectPartySwitch, ReconnectPickSwitch, ReconnectOfflineSwitch) permitindo ligar e desligar individualmente o retorno de ataque automatico, comandos ativos, eventos e party. [GameServer][ServerInfo.h/.cpp][Reconnect.cpp][97KOR]
+* Seguranca de Sintaxe de Nomes (CheckNameSyntax): adicionada rotina CheckNameSyntax que rejeita caracteres invalidos e tentativas de injecao (espacos, aspas, barras, porcentagem e underline) na criacao de personagens (CGCharacterCreateRecv), criacao de guilds (CGGuildCreateRecv) e no comando /rename. [GameServer][Util.h/.cpp][Guild.cpp][Protocol.cpp][CommandManager.cpp][97KOR]
+* Correcao de Posicionamento e Barreira (CGPositionRecv): adicionada verificacao de atributos de terreno bloqueado e barreiras (atributos 4 e 8) no pacote de envio de posicao pelo cliente, impedindo teleporte ou caminhada para coordenadas intransponiveis. [GameServer][Protocol.cpp][97KOR]
+* Seguranca e Protecoes no Pacote 0xA7 (CGPetItemInfoRecv): implementada protecao completa e validacao de limites (INVENTORY_RANGE, WAREHOUSE_RANGE, TRADE_RANGE, CHAOS_BOX_RANGE) e tipo de pet no pacote 0xA7, alem do envio correto em GCPetItemInfoSend (0xA9), prevenindo crashes do GameServer e manipulacao indevida de memoria. [GameServer][Protocol.h/.cpp][97KOR]
+
+
+UPDATE CMZ 04 (3.0.4) 05-09-26 / UPDATE 89 (2.4.7 & 2.4.7-1):
+* Guild War & Battle Soccer: implementadas variaveis de pontuacao configuraveis em GameServerInfo - Common.dat (GuildWarSwitch, GuildWarScoreMax1, GuildWarScoreMax2, GuildWarKillScore1/2/3, GuildWarWinnerScore1/2/3) e correcao no calculo de pontuacao de vitoria em gObjGuildWarProc e gols no Battle Soccer com m_GuildWarKillScore3. [GameServer][Guild.cpp][BattleSoccer.cpp][ServerInfo.h/.cpp][97KOR]
+* Comandos /reset e /mreset: corrigida subtracao de resets e niveis quando configurados como -1 (StartLevel/StartReset) com clamping de valores; restauracao correta de magias nativas (Energy Ball, Force, Fire Burst) e magias de armas equipadas via AddSkill e AddSkillWeapon ao limpar skills; e adicionado gate move para Dark Lord (Gate 17). [GameServer][CommandManager.cpp][97KOR]
+* Filtro de Palavras e Nomes (Filter): reconstruido o subsistema de sanitizacao (Data\Util\Filter.txt) com std::set<std::string>, normalizacao em lowercase e mascaramento dinamico no texto original com asteriscos (*) em CheckSyntax sem descarte indevido de pacotes de chat geral ou whisper. [GameServer][Filter.h/.cpp][Protocol.cpp][DSProtocol.cpp][97KOR]
+* Customizacao do Comando /post: adicionada a opcao CommandPostMessage em GameServerInfo - Command.dat permitindo customizar o indice da mensagem no Message.txt (padrao 323). [GameServer][CommandManager.cpp][ServerInfo.h/.cpp][97KOR]
+* Sistema de Reconexao (Fase 1 - DataServer & ReconnectTime): implementada persistencia de reconexao no banco de dados via tabela ReconnectData (UPDATE 2.4.7-1 - ReconnectData.sql), sincronizacao bidirecional entre GameServer e DataServer via pacotes 0xC0 (insercao, delecao e envio em lote no startup do GS) e unificacao do temporizador ReconnectTime. [GameServer][DataServer][Reconnect.h/.cpp][ServerInfo.h/.cpp][ObjectManager.cpp][DSProtocol.cpp][DataServerProtocol.cpp][97KOR]
+
+
+UPDATE CMZ 03 (3.0.3) 05-09-26 / UPDATE 88 (2.4.6):
+* Sistema de Recompensas Diarias: implementado sistema completo no GameServer e DataServer com configuracao em Data\Custom\CustomDailyReward.txt e persistencia em DailyRewardData (UPDATE 2.4.6 - Daily Reward.sql). [GameServer][DataServer][CustomDailyReward.h/.cpp][DSProtocol.cpp][DataServerProtocol.cpp][97KOR]
+* Drops Personalizados (SpecialBag): adicionado suporte a SpecialBag na configuracao Data\Custom\CustomMonster.txt para drops personalizados por monstro e mapa via DropItemBySpecialValue, suprimindo o drop comum do monstro quando ativo. [GameServer][CustomMonster.h/.cpp][Monster.cpp][User.h/.cpp][97KOR]
+* Anti-Dupe e Seguranca de Interfaces: reestruturado o fechamento concorrente de janelas (Trade, Bau, Chaos Box) e corrigido o fechamento da maquina chaos via CGNpcTalkCloseRecv (0x31), impedindo exploits de desincronizacao de itens e comite indevido. [GameServer][NpcTalk.cpp][ChaosBox.cpp][ItemManager.cpp][97KOR]
+* Correcao de Distancia em NPCs: corrigida a validacao de distancia de dialogo com NPCs em CGNpcTalkRecv para comparar a distancia real entre o jogador e o NPC em vez do jogador consigo mesmo. [GameServer][NpcTalk.cpp][97KOR]
+* Calculos em MonsterList: adicionada macro GET_MAX_VALUE e casting ULONGLONG na configuracao de monstros e multiplicadores de servidor, prevenindo overflows e truncamentos em vida, defesa, dano e taxas de ataque/defesa. [GameServer][MonsterManager.h/.cpp][CustomMonster.cpp][97KOR]
+* Bridge LUA (ItemGive): corrigida a funcao ItemGive no script LUA com validacao previa de espaco livre no inventario e balanceamento estrito da stack de retorno com booleanos. [GameServer][LuaFunction.cpp][97KOR]
+* Logs de Auditoria e Controle: incluidos novos logs no console do GameServer informando total de itens e monstros carregados, alem de deteccao de itens invalidos em Bags de eventos. [GameServer][ItemBag.cpp][ItemManager.cpp][MonsterManager.cpp][97KOR]
+
+
+UPDATE CMZ 02 (3.0.2) 05-09-26 / UPDATE 87 (2.4.5):
+* Foi corrigida a duplicacao de itens na Chaos Machine e NPC Trainer via validacao de Interface, transacao ativa e checagens no ItemManager. [GameServer][ChaosBox.cpp][NpcTalk.cpp][ItemManager.cpp][97KOR]
+* Foi corrigida a edicao indevida de pontos e atributos do personagem adicionando validacao de montante positivo em CharacterLevelUpPointAdd e bloqueios de estado e interface em /readd (/redistribute). [GameServer][ObjectManager.cpp][CommandManager.cpp][97KOR]
+* Foi otimizado o QueryManager no DataServer com correcao de operadores em loops de conversao binaria, eliminacao de leituras de buffers estaticos desnecessarios e melhoria na extracao de strings e binarios. [DataServer][QueryManager.cpp][97KOR]
+* Foi implementado o sistema inteligente de serializacao sob demanda: itens dropados no chao recebem serial somente ao serem recolhidos, reduzindo drasticamente queries SQL repetitivas e overhead do banco de dados. [GameServer][DataServer][DSProtocol.cpp][ItemManager.cpp][MapItem.cpp][DataServerProtocol.cpp][97KOR]
+* Foi corrigida a perda e calculo incorreto de Zen ao morrer com penalidade, evitando overflow aritmetico em 32-bit e descontos invalidos. [GameServer][User.cpp][97KOR]
+* Foi corrigido o comando /rename no DataServer com passagem e ligacao correta de parametros SQL (WZ_RenameCharacter) e eliminada a dependencia depreciada de BadSyntax.txt no DataServer. [DataServer][CommandManager.cpp][DataServerProtocol.cpp][DataServer.cpp][97KOR]
+
+
 UPDATE CMZ 01 (3.0.1) 04-09-26 / UPDATE 86 (2.4.4 & 2.4.4-1):
 * Foi corrigido o sistema de cliques simultaneos do mouse que causava disparos e ataques descontrolados. [Main.dll][97KOR]
 * Foram implementadas as opcoes HaveSerial e HaveOption em Item.txt e GameServer: [GameServer][97KOR]

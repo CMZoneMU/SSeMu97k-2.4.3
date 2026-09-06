@@ -745,22 +745,49 @@ void CCustomAttack::CustomAttackAutoBuff(LPOBJ lpObj) // OK
 			continue;
 		}
 
+		// Update 92 2.5.0 -> 97K - Correcao na aplicacao continua de buffs de suporte de Elfa e checagem de Heal
 		if(it->second.Value == 0)
 		{
-			if(gEffectManager.CheckEffect(lpObj,gSkillManager.GetSkillEffect(lpSkill->m_index)) == 0)
+			if(lpSkill->m_index == SKILL_HEAL)
 			{
-				this->CustomAttackUseSkill(lpObj,lpObj,&it->second,lpSkill);
-				continue;
+				if(((lpObj->Life * 100) / (lpObj->MaxLife + lpObj->AddLife)) <= 50)
+				{
+					this->CustomAttackUseSkill(lpObj,lpObj,&it->second,lpSkill);
+					return;
+				}
+			}
+			else
+			{
+				int effect = gSkillManager.GetSkillEffect(lpSkill->m_index);
+
+				if(effect != -1 && gEffectManager.CheckEffect(lpObj,effect) == 0)
+				{
+					this->CustomAttackUseSkill(lpObj,lpObj,&it->second,lpSkill);
+					return;
+				}
 			}
 		}
 		else
 		{
 			if(OBJECT_RANGE(lpObj->PartyNumber) == 0)
 			{
-				if(gEffectManager.CheckEffect(lpObj,gSkillManager.GetSkillEffect(lpSkill->m_index)) == 0)
+				if(lpSkill->m_index == SKILL_HEAL)
 				{
-					this->CustomAttackUseSkill(lpObj,lpObj,&it->second,lpSkill);
-					continue;
+					if(((lpObj->Life * 100) / (lpObj->MaxLife + lpObj->AddLife)) <= 50)
+					{
+						this->CustomAttackUseSkill(lpObj,lpObj,&it->second,lpSkill);
+						return;
+					}
+				}
+				else
+				{
+					int effect = gSkillManager.GetSkillEffect(lpSkill->m_index);
+
+					if(effect != -1 && gEffectManager.CheckEffect(lpObj,effect) == 0)
+					{
+						this->CustomAttackUseSkill(lpObj,lpObj,&it->second,lpSkill);
+						return;
+					}
 				}
 			}
 			else
@@ -786,10 +813,23 @@ void CCustomAttack::CustomAttackAutoBuff(LPOBJ lpObj) // OK
 						continue;
 					}
 
-					if(gEffectManager.CheckEffect(lpTarget,gSkillManager.GetSkillEffect(lpSkill->m_index)) == 0)
+					if(lpSkill->m_index == SKILL_HEAL)
 					{
-						this->CustomAttackUseSkill(lpObj,lpTarget,&it->second,lpSkill);
-						continue;
+						if(((lpTarget->Life * 100) / (lpTarget->MaxLife + lpTarget->AddLife)) <= 50)
+						{
+							this->CustomAttackUseSkill(lpObj,lpTarget,&it->second,lpSkill);
+							return;
+						}
+					}
+					else
+					{
+						int effect = gSkillManager.GetSkillEffect(lpSkill->m_index);
+
+						if(effect != -1 && gEffectManager.CheckEffect(lpTarget,effect) == 0)
+						{
+							this->CustomAttackUseSkill(lpObj,lpTarget,&it->second,lpSkill);
+							return;
+						}
 					}
 				}
 			}

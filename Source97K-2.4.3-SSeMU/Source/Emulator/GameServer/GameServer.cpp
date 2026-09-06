@@ -5,6 +5,7 @@
 #include "CommandManager.h"
 #include "Console.h"
 #include "DevilSquare.h"
+#include "DropEvent.h"
 #include "GameServer.h"
 #include "GameMain.h"
 #include "Gate.h"
@@ -238,6 +239,33 @@ VOID RenderMenu(HWND hWnd) // OK
 	AppendMenu(hBonus,MF_STRING,IDM_FORCE_BONUS18,"Start Bonus 18");
 	AppendMenu(hBonus,MF_STRING,IDM_FORCE_BONUS19,"Start Bonus 19");
 
+	// Update 92 2.5.0 -> 97K - Novo menu Drop Event no GameServer
+	HMENU hDrop = CreatePopupMenu();
+
+	AppendMenu(hEvents,MF_STRING|MF_POPUP,(UINT_PTR)hDrop,"&Drop Event");
+
+	AppendMenu(hDrop,MF_STRING,IDM_FORCE_DROP0,"Start Drop Event 0");
+	AppendMenu(hDrop,MF_STRING,IDM_FORCE_DROP1,"Start Drop Event 1");
+	AppendMenu(hDrop,MF_STRING,IDM_FORCE_DROP2,"Start Drop Event 2");
+	AppendMenu(hDrop,MF_STRING,IDM_FORCE_DROP3,"Start Drop Event 3");
+	AppendMenu(hDrop,MF_STRING,IDM_FORCE_DROP4,"Start Drop Event 4");
+	AppendMenu(hDrop,MF_STRING,IDM_FORCE_DROP5,"Start Drop Event 5");
+	AppendMenu(hDrop,MF_STRING,IDM_FORCE_DROP6,"Start Drop Event 6");
+	AppendMenu(hDrop,MF_STRING,IDM_FORCE_DROP7,"Start Drop Event 7");
+	AppendMenu(hDrop,MF_STRING,IDM_FORCE_DROP8,"Start Drop Event 8");
+	AppendMenu(hDrop,MF_STRING,IDM_FORCE_DROP9,"Start Drop Event 9");
+	AppendMenu(hDrop,MF_SEPARATOR,0,0);
+	AppendMenu(hDrop,MF_STRING,IDM_FORCE_DROP10,"Start Drop Event 10");
+	AppendMenu(hDrop,MF_STRING,IDM_FORCE_DROP11,"Start Drop Event 11");
+	AppendMenu(hDrop,MF_STRING,IDM_FORCE_DROP12,"Start Drop Event 12");
+	AppendMenu(hDrop,MF_STRING,IDM_FORCE_DROP13,"Start Drop Event 13");
+	AppendMenu(hDrop,MF_STRING,IDM_FORCE_DROP14,"Start Drop Event 14");
+	AppendMenu(hDrop,MF_STRING,IDM_FORCE_DROP15,"Start Drop Event 15");
+	AppendMenu(hDrop,MF_STRING,IDM_FORCE_DROP16,"Start Drop Event 16");
+	AppendMenu(hDrop,MF_STRING,IDM_FORCE_DROP17,"Start Drop Event 17");
+	AppendMenu(hDrop,MF_STRING,IDM_FORCE_DROP18,"Start Drop Event 18");
+	AppendMenu(hDrop,MF_STRING,IDM_FORCE_DROP19,"Start Drop Event 19");
+
 	HMENU hInvasion = CreatePopupMenu();
 	
 	AppendMenu(hEvents,MF_STRING|MF_POPUP,(UINT_PTR)hInvasion,"&Invasion Manager");
@@ -263,6 +291,18 @@ VOID RenderMenu(HWND hWnd) // OK
 	AppendMenu(hInvasion,MF_STRING,IDM_FORCE_INVASION17,"Start Invasion 17");
 	AppendMenu(hInvasion,MF_STRING,IDM_FORCE_INVASION18,"Start Invasion 18");
 	AppendMenu(hInvasion,MF_STRING,IDM_FORCE_INVASION19,"Start Invasion 19");
+	// Update 92 2.5.0 -> 97K - Expansao do menu de invasoes para 30 slots
+	AppendMenu(hInvasion,MF_SEPARATOR,0,0);
+	AppendMenu(hInvasion,MF_STRING,IDM_FORCE_INVASION20,"Start Invasion 20");
+	AppendMenu(hInvasion,MF_STRING,IDM_FORCE_INVASION21,"Start Invasion 21");
+	AppendMenu(hInvasion,MF_STRING,IDM_FORCE_INVASION22,"Start Invasion 22");
+	AppendMenu(hInvasion,MF_STRING,IDM_FORCE_INVASION23,"Start Invasion 23");
+	AppendMenu(hInvasion,MF_STRING,IDM_FORCE_INVASION24,"Start Invasion 24");
+	AppendMenu(hInvasion,MF_STRING,IDM_FORCE_INVASION25,"Start Invasion 25");
+	AppendMenu(hInvasion,MF_STRING,IDM_FORCE_INVASION26,"Start Invasion 26");
+	AppendMenu(hInvasion,MF_STRING,IDM_FORCE_INVASION27,"Start Invasion 27");
+	AppendMenu(hInvasion,MF_STRING,IDM_FORCE_INVASION28,"Start Invasion 28");
+	AppendMenu(hInvasion,MF_STRING,IDM_FORCE_INVASION29,"Start Invasion 29");
 	
 	AppendMenu(hEvents,MF_SEPARATOR,0,0);
 	
@@ -309,6 +349,44 @@ VOID RenderMenu(HWND hWnd) // OK
 	AppendMenu(hHelp,MF_STRING,IDM_ABOUT,"&About ...");
 
     SetMenu(hWnd,hMenu);
+}
+
+// Update 92 2.5.0 -> 97K - Funcao para renomear e habilitar/desabilitar dinamicamente os itens de menu
+void EditMenuLabel(BYTE slot1,BYTE slot2,UINT itemID,LPCSTR newLabel,bool state)
+{
+	HMENU hMenu = GetMenu(hWnd);
+
+	if(hMenu == 0) 
+	{
+		return;
+	}
+
+	HMENU hEvents = GetSubMenu(hMenu,slot1);
+	
+	if(hEvents == 0) 
+	{
+		return;
+	}
+
+	HMENU hSub = GetSubMenu(hEvents,slot2);
+
+	if(hSub == 0)
+	{
+		return;
+	}
+
+	MENUITEMINFO menuItemInfo = {0};
+
+	menuItemInfo.cbSize = sizeof(MENUITEMINFO);
+	menuItemInfo.fMask = MIIM_STRING | MIIM_STATE;
+	menuItemInfo.dwTypeData = (LPSTR)newLabel;
+	menuItemInfo.cch = strlen(newLabel);
+	menuItemInfo.fState = ((state==0)?MFS_DISABLED:MFS_ENABLED);
+
+	if(SetMenuItemInfo(hSub,itemID,FALSE,&menuItemInfo)) 
+	{
+		DrawMenuBar(hWnd);
+	}
 }
 
 LRESULT CALLBACK WndProc(HWND hWnd,UINT message,WPARAM wParam,LPARAM lParam) // OK
@@ -440,6 +518,67 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT message,WPARAM wParam,LPARAM lParam) // 
 				case IDM_FORCE_BONUS19:
 					gBonusManager.ForceStart(19);
 					break;
+				// Update 92 2.5.0 -> 97K - Acoes de menu para forcar inicio de Drop Events
+				case IDM_FORCE_DROP0:
+					gDropEvent.ForceStart(0);
+					break;
+				case IDM_FORCE_DROP1:
+					gDropEvent.ForceStart(1);
+					break;
+				case IDM_FORCE_DROP2:
+					gDropEvent.ForceStart(2);
+					break;
+				case IDM_FORCE_DROP3:
+					gDropEvent.ForceStart(3);
+					break;
+				case IDM_FORCE_DROP4:
+					gDropEvent.ForceStart(4);
+					break;
+				case IDM_FORCE_DROP5:
+					gDropEvent.ForceStart(5);
+					break;
+				case IDM_FORCE_DROP6:
+					gDropEvent.ForceStart(6);
+					break;
+				case IDM_FORCE_DROP7:
+					gDropEvent.ForceStart(7);
+					break;
+				case IDM_FORCE_DROP8:
+					gDropEvent.ForceStart(8);
+					break;
+				case IDM_FORCE_DROP9:
+					gDropEvent.ForceStart(9);
+					break;
+				case IDM_FORCE_DROP10:
+					gDropEvent.ForceStart(10);
+					break;
+				case IDM_FORCE_DROP11:
+					gDropEvent.ForceStart(11);
+					break;
+				case IDM_FORCE_DROP12:
+					gDropEvent.ForceStart(12);
+					break;
+				case IDM_FORCE_DROP13:
+					gDropEvent.ForceStart(13);
+					break;
+				case IDM_FORCE_DROP14:
+					gDropEvent.ForceStart(14);
+					break;
+				case IDM_FORCE_DROP15:
+					gDropEvent.ForceStart(15);
+					break;
+				case IDM_FORCE_DROP16:
+					gDropEvent.ForceStart(16);
+					break;
+				case IDM_FORCE_DROP17:
+					gDropEvent.ForceStart(17);
+					break;
+				case IDM_FORCE_DROP18:
+					gDropEvent.ForceStart(18);
+					break;
+				case IDM_FORCE_DROP19:
+					gDropEvent.ForceStart(19);
+					break;
 				case IDM_FORCE_INVASION0:
 					gInvasionManager.ForceStart(0);
 					break;
@@ -499,6 +638,37 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT message,WPARAM wParam,LPARAM lParam) // 
 					break;
 				case IDM_FORCE_INVASION19:
 					gInvasionManager.ForceStart(19);
+					break;
+				// Update 92 2.5.0 -> 97K - Acoes de menu para forcar inicio de Invasoes 20 a 29
+				case IDM_FORCE_INVASION20:
+					gInvasionManager.ForceStart(20);
+					break;
+				case IDM_FORCE_INVASION21:
+					gInvasionManager.ForceStart(21);
+					break;
+				case IDM_FORCE_INVASION22:
+					gInvasionManager.ForceStart(22);
+					break;
+				case IDM_FORCE_INVASION23:
+					gInvasionManager.ForceStart(23);
+					break;
+				case IDM_FORCE_INVASION24:
+					gInvasionManager.ForceStart(24);
+					break;
+				case IDM_FORCE_INVASION25:
+					gInvasionManager.ForceStart(25);
+					break;
+				case IDM_FORCE_INVASION26:
+					gInvasionManager.ForceStart(26);
+					break;
+				case IDM_FORCE_INVASION27:
+					gInvasionManager.ForceStart(27);
+					break;
+				case IDM_FORCE_INVASION28:
+					gInvasionManager.ForceStart(28);
+					break;
+				case IDM_FORCE_INVASION29:
+					gInvasionManager.ForceStart(29);
 					break;
 				case IDM_RELOAD_RELOADALL:
 					gServerInfo.ReadBlackListInfo();

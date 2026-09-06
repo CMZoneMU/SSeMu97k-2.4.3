@@ -1,0 +1,2 @@
+00:20:56 [SocketTCP] Server started at port [55970]
+00:21:05 [SocketUDP] GameServer connected [GameServer_0] [127.0.0.1:55900][0]

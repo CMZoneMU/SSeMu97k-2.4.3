@@ -95,6 +95,8 @@
     <ClInclude Include="Core\CharacterManager.h" />
     <ClInclude Include="Core\CommandManager.h" />
     <ClInclude Include="Utils\CriticalSection.h" />
+    <ClInclude Include="Core\CustomDailyReward.h" />
+    <ClInclude Include="Core\Reconnect.h" />
     <ClInclude Include="Core\CustomPick.h" />
     <ClInclude Include="Core\DataServer.h" />
     <ClInclude Include="Network\DataServerProtocol.h" />
@@ -125,6 +127,8 @@
     <ClCompile Include="Core\CharacterManager.cpp" />
     <ClCompile Include="Core\CommandManager.cpp" />
     <ClCompile Include="Utils\CriticalSection.cpp" />
+    <ClCompile Include="Core\CustomDailyReward.cpp" />
+    <ClCompile Include="Core\Reconnect.cpp" />
     <ClCompile Include="Core\CustomPick.cpp" />
     <ClCompile Include="Core\DataServer.cpp" />
     <ClCompile Include="Network\DataServerProtocol.cpp" />

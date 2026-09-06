@@ -5,6 +5,7 @@
 #include "stdafx.h"
 #include "CustomMonster.h"
 #include "DSProtocol.h"
+#include "ItemBagManager.h"
 #include "MemScript.h"
 #include "Message.h"
 #include "Monster.h"
@@ -83,6 +84,9 @@ void CCustomMonster::Load(char* path) // OK
 
 			info.KillMessage = lpMemScript->GetAsNumber();
 
+			// Update 88 2.4.6 -> 97K - Suporte a SpecialBag em CustomMonster.txt
+			info.BagSpecial = lpMemScript->GetAsNumber();
+
 			this->m_CustomMonsterInfo.push_back(info);
 		}
 	}
@@ -103,21 +107,28 @@ void CCustomMonster::SetCustomMonsterInfo(LPOBJ lpObj) // OK
 		return;
 	}
 
-	lpObj->Life = (float)((__int64)lpObj->Life*((CustomMonsterInfo.MaxLife==-1)?100:CustomMonsterInfo.MaxLife))/100;
+	// Update 88 2.4.6 -> 97K - Correção do cálculo de vida, defesa, dano e ataques em MonsterList.txt
+	lpObj->Life = (float)((ULONGLONG)lpObj->Life*((CustomMonsterInfo.MaxLife==-1)?100:CustomMonsterInfo.MaxLife))/100;
 
-	lpObj->MaxLife = (float)((__int64)lpObj->MaxLife*((CustomMonsterInfo.MaxLife==-1)?100:CustomMonsterInfo.MaxLife))/100;
+	lpObj->MaxLife = (float)((ULONGLONG)lpObj->MaxLife*((CustomMonsterInfo.MaxLife==-1)?100:CustomMonsterInfo.MaxLife))/100;
 
-	lpObj->ScriptMaxLife = (float)((__int64)lpObj->ScriptMaxLife*((CustomMonsterInfo.MaxLife==-1)?100:CustomMonsterInfo.MaxLife))/100;
+	lpObj->ScriptMaxLife = (float)((ULONGLONG)lpObj->ScriptMaxLife*((CustomMonsterInfo.MaxLife==-1)?100:CustomMonsterInfo.MaxLife))/100;
 
-	lpObj->PhysiDamageMin = ((__int64)lpObj->PhysiDamageMin*((CustomMonsterInfo.DamageMin==-1)?100:CustomMonsterInfo.DamageMin))/100;
+	lpObj->PhysiDamageMin = ((ULONGLONG)lpObj->PhysiDamageMin*((CustomMonsterInfo.DamageMin==-1)?100:CustomMonsterInfo.DamageMin))/100;
 
-	lpObj->PhysiDamageMax = ((__int64)lpObj->PhysiDamageMax*((CustomMonsterInfo.DamageMax==-1)?100:CustomMonsterInfo.DamageMax))/100;
+	lpObj->PhysiDamageMax = ((ULONGLONG)lpObj->PhysiDamageMax*((CustomMonsterInfo.DamageMax==-1)?100:CustomMonsterInfo.DamageMax))/100;
 
-	lpObj->Defense = ((__int64)lpObj->Defense*((CustomMonsterInfo.Defense==-1)?100:CustomMonsterInfo.Defense))/100;
+	lpObj->Defense = ((ULONGLONG)lpObj->Defense*((CustomMonsterInfo.Defense==-1)?100:CustomMonsterInfo.Defense))/100;
 
-	lpObj->AttackSuccessRate = ((__int64)lpObj->AttackSuccessRate*((CustomMonsterInfo.AttackRate==-1)?100:CustomMonsterInfo.AttackRate))/100;
+	lpObj->AttackSuccessRate = ((ULONGLONG)lpObj->AttackSuccessRate*((CustomMonsterInfo.AttackRate==-1)?100:CustomMonsterInfo.AttackRate))/100;
 
-	lpObj->DefenseSuccessRate = ((__int64)lpObj->DefenseSuccessRate*((CustomMonsterInfo.DefenseRate==-1)?100:CustomMonsterInfo.DefenseRate))/100;
+	lpObj->DefenseSuccessRate = ((ULONGLONG)lpObj->DefenseSuccessRate*((CustomMonsterInfo.DefenseRate==-1)?100:CustomMonsterInfo.DefenseRate))/100;
+
+	// Update 88 2.4.6 -> 97K - Suporte a SpecialBag em CustomMonster.txt
+	if(CustomMonsterInfo.BagSpecial != -1)
+	{
+		lpObj->CustomMonsterDrop = true;
+	}
 }
 
 void CCustomMonster::MonsterDieProc(LPOBJ lpObj,LPOBJ lpTarget) // OK
@@ -139,6 +150,12 @@ void CCustomMonster::MonsterDieProc(LPOBJ lpObj,LPOBJ lpTarget) // OK
 	if(CustomMonsterInfo.KillMessage != -1)
 	{
 		gNotice.GCNoticeSendToAll(0,0,0,0,0,0,gMessage.GetMessage(CustomMonsterInfo.KillMessage),lpTarget->Name);
+	}
+
+	// Update 88 2.4.6 -> 97K - Suporte a SpecialBag em CustomMonster.txt
+	if(CustomMonsterInfo.BagSpecial != -1)
+	{
+		gItemBagManager.DropItemBySpecialValue(CustomMonsterInfo.BagSpecial,-1,-1,lpTarget,lpObj->Map,lpObj->X,lpObj->Y);
 	}
 }
 

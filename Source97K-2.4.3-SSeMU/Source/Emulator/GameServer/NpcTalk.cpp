@@ -98,6 +98,11 @@ void CNpcTalk::NpcTrainer(LPOBJ lpNpc,LPOBJ lpObj) // OK
 		return;
 	}
 
+	if(lpObj->Transaction == 1)
+	{
+		return;
+	}
+
 	lpObj->Interface.use = 1;
 	lpObj->Interface.type = INTERFACE_TRAINER;
 	lpObj->Interface.state = 0;
@@ -163,6 +168,11 @@ void CNpcTalk::NpcCharon(LPOBJ lpNpc,LPOBJ lpObj) // OK
 void CNpcTalk::NpcChaosGoblin(LPOBJ lpNpc,LPOBJ lpObj) // OK
 {
 	if(lpObj->PShopOpen != 0)
+	{
+		return;
+	}
+
+	if(lpObj->Transaction == 1)
 	{
 		return;
 	}
@@ -254,7 +264,8 @@ void CNpcTalk::CGNpcTalkRecv(PMSG_NPC_TALK_RECV* lpMsg,int aIndex) // OK
 		return;
 	}
 
-	if(gObjCalcDistance(lpObj,lpObj) > 5)
+	// Update 88 2.4.6 -> 97K - Correção de distância de diálogo com NPC
+	if(gObjCalcDistance(lpObj,lpNpc) > 5)
 	{
 		return;
 	}
@@ -337,6 +348,11 @@ void CNpcTalk::CGNpcTalkCloseRecv(int aIndex) // OK
 			gWarehouse.CGWarehouseClose(aIndex);
 			break;
 		case INTERFACE_TRAINER:
+			gChaosBox.ChaosBoxInit(lpObj);
+			gObjInventoryCommit(aIndex);
+			break;
+		// Update 88 2.4.6 -> 97K - Reestruturação interna do fechamento de janelas e anti-dupe
+		case INTERFACE_CHAOS_BOX:
 			gChaosBox.ChaosBoxInit(lpObj);
 			gObjInventoryCommit(aIndex);
 			break;

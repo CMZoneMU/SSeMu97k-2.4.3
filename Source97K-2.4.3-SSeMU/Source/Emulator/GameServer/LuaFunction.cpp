@@ -2595,19 +2595,28 @@ int LuaItemGive(lua_State *L) {
   int aValue = lua_tointeger(L, 2);
 
   if (OBJECT_RANGE(aIndex) == 0) {
-    return 0;
+    lua_pushboolean(L, 0);
+    return 1;
   }
 
   CItem item;
 
   if (gItemBagManager.GetItemBySpecialValue(aValue, -1, -1, &gObj[aIndex],
                                             &item) == 0) {
-    return 0;
+    lua_pushboolean(L, 0);
+    return 1;
+  }
+
+  // Update 88 2.4.6 -> 97K - Correção no ItemGive do script LUA
+  if (gItemManager.CheckItemInventorySpace(&gObj[aIndex], item.m_Index) == 0) {
+    lua_pushboolean(L, 0);
+    return 1;
   }
 
   GDCreateItemSend(aIndex, 0xEB, 0, 0, item.m_Index, (BYTE)item.m_Level,
                    (BYTE)item.m_Durability, item.m_Option1, item.m_Option2,
                    item.m_Option3, -1, item.m_NewOption, item.m_SetOption, 0);
+  lua_pushboolean(L, 1);
   return 1;
 }
 

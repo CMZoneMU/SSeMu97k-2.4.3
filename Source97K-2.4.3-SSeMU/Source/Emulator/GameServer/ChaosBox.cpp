@@ -847,6 +847,11 @@ void CChaosBox::CGChaosMixRecv(PMSG_CHAOS_MIX_RECV* lpMsg,int aIndex) // OK
 		return;
 	}
 
+	if(lpObj->Interface.use == 0 || (lpObj->Interface.type != INTERFACE_CHAOS_BOX && lpObj->Interface.type != INTERFACE_TRAINER))
+	{
+		return;
+	}
+
 	if(lpObj->PShopOpen != 0)
 	{
 		return;

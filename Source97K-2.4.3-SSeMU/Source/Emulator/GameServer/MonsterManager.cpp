@@ -148,6 +148,19 @@ void CMonsterManager::Load(char* path) // OK
 	this->InitMonsterItem();
 
 	delete lpMemScript;
+
+	// Update 88 2.4.6 -> 97K - Logs de controle e auditoria
+	int count = 0;
+
+	for(int n=0;n < MAX_MONSTER_INFO;n++)
+	{
+		if(this->m_MonsterInfo[n].Index != -1)
+		{
+			++count;
+		}
+	}
+
+	LogAdd(LOG_BLUE, "[Monster] Total monster entries: %d", count);
 }
 
 void CMonsterManager::SetInfo(MONSTER_INFO info) // OK
@@ -157,12 +170,13 @@ void CMonsterManager::SetInfo(MONSTER_INFO info) // OK
 		return;
 	}
 
-	info.Life = ((__int64)(info.Life*gServerInfo.m_MonsterMaxLifeRate))/100;
-	info.Defense = ((__int64)(info.Defense*gServerInfo.m_MonsterDefenseRate))/100;
-	info.DefenseRate = ((__int64)(info.DefenseRate*gServerInfo.m_MonsterDefenseSuccessRateRate))/100;
-	info.DamageMin = ((__int64)(info.DamageMin*gServerInfo.m_MonsterPhysiDamageRate))/100;
-	info.DamageMax = ((__int64)(info.DamageMax*gServerInfo.m_MonsterPhysiDamageRate))/100;
-	info.AttackRate = ((__int64)(info.AttackRate*gServerInfo.m_MonsterAttackSuccessRateRate))/100;
+	// Update 88 2.4.6 -> 97K - Correção do cálculo de vida, defesa, dano e ataques em MonsterList.txt
+	info.Life = GET_MAX_VALUE(((ULONGLONG)info.Life*gServerInfo.m_MonsterMaxLifeRate)/100);
+	info.Defense = GET_MAX_VALUE(((ULONGLONG)info.Defense*gServerInfo.m_MonsterDefenseRate)/100);
+	info.DefenseRate = GET_MAX_VALUE(((ULONGLONG)info.DefenseRate*gServerInfo.m_MonsterDefenseSuccessRateRate)/100);
+	info.DamageMin = GET_MAX_VALUE(((ULONGLONG)info.DamageMin*gServerInfo.m_MonsterPhysiDamageRate)/100);
+	info.DamageMax = GET_MAX_VALUE(((ULONGLONG)info.DamageMax*gServerInfo.m_MonsterPhysiDamageRate)/100);
+	info.AttackRate = GET_MAX_VALUE(((ULONGLONG)info.AttackRate*gServerInfo.m_MonsterAttackSuccessRateRate)/100);
 
 	info.ScriptLife = info.Life;
 

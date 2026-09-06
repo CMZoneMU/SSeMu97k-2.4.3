@@ -480,7 +480,8 @@ void CObjectManager::ObjectMonsterAndMsgProc() // OK
 			else
 			{
 				gObjSkillNovaCheckTime(&gObj[n]);
-				gHackMoveSpeedCheck[n].MainProc();
+				// Update 91 2.4.9 -> 97K - Verificacao individual de speed hack de movimento
+				gHackMoveSpeedCheck.MainProc(&gObj[n]);
 				gObjectManager.ObjectMsgProc(&gObj[n]);
 			}
 		}
@@ -559,7 +560,8 @@ bool CObjectManager::CharacterGameClose(int aIndex) // OK
 
 	if(OBJECT_RANGE(lpObj->PartyNumber) != 0)
 	{
-		if(gParty.GetMemberCount(lpObj->PartyNumber) <= ((gServerInfo.m_PartyReconnectTime == 0) ? 2 : 1))
+		// Update 89 2.4.7 -> 97K - Reconnect Time Unificado
+		if(gParty.GetMemberCount(lpObj->PartyNumber) <= ((gServerInfo.m_ReconnectTime == 0) ? 2 : 1))
 		{
 			gParty.Destroy(lpObj->PartyNumber);
 		}
@@ -595,7 +597,8 @@ bool CObjectManager::CharacterGameClose(int aIndex) // OK
 
 	gObjClearViewport(lpObj);
 
-	gHackMoveSpeedCheck[lpObj->Index].Clear();
+	// Update 91 2.4.9 -> 97K - Reset de rastreamento de movimento ao deslogar personagem
+	gHackMoveSpeedCheck.Reset(lpObj);
 
 	gLog.Output(LOG_CONNECT,"[ObjectManager][%d] DelCharacterInfo [%s] [%s][%s]",lpObj->Index,lpObj->Name,lpObj->IpAddr,lpObj->HardwareId);
 
@@ -1011,7 +1014,7 @@ bool CObjectManager::CharacterLevelUpPointAdd(LPOBJ lpObj,int type,int amount) /
 		return 0;
 	}
 
-	if(lpObj->LevelUpPoint < amount)
+	if(amount <= 0 || lpObj->LevelUpPoint < amount)
 	{
 		return 0;
 	}

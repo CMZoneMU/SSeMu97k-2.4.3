@@ -15,6 +15,7 @@
 #include "ObjectManager.h"
 #include "ScheduleManager.h"
 #include "ServerInfo.h"
+#include "GameServer.h"
 #include "Util.h"
 
 CBonusManager gBonusManager;
@@ -79,6 +80,8 @@ void CBonusManager::Load(char* path) // OK
 
 	for(int n=0;n < MAX_BONUS;n++)
 	{
+		// Update 92 2.5.0 -> 97K - Reset de status e rotulos dinamicos no menu Bonus Manager
+		EditMenuLabel(2,0,2500+n,"<EMPTY>",0);
 		this->m_BonusInfo[n].StartMessage = -1;
 		this->m_BonusInfo[n].FinalMessage = -1;
 		this->m_BonusInfo[n].BonusTime = 0;
@@ -142,6 +145,9 @@ void CBonusManager::Load(char* path) // OK
 					this->m_BonusInfo[index].BonusTime = lpMemScript->GetAsNumber();
 
 					strcpy_s(this->m_BonusInfo[index].Name,lpMemScript->GetAsString());
+
+					// Update 92 2.5.0 -> 97K - Atualizacao do rotulo dinamico do Bonus Manager no menu do GameServer
+					EditMenuLabel(2,0,2500+index,this->m_BonusInfo[index].Name,1);
 				}
 				else if(section == 2)
 				{

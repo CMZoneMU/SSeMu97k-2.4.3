@@ -1,0 +1,4 @@
+00:52:33 [SocketUDP] GameServer disconnected [GameServer_0] [127.0.0.1:55900][0]
+00:52:44 [SocketUDP] GameServer connected [GameServer_0] [127.0.0.1:55900][0]
+01:14:01 [SocketTCP] Server started at port [55970]
+09:08:10 [SocketTCP] Server started at port [55970]

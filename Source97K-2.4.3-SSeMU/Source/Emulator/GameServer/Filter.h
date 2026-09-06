@@ -1,14 +1,12 @@
+// Update 89 2.4.7 -> 97K - Filtro de palavras e nomes reconstruído
 // Filter.h: interface for the CFilter class.
 //
 //////////////////////////////////////////////////////////////////////
 
 #pragma once
 
-struct FILTER_INFO
-{
-	std::string buff;
-	char Text[32];
-};
+#include <set>
+#include <string>
 
 class CFilter
 {
@@ -16,9 +14,9 @@ public:
 	CFilter();
 	virtual ~CFilter();
 	void Load(char* path);
-	bool CheckSyntax(char* text);
+	void CheckSyntax(char* text);
 private:
-	std::map<std::string,FILTER_INFO> m_FilterInfo;
+	std::set<std::string> m_FilterInfo;
 };
 
 extern CFilter gFilter;

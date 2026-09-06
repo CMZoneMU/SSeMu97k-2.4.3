@@ -214,7 +214,7 @@ void CQueryManager::GetAsString(char* ColName,char* OutBuffer,int OutBufferSize)
 {
 	int index = this->FindIndex(ColName);
 
-	if(index == -1)
+	if(index == -1 || this->m_SQLData[index][0] == 0)
 	{
 		memset(OutBuffer,0,OutBufferSize);
 	}
@@ -228,13 +228,13 @@ void CQueryManager::GetAsBinary(char* ColName,BYTE* OutBuffer,int OutBufferSize)
 {
 	int index = this->FindIndex(ColName);
 
-	if(index == -1)
+	if(index == -1 || this->m_SQLData[index][0] == 0)
 	{
 		memset(OutBuffer,0,OutBufferSize);
 	}
 	else
 	{
-		this->ConvertStringToBinary(this->m_SQLData[index],sizeof(this->m_SQLData[index]),OutBuffer,OutBufferSize);
+		this->ConvertStringToBinary(this->m_SQLData[index],(int)strlen(this->m_SQLData[index]),OutBuffer,OutBufferSize);
 	}
 }
 
@@ -258,7 +258,7 @@ void CQueryManager::ConvertStringToBinary(char* InBuff,int InSize,BYTE* OutBuff,
 
 	memset(OutBuff,0,OutSize);
 
-	for(int n=0;n < InSize,size < OutSize;n++)
+	for(int n=0;n < InSize && size < OutSize;n++)
 	{
 		if(InBuff[n] == 0)
 		{
@@ -268,12 +268,11 @@ void CQueryManager::ConvertStringToBinary(char* InBuff,int InSize,BYTE* OutBuff,
 		if((n%2) == 0)
 		{
 			OutBuff[size] = ((InBuff[n]>='A')?((InBuff[n]-'A')+10):(InBuff[n]-'0'))*16;
-			size = size+0;
 		}
 		else
 		{
 			OutBuff[size] = OutBuff[size] | ((InBuff[n]>='A')?((InBuff[n]-'A')+10):(InBuff[n]-'0'));
-			size = size+1;
+			size++;
 		}
 	}
 }
@@ -284,17 +283,16 @@ void CQueryManager::ConvertBinaryToString(BYTE* InBuff,int InSize,char* OutBuff,
 
 	memset(OutBuff,0,OutSize);
 
-	for(int n=0;n < OutSize,size < InSize;n++)
+	for(int n=0;n < OutSize && size < InSize;n++)
 	{
 		if((n%2) == 0)
 		{
 			OutBuff[n] = (((InBuff[size]/16)>=10)?('A'+((InBuff[size]/16)-10)):('0'+(InBuff[size]/16)));
-			size = size+0;
 		}
 		else
 		{
 			OutBuff[n] = (((InBuff[size]%16)>=10)?('A'+((InBuff[size]%16)-10)):('0'+(InBuff[size]%16)));
-			size = size+1;
+			size++;
 		}
 	}
 }

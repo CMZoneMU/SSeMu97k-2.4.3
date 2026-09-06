@@ -3,6 +3,7 @@
 #include "BadSyntax.h"
 #include "CharacterManager.h"
 #include "CommandManager.h"
+#include "CustomDailyReward.h"
 #include "CustomPick.h"
 #include "Guild.h"
 #include "GuildManager.h"
@@ -11,6 +12,7 @@
 #include "PeriodicItem.h"
 #include "QueryManager.h"
 #include "Quest.h"
+#include "Reconnect.h"
 #include "ServerManager.h"
 #include "SocketManager.h"
 #include "Util.h"
@@ -45,6 +47,9 @@ void DataServerProtocolCore(int index,BYTE head,BYTE* lpMsg,int size) // OK
 					gWarehouse.GDWarehouseItemSaveRecv((SDHP_WAREHOUSE_ITEM_SAVE_RECV*)lpMsg);
 					break;
 			}
+			break;
+		case 0x06:
+			GDGetItemSerialRecv((SDHP_GET_ITEM_SERIAL_RECV*)lpMsg,index);
 			break;
 		case 0x07:
 			GDCreateItemRecv((SDHP_CREATE_ITEM_RECV*)lpMsg,index);
@@ -96,6 +101,10 @@ void DataServerProtocolCore(int index,BYTE head,BYTE* lpMsg,int size) // OK
 					gCustomPick.GDCustomPickSaveRecv((SDHP_CUSTOM_PICK_SAVE_RECV*)lpMsg);
 					break;
 			}
+			break;
+		// Update 88 2.4.6 -> 97K - Sistema de recompensas diárias
+		case 0x16:
+			gCustomDailyReward.GDDailyRewardCheckRecv((SDHP_DAILY_REWARD_INFO_RECV*)lpMsg,index);
 			break;
 		case 0x20:
 			GDGlobalPostRecv((SDHP_GLOBAL_POST_RECV*)lpMsg,index);
@@ -199,12 +208,39 @@ void DataServerProtocolCore(int index,BYTE head,BYTE* lpMsg,int size) // OK
 					break;
 			}
 			break;
+		// Update 89 2.4.7 -> 97K - Sistema de Reconexão (Fase 1: Persistência no DataServer)
+		case 0xC0:
+			switch(((lpMsg[0]==0xC1)?lpMsg[3]:lpMsg[4]))
+			{
+				case 0x00:
+					gReconnect.GDReconnectInfoInsertRecv((SDHP_RECONNECT_INFO_INSERT_RECV*)lpMsg);
+					break;
+				case 0x01:
+					gReconnect.GDReconnectInfoDeleteRecv((SDHP_RECONNECT_INFO_DELETE_RECV*)lpMsg);
+					break;
+			}
+			break;
 	}
 }
 
 void GDServerInfoRecv(SDHP_SERVER_INFO_RECV* lpMsg,int index) // OK
 {
+	// Update 90 2.4.8 -> 97K - Correcao de geracao de seriais em bases de dados novas
+	if(gQueryManager.ExecQuery("SELECT 1 FROM GameServerInfo WHERE Number = 0") == 0 || gQueryManager.Fetch() == SQL_NO_DATA)
+	{
+		gQueryManager.Close();
+		gQueryManager.ExecQuery("INSERT INTO GameServerInfo (Number,ItemCount,ZenCount,AceItemCount) VALUES (0,0,0,0)");
+		gQueryManager.Close();
+	}
+	else
+	{
+		gQueryManager.Close();
+	}
+
 	gServerManager[index].SetServerInfo(lpMsg->ServerName,lpMsg->ServerPort,lpMsg->ServerCode);
+
+	// Update 89 2.4.7 -> 97K - Envio da lista de ReconnectData ao GameServer
+	gReconnect.ReconnectInfoListSend(lpMsg->ServerCode,index);
 }
 
 void GDCharacterListRecv(SDHP_CHARACTER_LIST_RECV* lpMsg,int index) // OK
@@ -338,7 +374,7 @@ void GDCharacterCreateRecv(SDHP_CHARACTER_CREATE_RECV* lpMsg,int index) // OK
 
 	memcpy(pMsg.name,lpMsg->name,sizeof(pMsg.name));
 
-	if(CheckTextSyntax(lpMsg->name,sizeof(lpMsg->name)) == 0 || gBadSyntax.CheckSyntax(lpMsg->name) == 0)
+	if(CheckTextSyntax(lpMsg->name,sizeof(lpMsg->name)) == 0)
 	{
 		pMsg.result = 0;
 	}
@@ -586,6 +622,40 @@ void GDCharacterInfoRecv(SDHP_CHARACTER_INFO_RECV* lpMsg,int index) // OK
 	gSocketManager.DataSend(index,(BYTE*)&pMsg,sizeof(pMsg));
 }
 
+void GDGetItemSerialRecv(SDHP_GET_ITEM_SERIAL_RECV* lpMsg,int aIndex) // OK
+{
+	SDHP_GET_ITEM_SERIAL_SEND pMsg;
+
+	pMsg.header.set(0x06,sizeof(pMsg));
+
+	pMsg.aIndex = lpMsg->aIndex;
+
+	memcpy(pMsg.account,lpMsg->account,sizeof(pMsg.account));
+
+	pMsg.index = lpMsg->index;
+
+	pMsg.map = lpMsg->map;
+
+	pMsg.x = lpMsg->x;
+
+	pMsg.y = lpMsg->y;
+
+	if(gQueryManager.ExecQuery("EXEC WZ_GetItemSerial") == 0 || gQueryManager.Fetch() == SQL_NO_DATA)
+	{
+		gQueryManager.Close();
+
+		pMsg.Serial = gItemManager.GetItemSerial();
+	}
+	else
+	{
+		pMsg.Serial = gQueryManager.GetResult(0);
+
+		gQueryManager.Close();
+	}
+
+	gSocketManager.DataSend(aIndex,(BYTE*)&pMsg,sizeof(pMsg));
+}
+
 void GDCreateItemRecv(SDHP_CREATE_ITEM_RECV* lpMsg,int index) // OK
 {
 	SDHP_CREATE_ITEM_SEND pMsg;
@@ -602,7 +672,18 @@ void GDCreateItemRecv(SDHP_CREATE_ITEM_RECV* lpMsg,int index) // OK
 
 	pMsg.Map = lpMsg->Map;
 
-	pMsg.Serial = gItemManager.GetItemSerial();
+	if(gQueryManager.ExecQuery("EXEC WZ_GetItemSerial") == 0 || gQueryManager.Fetch() == SQL_NO_DATA)
+	{
+		gQueryManager.Close();
+
+		pMsg.Serial = gItemManager.GetItemSerial();
+	}
+	else
+	{
+		pMsg.Serial = gQueryManager.GetResult(0);
+
+		gQueryManager.Close();
+	}
 
 	pMsg.ItemIndex = lpMsg->ItemIndex;
 

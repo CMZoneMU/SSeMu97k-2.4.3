@@ -12,5 +12,5 @@
 //              [Max 20 Char]    [000.000.000.000]   [1~65535]   [0-1]
 // ServerCode   ServerName       IpAddress           Port        Visible
 // ---------------------------------------------------------------------
-   0            "UPAR + PVP"   "SEU-IP"        55900       1
+   0            "GameServer_0"   "26.49.253.223"       55900       1
 end

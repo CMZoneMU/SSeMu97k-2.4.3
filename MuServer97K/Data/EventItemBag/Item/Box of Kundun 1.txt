@@ -1,3 +1,11 @@
+//-------------------------------------------------------------------------------------------------------------
+// Explicação das Opções Aplicadas (Seção 5):
+// 12 em Option1 (Skill): Ativa a chance padrão de vir com skill em armas/escudos aplicáveis.
+// 12 em Option2 (Luck): Dá uma chance equilibrada de vir com sorte.
+// 12 em Option3 (JoL / Adicional): Permite vir com adicionais de vida/defesa/ataque (+4, +8, etc).
+// 12 em Option4 (Exc): Configura o item para dropar estritamente como Excellent (geralmente com 1 ou 2 opções 
+// excelentes aleatórias, baseado na leitura do ItemOptionRate.txt do servidor).
+//-------------------------------------------------------------------------------------------------------------
 2
 // -----------------------------------
 // [0~100]    [0~100]     [0~2]
@@ -29,51 +37,46 @@ end
 // [00,000]    [0~13]        [0~255]      [*/N]     [*/N]     [*/N]     [*/N]     [*/N]     [InSec]
 // ItemIndex   ItemLevel     GradeCount   Option0   Option1   Option2   Option3   Option4   Duration   Comment
 // -----------------------------------------------------------------------------------------------------------
-   00,000      0             0            *         12        12        12        12        0          //Kris [Skill Luck Option: +4 Exc: 1]
-   00,003      0             0            *         12        12        12        12        0          //Katana [Skill Luck Option: +4 Exc: 1]
-   00,013      0             0            *         12        12        12        12        0          //Double Blade [Skill Luck Option: +4 Exc: 1]
-   00,009      0             0            *         12        12        12        12        0          //Sword of Salamander [Skill Luck Option: +4 Exc: 1]
-   00,012      0             0            *         12        12        12        12        0          //Heliacal Sword [Skill Luck Option: +4 Exc: 1]
-   01,003      0             0            *         12        12        12        12        0          //Tomahawk [Skill Luck Option: +4 Exc: 1]
-   04,002      0             0            *         12        12        12        12        0          //Elven Bow [Skill Luck Option: +4 Exc: 1]
-   04,004      0             0            *         12        12        12        12        0          //Tiger Bow [Skill Luck Option: +4 Exc: 1]
-   04,010      0             0            *         12        12        12        12        0          //Arquebus [Skill Luck Option: +4 Exc: 1]
-   04,013      0             0            *         12        12        12        12        0          //Bluewing Crossbow [Skill Luck Option: +4 Exc: 1]
-   05,001      0             0            *         12        12        12        12        0          //Angelic Staff [Skill Luck Option: +4 Exc: 1]
-   05,004      0             0            *         12        12        12        12        0          //Gorgon Staff [Skill Luck Option: +4 Exc: 1]
-   06,004      0             0            *         12        12        12        12        0          //Buckler [Skill Luck Option: +4 Exc: 1]
-   06,006      0             0            *         12        12        12        12        0          //Skull Shield [Skill Luck Option: +4 Exc: 1]
-   06,007      0             0            *         12        12        12        12        0          //Spiked Shield [Skill Luck Option: +4 Exc: 1]
-   07,005      0             0            *         12        12        12        12        0          //Leather Helm [Skill Luck Option: +4 Exc: 1]
-   08,005      0             0            *         12        12        12        12        0          //Leather Armor [Skill Luck Option: +4 Exc: 1]
-   09,005      0             0            *         12        12        12        12        0          //Leather Pants [Skill Luck Option: +4 Exc: 1]
-   10,005      0             0            *         12        12        12        12        0          //Leather Gloves [Skill Luck Option: +4 Exc: 1]
-   11,005      0             0            *         12        12        12        12        0          //Leather Boots [Skill Luck Option: +4 Exc: 1]
-   07,009      0             0            *         12        12        12        12        0          //Plate Helm [Skill Luck Option: +4 Exc: 1]
-   08,009      0             0            *         12        12        12        12        0          //Plate Armor [Skill Luck Option: +4 Exc: 1]
-   09,009      0             0            *         12        12        12        12        0          //Plate Pants [Skill Luck Option: +4 Exc: 1]
-   10,009      0             0            *         12        12        12        12        0          //Plate Gloves [Skill Luck Option: +4 Exc: 1]
-   11,009      0             0            *         12        12        12        12        0          //Plate Boots [Skill Luck Option: +4 Exc: 1]
-   07,002      0             0            *         12        12        12        12        0          //Pad Helm [Skill Luck Option: +4 Exc: 1]
-   08,002      0             0            *         12        12        12        12        0          //Pad Armor [Skill Luck Option: +4 Exc: 1]
-   09,002      0             0            *         12        12        12        12        0          //Pad Pants [Skill Luck Option: +4 Exc: 1]
-   10,002      0             0            *         12        12        12        12        0          //Pad Gloves [Skill Luck Option: +4 Exc: 1]
-   11,002      0             0            *         12        12        12        12        0          //Pad Boots [Skill Luck Option: +4 Exc: 1]
-   07,007      0             0            *         12        12        12        12        0          //Sphinx Mask [Skill Luck Option: +4 Exc: 1]
-   08,007      0             0            *         12        12        12        12        0          //Sphinx Armor [Skill Luck Option: +4 Exc: 1]
-   09,007      0             0            *         12        12        12        12        0          //Sphinx Pants [Skill Luck Option: +4 Exc: 1]
-   10,007      0             0            *         12        12        12        12        0          //Sphinx Gloves [Skill Luck Option: +4 Exc: 1]
-   11,007      0             0            *         12        12        12        12        0          //Sphinx Boots [Skill Luck Option: +4 Exc: 1]
-   07,010      0             0            *         12        12        12        12        0          //Vine Helm [Skill Luck Option: +4 Exc: 1]
-   08,010      0             0            *         12        12        12        12        0          //Vine Armor [Skill Luck Option: +4 Exc: 1]
-   09,010      0             0            *         12        12        12        12        0          //Vine Pants [Skill Luck Option: +4 Exc: 1]
-   10,010      0             0            *         12        12        12        12        0          //Vine Gloves [Skill Luck Option: +4 Exc: 1]
-   11,010      0             0            *         12        12        12        12        0          //Vine Boots [Skill Luck Option: +4 Exc: 1]
-   07,013      0             0            *         12        12        12        12        0          //Spirit Helm [Skill Luck Option: +4 Exc: 1]
-   08,013      0             0            *         12        12        12        12        0          //Spirit Armor [Skill Luck Option: +4 Exc: 1]
-   09,013      0             0            *         12        12        12        12        0          //Spirit Pants [Skill Luck Option: +4 Exc: 1]
-   10,013      0             0            *         12        12        12        12        0          //Spirit Gloves [Skill Luck Option: +4 Exc: 1]
-   11,013      0             0            *         12        12        12        12        0          //Spirit Boots [Skill Luck Option: +4 Exc: 1]
-   14,019      1             0            *         *         *         *         *         0          //Devil's Invitation [Level: 1]
-   13,018      1             0            *         *         *         *         *         0          //Invisibility Cloak [Level: 1]
+// === ARMAS SIMPLES ===
+   00,000      0             0            *         12        12        12        12        0          // Kris
+   00,001      0             0            *         12        12        12        12        0          // Short Sword
+   00,002      0             0            *         12        12        12        12        0          // Rapier
+   02,000      0             0            *         12        12        12        12        0          // Small Axe
+   02,001      0             0            *         12        12        12        12        0          // Hand Axe
+   04,000      0             0            *         12        12        12        12        0          // Short Bow
+   04,008      0             0            *         12        12        12        12        0          // Crossbow
+   05,000      0             0            *         12        12        12        12        0          // Skull Staff
+
+// === ESCUDOS SIMPLES ===
+   06,000      0             0            *         12        12        12        12        0          // Small Shield
+   06,001      0             0            *         12        12        12        12        0          // Horn Shield
+   06,007      0             0            *         12        12        12        12        0          // Spiked Shield
+
+// === SET LEATHER (Section 7, 8, 9, 10, 11 - Index 5) ===
+   07,005      0             0            *         12        12        12        12        0          // Leather Helm
+   08,005      0             0            *         12        12        12        12        0          // Leather Armor
+   09,005      0             0            *         12        12        12        12        0          // Leather Pants
+   10,005      0             0            *         12        12        12        12        0          // Leather Gloves
+   11,005      0             0            *         12        12        12        12        0          // Leather Boots
+
+// === SET BRONZE (Section 7, 8, 9, 10, 11 - Index 0) ===
+   07,000      0             0            *         12        12        12        12        0          // Bronze Helm
+   08,000      0             0            *         12        12        12        12        0          // Bronze Armor
+   09,000      0             0            *         12        12        12        12        0          // Bronze Pants
+   10,000      0             0            *         12        12        12        12        0          // Bronze Gloves
+   11,000      0             0            *         12        12        12        12        0          // Bronze Boots
+
+// === SET PAD (Section 7, 8, 9, 10, 11 - Index 2) ===
+   07,002      0             0            *         12        12        12        12        0          // Pad Helm
+   08,002      0             0            *         12        12        12        12        0          // Pad Armor
+   09,002      0             0            *         12        12        12        12        0          // Pad Pants
+   10,002      0             0            *         12        12        12        12        0          // Pad Gloves
+   11,002      0             0            *         12        12        12        12        0          // Pad Boots
+
+// === SET VINE (Section 7, 8, 9, 10, 11 - Index 10) ===
+   07,010      0             0            *         12        12        12        12        0          // Vine Helm
+   08,010      0             0            *         12        12        12        12        0          // Vine Armor
+   09,010      0             0            *         12        12        12        12        0          // Vine Pants
+   10,010      0             0            *         12        12        12        12        0          // Vine Gloves
+   11,010      0             0            *         12        12        12        12        0          // Vine Boots
 end

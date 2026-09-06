@@ -33,6 +33,7 @@
    19      1   1   1   1     "/rename"        0        *         *          *          *          *          0           0           0           0
    20      1   1   1   1     "/dcfriend"      0        *         *          *          *          *          0           0           0           0
 
+
 // -------------------------------------------------------------------------------------------------------------------------------------------------------
 //         [Switch]          [Command]        [InSec]  [*/0~N]   [*/N]      [*/N]      [*/N]      [*/N]      [0/N]       [0/N]       [0/N]      [0/N]
 // Index   AL0 AL1 AL2 AL3   Syntax           Delay    GMLevel   MinLevel   MaxLevel   MinReset   MaxReset   Money_AL0   Money_AL1   Money_AL2   Money_AL3

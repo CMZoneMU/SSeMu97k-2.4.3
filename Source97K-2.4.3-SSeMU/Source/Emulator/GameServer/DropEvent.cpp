@@ -17,6 +17,8 @@
 #include "RandomManager.h"
 #include "ScheduleManager.h"
 #include "ServerInfo.h"
+#include "GameServer.h"
+#include "CriticalSection.h"
 #include "Util.h"
 
 CDropEvent gDropEvent;
@@ -81,6 +83,8 @@ void CDropEvent::Load(char* path) // OK
 
 	for(int n = 0; n < MAX_DROP_EVENT; n++)
 	{
+		// Update 92 2.5.0 -> 97K - Reset de status e rotulos dinamicos no menu Drop Event
+		EditMenuLabel(2,1,2600+n,"<EMPTY>",0);
 		this->m_EventDropInfo[n].StartMessage = -1;
 		this->m_EventDropInfo[n].FinalMessage = -1;
 		this->m_EventDropInfo[n].DropEventTime = 0;
@@ -144,6 +148,9 @@ void CDropEvent::Load(char* path) // OK
 					this->m_EventDropInfo[index].DropEventTime = lpMemScript->GetAsNumber();
 
 					strcpy_s(this->m_EventDropInfo[index].Name,lpMemScript->GetAsString());
+
+					// Update 92 2.5.0 -> 97K - Atualizacao do rotulo dinamico do Drop Event no menu do GameServer
+					EditMenuLabel(2,1,2600+index,this->m_EventDropInfo[index].Name,1);
 				}
 				else if(section == 2)
 				{
@@ -491,4 +498,56 @@ int CDropEvent::DropItem(LPOBJ lpObj,LPOBJ lpTarget) // OK
 
 		return 1;
 	}
+}
+
+// Update 92 2.5.0 -> 97K - Forcar inicio manual de Drop Event via menu do GameServer
+void CDropEvent::ForceStart(int index)
+{
+	if(gServerInfo.m_DropEventSwitch == 0)
+	{
+		return;
+	}
+
+	if(index < 0 || index >= MAX_DROP_EVENT)
+	{
+		return;
+	}
+
+	DROP_EVENT_INFO* lpInfo = &this->m_EventDropInfo[index];
+
+	if(this->GetState(index) == DROP_EVENT_STATE_BLANK)
+	{
+		return;
+	}
+
+	static CCriticalSection critical;
+
+	critical.lock();
+
+	SYSTEMTIME SystemTime;
+
+	GetLocalTime(&SystemTime);
+
+	DROP_EVENT_START_TIME info;
+	memset(&info,0,sizeof(info));
+
+	info.Year = SystemTime.wYear;
+
+	info.Month = SystemTime.wMonth;
+
+	info.Day = SystemTime.wDay;
+
+	info.DayOfWeek = -1;
+
+	info.Hour = SystemTime.wHour;
+
+	info.Minute = SystemTime.wMinute;
+
+	info.Second = SystemTime.wSecond;
+
+	lpInfo->StartTime.push_back(info);
+
+	this->SetState(lpInfo,DROP_EVENT_STATE_EMPTY);
+
+	critical.unlock();
 }

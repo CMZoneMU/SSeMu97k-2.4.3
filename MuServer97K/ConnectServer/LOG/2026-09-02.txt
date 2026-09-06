@@ -1,0 +1,4 @@
+00:20:47 [SocketTCP] Server started at port [44405]
+00:20:47 [SocketUDP] Server started at port [55557]
+00:20:58 [SocketUDP] JoinServer connected
+00:21:06 [SocketUDP] GameServer connected [GameServer_0] [26.49.253.223:55900][0]

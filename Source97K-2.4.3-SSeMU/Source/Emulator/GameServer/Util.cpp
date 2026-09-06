@@ -412,6 +412,22 @@ bool CheckSymbol(char* text) // OK
 	return 0;
 }
 
+// Update 90 2.4.8 -> 97K - Validacao de caracteres maliciosos em nomes
+bool CheckNameSyntax(char* text)
+{
+	int size = strlen(text);
+
+	for(int n=0;n < size;n++)
+	{
+		if(text[n] == 0x20 || text[n] == 0x22 || text[n] == 0x25 || text[n] == 0x27 || text[n] == 0x2F || text[n] == 0x5C || text[n] == 0x5F)
+		{
+			return 0;
+		}
+	}
+
+	return 1;
+}
+
 int LevelSmallConvert(int level) // OK
 {
 	#if(GAMESERVER_UPDATE>=99)

@@ -54,6 +54,12 @@ void gObjMonsterDieGiveItem(LPOBJ lpObj,LPOBJ lpTarget) // OK
 		return;
 	}
 
+	// Update 88 2.4.6 -> 97K - Suporte a SpecialBag em CustomMonster.txt
+	if(lpObj->CustomMonsterDrop == true)
+	{
+		return;
+	}
+
 	if(gItemBagManager.DropItemByMonsterClass(lpObj->Class,lpTarget,lpObj->Map,lpObj->X,lpObj->Y) != 0)
 	{
 		return;
@@ -95,13 +101,23 @@ void gObjMonsterDieGiveItem(LPOBJ lpObj,LPOBJ lpTarget) // OK
 
 	ExcItemDropRate = gBonusManager.GetBonusValue(lpTarget,BONUS_INDEX_EXC_ITEM_DROP_RATE,ExcItemDropRate);
 
+	// Update 91 2.4.9 -> 97K - Correcao no algoritmo de probabilidade de drop e fallback de item comum
 	if(lpObj->Level >= 25 && (GetLargeRand()%1000000) < ExcItemDropRate)
 	{
 		DropLevel -= 25;
 		ExcItemDrop = 1;
 	}
 
-	if((DropIndex=gMonsterManager.GetMonsterItem(DropLevel,ExcItemDrop)) >= GET_ITEM(0,0) && (GetLargeRand()%((lpObj->ItemRate==0)?1:lpObj->ItemRate)) < ItemDropRate)
+	DropIndex = gMonsterManager.GetMonsterItem(DropLevel,ExcItemDrop);
+
+	if(DropIndex < GET_ITEM(0,0) && ExcItemDrop != 0)
+	{
+		DropLevel = lpObj->Level;
+		ExcItemDrop = 0;
+		DropIndex = gMonsterManager.GetMonsterItem(DropLevel,ExcItemDrop);
+	}
+
+	if(DropIndex >= GET_ITEM(0,0) && (GetLargeRand()%((lpObj->ItemRate==0)?1:lpObj->ItemRate)) < ItemDropRate)
 	{
 		WORD ItemIndex = DropIndex;
 		BYTE ItemLevel = 0;
@@ -124,6 +140,9 @@ void gObjMonsterDieGiveItem(LPOBJ lpObj,LPOBJ lpTarget) // OK
 		gItemOptionRate.GetItemOption5(gMapRateInfo.GetDropOption5(lpObj->Map,((ExcItemDrop==0)?DROP_TYPE_COMMON:DROP_TYPE_EXCELLENT)),&ItemSetOption);
 
 		ItemLevel = ((ItemIndex>=GET_ITEM(12,0))?0:ItemLevel);
+
+		// Update 91 2.4.9 -> 97K - Correcao no nivel de drop de Summon Orbs
+		ItemLevel = ((ItemIndex == GET_ITEM(12,11))?(GetLargeRand()%6):ItemLevel);
 
 		ItemOption1 = ((ItemIndex>=GET_ITEM(12,0))?0:ItemOption1);
 

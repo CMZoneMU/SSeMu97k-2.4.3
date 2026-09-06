@@ -84,8 +84,6 @@ int APIENTRY WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine
 					{
 						gAllowableIpList.Load("AllowableIpList.txt");
 
-						gBadSyntax.Load("BadSyntax.txt");
-
 						gGuildManager.Init();
 
 						SetTimer(hWnd,TIMER_30000,30000,0);

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Core">
@@ -35,6 +35,12 @@
     </ClInclude>
     <ClInclude Include="Utils\CriticalSection.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\CustomDailyReward.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Reconnect.h">
+      <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Core\CustomPick.h">
       <Filter>Core</Filter>
@@ -117,6 +123,12 @@
     </ClCompile>
     <ClCompile Include="Utils\CriticalSection.cpp">
       <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\CustomDailyReward.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Reconnect.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Core\CustomPick.cpp">
       <Filter>Core</Filter>

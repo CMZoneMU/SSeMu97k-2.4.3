@@ -18,6 +18,8 @@ struct CUSTOM_MONSTER_INFO
 	int DefenseRate;
 	int ExperienceRate;
 	int KillMessage;
+	// Update 88 2.4.6 -> 97K - Suporte a SpecialBag em CustomMonster.txt
+	int BagSpecial;
 };
 
 class CCustomMonster

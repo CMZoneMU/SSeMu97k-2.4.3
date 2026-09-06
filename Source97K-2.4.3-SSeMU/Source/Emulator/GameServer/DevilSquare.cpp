@@ -704,6 +704,9 @@ bool CDevilSquare::AddUser(DEVIL_SQUARE_LEVEL* lpLevel,int aIndex) // OK
 		lpLevel->User[n].Rank = 0;
 		lpLevel->User[n].RewardExperience = 0;
 		lpLevel->User[n].RewardMoney = 0;
+		// Update 90 2.4.8 -> 97K - EventFlag e EventLevel
+		gObj[aIndex].EventFlag = 1;
+		gObj[aIndex].EventLevel = lpLevel->Level;
 		gObjEventEntrySaveSend(&gObj[aIndex],2);
 		return 1;
 	}
@@ -730,6 +733,9 @@ bool CDevilSquare::DelUser(DEVIL_SQUARE_LEVEL* lpLevel,int aIndex) // OK
 	lpUser->Rank = 0;
 	lpUser->RewardExperience = 0;
 	lpUser->RewardMoney = 0;
+	// Update 90 2.4.8 -> 97K - EventFlag e EventLevel
+	gObj[aIndex].EventFlag = 0;
+	gObj[aIndex].EventLevel = (BYTE)-1;
 	return 1;
 }
 
@@ -771,6 +777,10 @@ void CDevilSquare::ClearUser(DEVIL_SQUARE_LEVEL* lpLevel) // OK
 		{
 			continue;
 		}
+
+		// Update 90 2.4.8 -> 97K - EventFlag e EventLevel
+		gObj[lpLevel->User[n].Index].EventFlag = 0;
+		gObj[lpLevel->User[n].Index].EventLevel = (BYTE)-1;
 
 		gObjMoveGate(lpLevel->User[n].Index,27);
 

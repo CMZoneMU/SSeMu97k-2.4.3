@@ -145,7 +145,17 @@ public:
 	int m_GuildCreateMinReset[MAX_ACCOUNT_LEVEL];
 	int m_GuildInsertMaxUser1;
 	int m_GuildInsertMaxUser2;
+	// Update 89 2.4.7 -> 97K - Guild War & Battle Soccer Configurações
+	int m_GuildWarSwitch;
 	int m_GuildWarAttackEnable;
+	int m_GuildWarScoreMax1;
+	int m_GuildWarScoreMax2;
+	int m_GuildWarKillScore1;
+	int m_GuildWarKillScore2;
+	int m_GuildWarKillScore3;
+	int m_GuildWarWinnerScore1;
+	int m_GuildWarWinnerScore2;
+	int m_GuildWarWinnerScore3;
 	int m_ExperienceMultiplierConstA;
 	int m_ExperienceMultiplierConstB;
 	int m_PetExperienceMultiplierConstA;
@@ -180,7 +190,16 @@ public:
 	int m_DLCreateLevel[MAX_ACCOUNT_LEVEL];
 	int m_CharacterDeleteSwitch;
 	int m_CharacterDeleteMaxLevel;
-	int m_PartyReconnectTime;
+	// Update 89 2.4.7 -> 97K - Reconnect Time Unificado
+	int m_ReconnectTime;
+	// Update 90 2.4.8 -> 97K - Aprimoramento de opcoes de Reconnect
+	int m_ReconnectAttackSwitch;
+	int m_ReconnectCommandSwitch;
+	int m_ReconnectEventSwitch;
+	int m_ReconnectEventMaxTime;
+	int m_ReconnectPartySwitch;
+	int m_ReconnectPickSwitch;
+	int m_ReconnectOfflineSwitch;
 	int m_PartyMoneyDistribute;
 	int m_PartyDisableKillBetweenMembers;
 	int m_PartyGeneralExperience[MAX_PARTY_USER];
@@ -353,6 +372,8 @@ public:
 	int m_DLDefenseConstA;
 	int m_CommandPostGlobal;
 	int m_CommandPostType;
+	// Update 89 2.4.7 -> 97K - Comando /post personalizável
+	int m_CommandPostMessage;
 	int m_CommandPKClearType;
 	int m_CommandPKClearMoney[MAX_ACCOUNT_LEVEL];
 	int m_CommandAddPointAutoEnable[MAX_ACCOUNT_LEVEL];

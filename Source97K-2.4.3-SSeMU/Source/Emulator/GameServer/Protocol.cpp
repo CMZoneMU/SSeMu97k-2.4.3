@@ -206,6 +206,10 @@ void ProtocolCore(BYTE head,BYTE* lpMsg,int size,int aIndex,int encrypt,int seri
 		case 0xA2:
 			gQuest.CGQuestStateRecv((PMSG_QUEST_STATE_RECV*)lpMsg,aIndex);
 			break;
+		// Update 90 2.4.8 -> 97K - Prevencao de crash/hack no pacote de pet info (0xA7)
+		case 0xA7:
+			CGPetItemInfoRecv((PMSG_PET_ITEM_INFO_RECV*)lpMsg,aIndex);
+			break;
 		case 0xB0:
 			gSkillManager.CGSkillTeleportAllyRecv((PMSG_SKILL_TELEPORT_ALLY_RECV*)lpMsg,aIndex);
 			break;
@@ -288,11 +292,8 @@ void CGChatRecv(PMSG_CHAT_RECV* lpMsg,int aIndex) // OK
 
 	gLog.Output(LOG_CHAT,"[General][%s][%s] - (Message: %s)",lpObj->Account,lpObj->Name,lpMsg->message);
 
-	if(gFilter.CheckSyntax(lpMsg->message) != 0)
-	{
-		gNotice.GCNoticeSend(aIndex,1,0,0,0,0,0,gMessage.GetMessage(723));
-		return;
-	}
+	// Update 89 2.4.7 -> 97K - Mascaramento de palavras censuradas com asteriscos
+	gFilter.CheckSyntax(lpMsg->message);
 
 	if(lpMsg->message[0] == '/')
 	{
@@ -412,11 +413,8 @@ void CGChatWhisperRecv(PMSG_CHAT_WHISPER_RECV* lpMsg,int aIndex) // OK
 
 	gLog.Output(LOG_CHAT,"[Whisper][%s][%s] - (Name: %s,Message: %s)",lpObj->Account,lpObj->Name,name,lpMsg->message);
 
-	if(gFilter.CheckSyntax(lpMsg->message) != 0)
-	{
-		gNotice.GCNoticeSend(aIndex,1,0,0,0,0,0,gMessage.GetMessage(723));
-		return;
-	}
+	// Update 89 2.4.7 -> 97K - Mascaramento de palavras censuradas com asteriscos
+	gFilter.CheckSyntax(lpMsg->message);
 
 	GCChatWhisperSend(lpTarget->Index,lpObj->Name,lpMsg->message);
 }
@@ -521,6 +519,12 @@ void CGPositionRecv(PMSG_POSITION_RECV* lpMsg,int aIndex) // OK
 	}
 
 	if(lpMsg->x < (lpObj->X-15) || lpMsg->x > (lpObj->X+15) || lpMsg->y < (lpObj->Y-15) || lpMsg->y > (lpObj->Y+15))
+	{
+		return;
+	}
+
+	// Update 90 2.4.8 -> 97K - Checagem de terreno bloqueado / barreira no envio de posicao
+	if(gMap[lpObj->Map].CheckAttr(lpMsg->x,lpMsg->y,4) != 0 || gMap[lpObj->Map].CheckAttr(lpMsg->x,lpMsg->y,8) != 0)
 	{
 		return;
 	}
@@ -688,9 +692,75 @@ void CGPetItemCommandRecv(PMSG_PET_ITEM_COMMAND_RECV* lpMsg,int aIndex) // OK
 	
 }
 
+// Update 90 2.4.8 -> 97K - Prevencao de crash/hack no pacote de pet info (0xA7)
 void CGPetItemInfoRecv(PMSG_PET_ITEM_INFO_RECV* lpMsg,int aIndex) // OK
 {
-	
+	LPOBJ lpObj = &gObj[aIndex];
+
+	if(gObjIsConnectedGP(aIndex) == 0)
+	{
+		return;
+	}
+
+	CItem* lpItem = 0;
+
+	switch(lpMsg->type)
+	{
+		case 0:
+		case 1:
+			if(INVENTORY_RANGE(lpMsg->slot) == 0)
+			{
+				return;
+			}
+			lpItem = &lpObj->Inventory[lpMsg->slot];
+			break;
+		case 2:
+			if(WAREHOUSE_RANGE(lpMsg->slot) == 0)
+			{
+				return;
+			}
+			lpItem = &lpObj->Warehouse[lpMsg->slot];
+			break;
+		case 3:
+			if(TRADE_RANGE(lpMsg->slot) == 0)
+			{
+				return;
+			}
+			lpItem = &lpObj->Trade[lpMsg->slot];
+			break;
+		case 4:
+			if(lpObj->TargetNumber < 0 || lpObj->TargetNumber >= MAX_OBJECT)
+			{
+				return;
+			}
+			if(TRADE_RANGE(lpMsg->slot) == 0)
+			{
+				return;
+			}
+			lpItem = &gObj[lpObj->TargetNumber].Trade[lpMsg->slot];
+			break;
+		case 5:
+			if(CHAOS_BOX_RANGE(lpMsg->slot) == 0)
+			{
+				return;
+			}
+			lpItem = &lpObj->ChaosBox[lpMsg->slot];
+			break;
+		default:
+			return;
+	}
+
+	if(lpItem == 0 || lpItem->IsItem() == 0)
+	{
+		return;
+	}
+
+	if(lpItem->m_Index != GET_ITEM(13,4) && lpItem->m_Index != GET_ITEM(13,5))
+	{
+		return;
+	}
+
+	GCPetItemInfoSend(aIndex,lpMsg->type,lpMsg->flag,lpMsg->slot,lpItem->m_PetItemLevel,lpItem->m_PetItemExp,(BYTE)lpItem->m_Durability);
 }
 
 void CGMoveRecv(PMSG_MOVE_RECV* lpMsg,int aIndex) // OK
@@ -937,7 +1007,8 @@ void CGCharacterCreateRecv(PMSG_CHARACTER_CREATE_RECV* lpMsg,int aIndex) // OK
 
 	memcpy(name,lpMsg->name,sizeof(lpMsg->name));
 
-	if(CheckSymbol(name) != 0)
+	// Update 90 2.4.8 -> 97K - CheckNameSyntax para criacao de personagem
+	if(CheckNameSyntax(name) == 0 || CheckSymbol(name) != 0)
 	{
 		gLog.Output(LOG_HACK,"[CheckSymbol][%s] Character Create error. [%s]",lpObj->Account,name);
 		DataSend(aIndex,(BYTE*)&pMsg,pMsg.header.size);
@@ -1555,6 +1626,21 @@ void GCRewardExperienceSend(int aIndex,int experience) // OK
 
 void GCPetItemInfoSend(int aIndex,BYTE type,BYTE flag,BYTE slot,BYTE level,DWORD experience,BYTE durability) // OK
 {
+	PMSG_PET_ITEM_INFO_SEND pMsg;
+
+	pMsg.header.set(0xA9,sizeof(pMsg));
+
+	pMsg.type = type;
+
+	pMsg.flag = flag;
+
+	pMsg.slot = slot;
+
+	pMsg.level = level;
+
+	pMsg.experience = experience;
+
+	DataSend(aIndex,(BYTE*)&pMsg,pMsg.header.size);
 }
 
 void GCCharacterCreationEnableSend(int aIndex,BYTE flag,BYTE result) // OK

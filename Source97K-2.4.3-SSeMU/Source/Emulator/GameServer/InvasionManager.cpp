@@ -13,6 +13,7 @@
 #include "ObjectManager.h"
 #include "ScheduleManager.h"
 #include "ServerInfo.h"
+#include "GameServer.h"
 #include "Util.h"
 
 CInvasionManager gInvasionManager;
@@ -75,6 +76,8 @@ void CInvasionManager::Load(char* path) // OK
 
 	for(int n=0;n < MAX_INVASION;n++)
 	{
+		// Update 92 2.5.0 -> 97K - Reset de status e rotulos dinamicos no menu Invasion Manager
+		EditMenuLabel(2,2,3000+n,"<EMPTY>",0);
 		this->m_InvasionInfo[n].RespawnMessage = -1;
 		this->m_InvasionInfo[n].DespawnMessage = -1;
 		this->m_InvasionInfo[n].BossIndex = -1;
@@ -155,6 +158,9 @@ void CInvasionManager::Load(char* path) // OK
 					this->m_InvasionInfo[index].Effect = lpMemScript->GetAsNumber();
 
 					strcpy_s(this->m_InvasionInfo[index].Name,lpMemScript->GetAsString());
+
+					// Update 92 2.5.0 -> 97K - Atualizacao do rotulo dinamico do Invasion Manager no menu do GameServer
+					EditMenuLabel(2,2,3000+index,this->m_InvasionInfo[index].Name,1);
 				}
 				else if(section == 2)
 				{

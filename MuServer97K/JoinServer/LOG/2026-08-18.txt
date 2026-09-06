@@ -1,0 +1,17 @@
+00:38:07 [SocketTCP] Server started at port [55970]
+00:38:43 [SocketUDP] GameServer connected [GameServer_0] [127.0.0.1:55900][0]
+00:43:08 [SocketUDP] GameServer disconnected [GameServer_0] [127.0.0.1:55900][0]
+00:43:35 [SocketTCP] Server started at port [55970]
+00:43:40 [SocketUDP] GameServer connected [GameServer_0] [127.0.0.1:55900][0]
+00:44:18 Could not connect to database (ODBC Error)
+00:46:01 Could not connect to database (ODBC Error)
+00:46:43 [SocketTCP] Server started at port [55970]
+00:46:58 [SocketUDP] GameServer connected [GameServer_0] [127.0.0.1:55900][0]
+13:45:50 [SocketTCP] Server started at port [55970]
+13:45:56 [SocketUDP] GameServer connected [GameServer_0] [127.0.0.1:55900][0]
+14:00:12 [SocketTCP] Server started at port [55970]
+21:22:53 [SocketTCP] Server started at port [55970]
+21:23:27 [SocketUDP] GameServer connected [GameServer_0] [127.0.0.1:55900][0]
+22:21:22 SELECT memb___id,memb__pwd FROM MEMB_INFO WHERE memb___id='test'
+22:21:22 [QueryManager] State (01000), Diagnostic: [Microsoft][ODBC SQL Server Driver][Shared Memory]ConnectionWrite (send()).
+22:21:22 [QueryManager] State (08S01), Diagnostic: [Microsoft][ODBC SQL Server Driver][Shared Memory]Erro geral de rede. Verifique a documentação da rede.

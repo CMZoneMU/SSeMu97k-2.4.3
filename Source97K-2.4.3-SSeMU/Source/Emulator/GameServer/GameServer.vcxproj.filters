@@ -397,6 +397,9 @@
     <ClInclude Include="PeriodicItem.h">
       <Filter>Game\Item</Filter>
     </ClInclude>
+    <ClInclude Include="CustomDailyReward.h">
+      <Filter>Custom</Filter>
+    </ClInclude>
     <ClInclude Include="CustomMonster.h">
       <Filter>Custom</Filter>
     </ClInclude>
@@ -755,6 +758,9 @@
     </ClCompile>
     <ClCompile Include="PeriodicItem.cpp">
       <Filter>Game\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomDailyReward.cpp">
+      <Filter>Custom</Filter>
     </ClCompile>
     <ClCompile Include="CustomMonster.cpp">
       <Filter>Custom</Filter>

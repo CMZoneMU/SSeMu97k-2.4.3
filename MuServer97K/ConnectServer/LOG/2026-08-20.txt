@@ -1,0 +1,3 @@
+20:59:56 [SocketTCP] Server started at port [44405]
+20:59:56 [SocketUDP] Server started at port [55557]
+20:59:58 [SocketUDP] JoinServer connected

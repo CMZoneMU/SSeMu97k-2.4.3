@@ -468,6 +468,8 @@ struct OBJECTSTRUCT
 	int DrinkDamage;
 	DWORD DrinkDamageLastTime;
 	DWORD MonsterDeleteTime;
+	// Update 88 2.4.6 -> 97K - Suporte a SpecialBag em CustomMonster.txt
+	bool CustomMonsterDrop;
 	char KalimaGateExist;
 	int KalimaGateIndex;
 	char KalimaGateEnterCount;
@@ -596,6 +598,13 @@ struct OBJECTSTRUCT
 	int AccountLevel;
 	char AccountExpireDate[20];
 	char AutoPartyPassword[11];
+	// Update 90 2.4.8 -> 97K - EventFlag e EventLevel para rastreamento de eventos locais
+	BYTE EventFlag;
+	BYTE EventLevel;
+	// Update 91 2.4.9 -> 97K - Rastreamento individual de movimento para deteccao de speed hack
+	DWORD MoveTime;
+	short LastX;
+	short LastY;
 	int AutoAddPointCount;
 	int AutoAddPointStats[5];
 	int AutoResetEnable;
