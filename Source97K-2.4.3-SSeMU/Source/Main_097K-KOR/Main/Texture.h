@@ -1,6 +1,7 @@
 #pragma once
+#include <gl\GL.h>
 
-#define MAX_TEXTURE 12000
+#define MAX_TEXTURE_OLD 12000
 
 struct TEXTURE
 {

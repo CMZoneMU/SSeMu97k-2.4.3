@@ -164,7 +164,9 @@ extern "C" _declspec(dllexport) void _cdecl EntryProc()
 
 		InitMonster();
 
-		InitModels();
+		// Update 21 Kayito -> 97K - Fix Texturas (Zeus)
+		gLoadModels.Init();
+		// Fim Update 21 Kayito -> 97K
 
 		InitServerList();
 

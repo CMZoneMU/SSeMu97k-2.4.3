@@ -196,7 +196,7 @@ DWORD GetItemValue(DWORD address,int type) // OK
 				price *= 2;
 			}
 
-			price *= (QWORD)(1<<m_ItemLevel);
+			price *= (QWORD)(1ULL<<m_ItemLevel);
 
 			price *= (QWORD)*(BYTE*)(address + 26);
 

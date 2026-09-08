@@ -3,6 +3,9 @@
 ## Autor: Nilo Master  
 ## Arquivos: Emulador + Cliente Plugin Main.dll
 
+UPDATE CMZ 08 (3.0.8) 06-09-26 / SOURCE 97K KAYITO CUSTOM 01 (UPDATE 21):
+* Correcao do Limite de Texturas e Modelos (Zeus): realocacao da memoria de texturas e modelos nativos (lpTextures e lpModels) para contornar o limite do cliente e resolver o problema de graficos embaralhados/corrompidos ao adicionar muitos itens custom. Remapeados os ponteiros do executavel e reconstruido o carregamento de texturas com os hooks SetTexturesOffset, SetModelsOffset e OpenItemTexturesHook, permitindo suporte para ate 5500 itens. [Main.dll][Define.h][Offset.h][Main.cpp][LoadModels.h/.cpp][Client97K]
+
 UPDATE CMZ 06 (3.0.6) 06-09-26 / UPDATE 91 (2.4.9):
 * Sistema de Anti-Hack de Movimento e Velocidade (HackMoveSpeedCheck): reestruturada a classe para modelo singleton stateless com rastreamento de MoveTime, LastX e LastY por jogador no OBJECTSTRUCT; adicionada tolerancia de distancia extra (+2) para jogadores montados em Uniria ou Dinorant; e integrados logs de auditoria detalhados ([HackMoveCheck]) no console e arquivo de log. [GameServer][HackMoveSpeedCheck.h/.cpp][User.h/.cpp][DSProtocol.cpp][ObjectManager.cpp][97KOR]
 * Sistema de Anti-Hack de Skills (HackSkillSpeedCheck): adicionado log de auditoria [HackSkillCheck] com registro de conta, nome, mapa e tempos de animacao para analise de velocidade de ataque anormal. [GameServer][HackSkillSpeedCheck.cpp][97KOR]

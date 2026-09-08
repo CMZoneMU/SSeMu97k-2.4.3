@@ -1,7 +1,48 @@
 #pragma once
 
-#define PartObjectColor ((void(*)(int Type, float Alpha, float Bright, float Light[3], bool ExtraMon))0x00503CF0)
+// Update 21 Kayito -> 97K - Fix Texturas e Modelos (Zeus)
 
-void InitModels();
+class CLoadModels
+{
+public:
 
-void PartObjectColorHook(int Type, float Alpha, float Bright, float Light[3], bool ExtraMon);
+	CLoadModels();
+
+	virtual ~CLoadModels();
+
+	void Init();
+
+	void MyAccessModel(int Type, char* Dir, char* FileName, int i = -1);
+
+	void MyOpenTexture(int Model, char* SubFolder, int Type = GL_NEAREST, bool Check = true);
+
+	BITMAP_t* GetBitmap(int uiTextureNumber);
+
+	DWORD GetModels();
+
+private:
+
+	void SetTexturesOffset();
+
+	void SetModelsOffset();
+
+	void CheckModelExists(int Model, char* SubFolder, char* filename);
+
+	void CheckTextureExists(int Model, char* SubFolder, char* filename, char* ext);
+
+	static void OpenItemsHook();
+
+	static void OpenItemTexturesHook();
+
+	static void PartObjectColorHook(int Type, float Alpha, float Bright, float Light[3], bool ExtraMon);
+
+private:
+
+	BITMAP_t lpTextures[TOTAL_TEXTURE];
+
+	short TextureCount;
+
+	BMD lpModels[TOTAL_MODELS];
+};
+
+extern CLoadModels gLoadModels;

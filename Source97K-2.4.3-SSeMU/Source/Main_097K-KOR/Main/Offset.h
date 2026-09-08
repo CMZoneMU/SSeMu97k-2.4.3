@@ -165,3 +165,17 @@ struct CHARACTER_ATTRIBUTE
 	WORD WalkSpeed;
 	WORD LevelUpPoint;;
 };
+
+// Update 21 Kayito -> 97K - Fix Texturas (Zeus)
+#define OpenJPG ((bool(_cdecl*)(const char *szFileName, GLuint uiTextureIndex, GLuint uiFilter, GLuint uiWrapMode, char *bFullPath, bool bCheck)) 0x00529740)
+#define OpenTGA ((bool(_cdecl*)(const char *szFileName, GLuint uiTextureIndex, GLuint uiFilter, GLuint uiWrapMode, char *bFullPath, bool bCheck)) 0x00529BD0)
+#define UnloadImage ((void(_cdecl*)(GLuint uiTextureIndex)) 0x0052A050)
+#define TextureBegin *(int*)0x083A4104
+#define TextureCurrent *(int*)0x083A4108
+#define m_dwUsedTextureMemory *(DWORD*)0x083BB9D0
+#define OpenPlayerTextures ((void(_cdecl*)())0x00507610)
+#define OpenItems ((void(_cdecl*)()) 0x005079D0)
+#define OpenItemTextures ((void(_cdecl*)())0x00508D10)
+#define FindTextureByName ((short(_cdecl*)(char* Name, BITMAP_t** Texture)) 0x00505BF0)
+#define PartObjectColor ((void(_cdecl*)(int Type, float Alpha, float Bright, float Light[3], bool ExtraMon))0x00503CF0)
+// Fim Update 21 Kayito -> 97K

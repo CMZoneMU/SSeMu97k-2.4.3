@@ -3,12 +3,13 @@
 #include "CustomItem.h"
 #include "Offset.h"
 #include "Util.h"
+#include "LoadModels.h"
 
-int& TextureBegin = *(int*)0x0083A4104;
+int& TextureBeginOld = *(int*)0x0083A4104;
 
-int& TextureCurrent = *(int*)0x083A4108;
+int& TextureCurrentOld = *(int*)0x083A4108;
 
-TEXTURE m_Texture[MAX_TEXTURE];
+TEXTURE m_Texture[MAX_TEXTURE_OLD];
 
 void InitTexture() // OK
 {
@@ -23,35 +24,35 @@ void InitTexture() // OK
 	SetByte(0x00529E69,0xEB); // Width
 	SetByte(0x00529E8B,0xEB); // Height
 
-	SetTextures();
+	//SetTextures();
 
 	SetCompleteHook(0xE8,0x00513950,&OpenBasicData);
 
 	SetCompleteHook(0xE8,0x0051396E,&OpenBasicData);
 
-	SetCompleteHook(0xE9,0x00505BD0,&SetMaxTextures);
+	//SetCompleteHook(0xE9,0x00505BD0,&SetMaxTextures);
 }
 
 void OpenBasicData(HDC hDC) // OK
 {
 	((void(*)(HDC))0x00510320)(hDC);
 
-	TextureCurrent = 5500;
+	TextureCurrentOld = 5500;
 
 	for(int n=0;n<MAX_CUSTOM_ITEM;n++)
 	{
 		if(gCustomItem.m_CustomItemInfo[n].Index != -1)
 		{
-			LoadItemModel((gCustomItem.m_CustomItemInfo[n].ItemIndex+ITEM_BASE_MODEL),((gCustomItem.m_CustomItemInfo[n].ItemIndex >= GET_ITEM(7,0) && gCustomItem.m_CustomItemInfo[n].ItemIndex<GET_ITEM(12,0)) ? "Player\\" : "Item\\"),gCustomItem.m_CustomItemInfo[n].ModelName);
-			LoadItemTexture((gCustomItem.m_CustomItemInfo[n].ItemIndex+ITEM_BASE_MODEL),((gCustomItem.m_CustomItemInfo[n].ItemIndex >= GET_ITEM(7,0) && gCustomItem.m_CustomItemInfo[n].ItemIndex<GET_ITEM(12,0)) ? "Player\\" : "Item\\"));
+			gLoadModels.MyAccessModel((gCustomItem.m_CustomItemInfo[n].ItemIndex+ITEM_BASE_MODEL),((gCustomItem.m_CustomItemInfo[n].ItemIndex >= GET_ITEM(7,0) && gCustomItem.m_CustomItemInfo[n].ItemIndex<GET_ITEM(12,0)) ? "Player\\" : "Item\\"),gCustomItem.m_CustomItemInfo[n].ModelName);
+			gLoadModels.MyOpenTexture((gCustomItem.m_CustomItemInfo[n].ItemIndex+ITEM_BASE_MODEL),((gCustomItem.m_CustomItemInfo[n].ItemIndex >= GET_ITEM(7,0) && gCustomItem.m_CustomItemInfo[n].ItemIndex<GET_ITEM(12,0)) ? "Player\\" : "Item\\"));
 		}
 	}
 }
 
 void SetMaxTextures(DWORD count) // OK
 {
-	TextureBegin = 0;
-	TextureCurrent = count;
+	TextureBeginOld = 0;
+	TextureCurrentOld = count;
 }
 
 void SetTextures() // OK
