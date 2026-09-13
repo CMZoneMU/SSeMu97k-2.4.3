@@ -1,7 +1,200 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include "Sound.h"
+#include "MP3.h"
 
-void InitSoundConvertion()
+CSound gSound;
+
+static DWORD WINAPI MusicLoopThread(LPVOID)
+{
+	while (true)
+	{
+		Sleep(500);
+		if (gSound.MusicPlaying && m_MusicOnOff)
+		{
+			gMP3.CheckLoop();
+		}
+	}
+	return 0;
+}
+
+CSound::CSound()
+{
+	int soundVal = GetPrivateProfileInt("Sound", "EnableSound", -1, ".\\Config.ini");
+	if (soundVal == -1)
+	{
+		soundVal = GetPrivateProfileInt("Sound", "SoundOnOff", 1, ".\\Config.ini");
+	}
+	m_SoundOnOff = (soundVal > 0) ? 1 : 0;
+
+	this->SoundVolumeLevel = GetPrivateProfileInt("Sound", "SoundLevel", -1, ".\\Config.ini");
+	if (this->SoundVolumeLevel <= 0)
+	{
+		this->SoundVolumeLevel = GetPrivateProfileInt("Sound", "SoundVolumeLevel", 4, ".\\Config.ini");
+	}
+	if (this->SoundVolumeLevel <= 0)
+	{
+		this->SoundVolumeLevel = 4;
+	}
+
+	int musicVal = GetPrivateProfileInt("Sound", "EnableMusic", -1, ".\\Config.ini");
+	if (musicVal == -1)
+	{
+		musicVal = GetPrivateProfileInt("Sound", "MusicOnOff", 1, ".\\Config.ini");
+	}
+	m_MusicOnOff = (musicVal > 0) ? 1 : 0;
+
+	this->MusicVolumeLevel = GetPrivateProfileInt("Sound", "MusicLevel", -1, ".\\Config.ini");
+	if (this->MusicVolumeLevel <= 0)
+	{
+		this->MusicVolumeLevel = GetPrivateProfileInt("Sound", "MusicVolumeLevel", 4, ".\\Config.ini");
+	}
+	if (this->MusicVolumeLevel <= 0)
+	{
+		this->MusicVolumeLevel = 4;
+	}
+
+	this->g_MasterVolume = 0L;
+
+	this->MusicFileName.clear();
+
+	this->MusicPlaying = (m_MusicOnOff != 0);
+}
+
+CSound::~CSound()
+{
+	this->SaveConfig();
+}
+
+void CSound::SaveConfig()
+{
+	char Text[33] = { 0 };
+
+	wsprintf(Text, "%d", m_SoundOnOff);
+	WritePrivateProfileString("Sound", "EnableSound", Text, ".\\Config.ini");
+	WritePrivateProfileString("Sound", "SoundOnOff", Text, ".\\Config.ini");
+
+	wsprintf(Text, "%d", this->SoundVolumeLevel);
+	WritePrivateProfileString("Sound", "SoundLevel", Text, ".\\Config.ini");
+	WritePrivateProfileString("Sound", "SoundVolumeLevel", Text, ".\\Config.ini");
+
+	wsprintf(Text, "%d", m_MusicOnOff);
+	WritePrivateProfileString("Sound", "EnableMusic", Text, ".\\Config.ini");
+	WritePrivateProfileString("Sound", "MusicOnOff", Text, ".\\Config.ini");
+
+	wsprintf(Text, "%d", this->MusicVolumeLevel);
+	WritePrivateProfileString("Sound", "MusicLevel", Text, ".\\Config.ini");
+	WritePrivateProfileString("Sound", "MusicVolumeLevel", Text, ".\\Config.ini");
+
+	HKEY key;
+	if (RegOpenKeyEx(HKEY_CURRENT_USER, "SOFTWARE\\Webzen\\Mu\\Config", 0, KEY_ALL_ACCESS, &key) == ERROR_SUCCESS)
+	{
+		DWORD valSound = m_SoundOnOff;
+		RegSetValueEx(key, "SoundOnOff", 0, REG_DWORD, (BYTE*)&valSound, sizeof(valSound));
+
+		DWORD valMusic = m_MusicOnOff;
+		RegSetValueEx(key, "MusicOnOff", 0, REG_DWORD, (BYTE*)&valMusic, sizeof(valMusic));
+
+		RegCloseKey(key);
+	}
+}
+
+void CSound::SetSoundEnabled(bool enable)
+{
+	m_SoundOnOff = enable ? 1 : 0;
+	g_EnableSound = enable;
+
+	if (enable)
+	{
+		if (this->SoundVolumeLevel <= 0)
+		{
+			this->SoundVolumeLevel = 4;
+		}
+		this->UpdateSoundVolumeLevel(this->SoundVolumeLevel);
+		PlayBuffer(25, 0, 0);
+	}
+	else
+	{
+		this->SetMasterVolume(-10000);
+	}
+
+	this->SaveConfig();
+}
+
+void CSound::SetMusicEnabled(bool enable)
+{
+	m_MusicOnOff = enable ? 1 : 0;
+
+	if (enable)
+	{
+		this->MusicPlaying = true;
+		if (this->MusicVolumeLevel <= 0)
+		{
+			this->MusicVolumeLevel = 4;
+		}
+		this->UpdateMusicVolumeLevel(this->MusicVolumeLevel);
+		PlayBuffer(25, 0, 0);
+		this->PlayCurrentMapMusic();
+	}
+	else
+	{
+		this->MusicPlaying = false;
+		gMP3.Stop();
+		this->MusicFileName.clear();
+	}
+
+	this->SaveConfig();
+}
+
+void CSound::PlayCurrentMapMusic()
+{
+	if (!m_MusicOnOff)
+	{
+		return;
+	}
+
+	char szMapMusic[MAX_PATH] = "Data\\Music\\Lorencia.mp3";
+	switch (World)
+	{
+		case 0: strcpy_s(szMapMusic, "Data\\Music\\Lorencia.mp3"); break;
+		case 1: strcpy_s(szMapMusic, "Data\\Music\\Dungeon.mp3"); break;
+		case 2: strcpy_s(szMapMusic, "Data\\Music\\Devias.mp3"); break;
+		case 3: strcpy_s(szMapMusic, "Data\\Music\\Noria.mp3"); break;
+		case 4: strcpy_s(szMapMusic, "Data\\Music\\Dungeon.mp3"); break;
+		case 7: strcpy_s(szMapMusic, "Data\\Music\\Atlans.mp3"); break;
+		case 10: strcpy_s(szMapMusic, "Data\\Music\\Icarus.mp3"); break;
+		default: strcpy_s(szMapMusic, "Data\\Music\\Lorencia.mp3"); break;
+	}
+
+	this->MusicFileName.clear();
+	this->MyPlayMP3(szMapMusic, TRUE);
+}
+
+void CSound::Init()
+{
+	this->InitSoundConvertion();
+
+	if (m_SoundOnOff)
+	{
+		this->UpdateSoundVolumeLevel(this->SoundVolumeLevel);
+	}
+	else
+	{
+		g_EnableSound = false;
+		this->SetMasterVolume(-10000);
+	}
+
+	SetCompleteHook(0xE8, 0x004399A8, &this->ReceiveLevelUpHook);
+
+	SetCompleteHook(0xE9, 0x00404A10, &this->MyLoadWaveFile);
+
+	SetCompleteHook(0xE9, 0x00412890, &this->MyPlayMP3);
+
+	SetCompleteHook(0xE9, 0x004127F0, &this->MyStopMP3);
+
+	CreateThread(NULL, 0, MusicLoopThread, NULL, 0, NULL);
+}
+
+void CSound::InitSoundConvertion()
 {
 	SetDword(0x0050F10D + 1, (DWORD) & "Data\\Sound\\aBat.wav");
 	SetDword(0x0050F0EA + 1, (DWORD) & "Data\\Sound\\aBird1.wav");
@@ -217,4 +410,257 @@ void InitSoundConvertion()
 	SetDword(0x0050F3AB + 1, (DWORD) & "Data\\Sound\\sKnightSkill4.wav");
 	SetDword(0x0050F3F1 + 1, (DWORD) & "Data\\Sound\\sMagic.wav");
 	SetDword(0x0050F3CE + 1, (DWORD) & "Data\\Sound\\sTornado.wav");
+}
+
+void CSound::ReceiveLevelUpHook(BYTE* ReceiveBuffer)
+{
+	((void(__cdecl*)(BYTE * ReceiveBuffer))0x00431180)(ReceiveBuffer);
+
+	LoadWaveFile(400, (TCHAR*)"Data\\Sound\\pLevelUp.wav", 1, false);
+
+	PlayBuffer(400, NULL, FALSE);
+}
+
+void CSound::MyLoadWaveFile(int Buffer, TCHAR* strFileName, int MaxChannel, bool Enable)
+{
+	if (!g_EnableSound)
+	{
+		return;
+	}
+
+	if (Buffer < 0)
+	{
+		return;
+	}
+
+	if (MaxBufferChannel[Buffer] > 0)
+	{
+		return;
+	}
+
+	if (!g_Enable3DSound)
+	{
+		Enable = false;
+	}
+
+	// Create the sound buffer object from the wave file data
+	if (FAILED(CreateStaticBuffer(Buffer, strFileName, MaxChannel, Enable)))
+	{
+		return;
+	}
+	else if (FAILED(FillBuffer(Buffer, MaxChannel, Enable)))  // The sound buffer was successfully created
+	{
+		return;
+	}
+
+	BufferChannel[Buffer] = 0;
+
+	MaxBufferChannel[Buffer] = MaxChannel;
+
+	Enable3DSound[Buffer] = Enable;
+
+	strcpy_s((char*)(BufferName + Buffer * 64), 64, strFileName);
+
+	SoundLoadCount += 1;
+
+	gSound.SetVolume(Buffer, gSound.g_MasterVolume);
+}
+
+void CSound::MyPlayMP3(char* Name, BOOL bEnforce)
+{
+	if (Destroy)
+	{
+		return;
+	}
+
+	if (!m_MusicOnOff && !bEnforce)
+	{
+		return;
+	}
+
+	std::string newest(Name);
+
+	std::wstring w_newest(newest.begin(), newest.end());
+
+	if (w_newest.compare(gSound.MusicFileName) == 0)
+	{
+		return;
+	}
+
+	gSound.MusicFileName = w_newest;
+
+	if (gMP3.Init(gSound.MusicFileName.c_str()))
+	{
+		LogAdd("[Music] Now playing: %s", Name);
+
+		gSound.UpdateMusicVolumeLevel(gSound.MusicVolumeLevel);
+
+		if (gSound.MusicPlaying)
+		{
+			if (!gMP3.Play())
+			{
+				LogAdd("[Music] Failed to play: %s", Name);
+			}
+		}
+	}
+	else
+	{
+		LogAdd("[Music] Failed to load: %s", Name);
+	}
+}
+
+void CSound::MyStopMP3(char* Name, BOOL bEnforce)
+{
+	if (!m_MusicOnOff && !bEnforce)
+	{
+		return;
+	}
+
+	if (gSound.MusicFileName.empty())
+	{
+		return;
+	}
+
+	if (!gSound.MusicPlaying)
+	{
+		return;
+	}
+
+	std::string newest(Name);
+
+	std::wstring w_newest(newest.begin(), newest.end());
+
+	if (w_newest.compare(gSound.MusicFileName) == 0)
+	{
+		if (gMP3.Stop())
+		{
+			LogAdd("[Music] Stoped playing: %s", Name);
+		}
+	}
+}
+
+void CSound::UpdateSoundVolumeLevel(int volumeLevel)
+{
+	if (volumeLevel > MAX_SOUND_LEVEL)
+	{
+		volumeLevel = MAX_SOUND_LEVEL;
+	}
+
+	this->SoundVolumeLevel = volumeLevel;
+
+	if (volumeLevel == 0)
+	{
+		this->SetMasterVolume(-10000);
+	}
+	else
+	{
+		long vol = (625 * (volumeLevel - 1)) - 5000;
+
+		this->SetMasterVolume(vol);
+	}
+}
+
+void CSound::UpdateMusicVolumeLevel(int volumeLevel)
+{
+	if (volumeLevel > MAX_MUSIC_LEVEL)
+	{
+		volumeLevel = MAX_MUSIC_LEVEL;
+	}
+
+	this->MusicVolumeLevel = volumeLevel;
+
+	if (volumeLevel == 0)
+	{
+		gMP3.SetVolume(-10000);
+	}
+	else
+	{
+		long vol = (625 * (volumeLevel - 1)) - 5000;
+
+		gMP3.SetVolume(vol);
+	}
+}
+
+void CSound::ButtonStopMusic()
+{
+	if (!m_MusicOnOff)
+	{
+		return;
+	}
+
+	if (this->MusicFileName.empty())
+	{
+		return;
+	}
+
+	if (!this->MusicPlaying)
+	{
+		return;
+	}
+
+	this->MusicPlaying = !gMP3.Stop();
+}
+
+void CSound::ButtonPlayMusic()
+{
+	if (!m_MusicOnOff)
+	{
+		return;
+	}
+
+	if (this->MusicPlaying)
+	{
+		return;
+	}
+
+	if (this->MusicFileName.empty())
+	{
+		this->PlayCurrentMapMusic();
+		return;
+	}
+
+	this->MusicPlaying = gMP3.Play();
+}
+
+void CSound::SetMasterVolume(long vol)
+{
+	this->g_MasterVolume = vol;
+
+	if (!g_EnableSound)
+	{
+		return;
+	}
+
+	for (int i = 0; i < 420; ++i)
+	{
+		this->SetVolume(i, vol);
+	}
+}
+
+void CSound::SetVolume(int Buffer, long vol)
+{
+	if (!g_EnableSound)
+	{
+		return;
+	}
+
+	if (Buffer < 0)
+	{
+		return;
+	}
+
+	if (g_lpDSBuffer[Buffer][0])
+	{
+		if (vol > DSBVOLUME_MAX)
+		{
+			vol = DSBVOLUME_MAX;
+		}
+
+		if (vol < DSBVOLUME_MIN)
+		{
+			vol = DSBVOLUME_MIN;
+		}
+
+		g_lpDSBuffer[Buffer][0]->SetVolume(vol);
+	}
 }

@@ -21,6 +21,8 @@ typedef unsigned __int64 QWORD;
 #include <Shellapi.h>
 #include <Rpc.h>
 #include <gl\GL.h>
+#include <mmsystem.h>
+#include <dsound.h>
 
 // General Includes
 #include "Offset.h"

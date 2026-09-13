@@ -12,6 +12,8 @@
 #include "ItemMove.h"
 #include "ItemToolTip.h"
 #include "Language.h"
+#include "OptionsMenu.h"
+#include "WeaponView.h"
 #include "LoadModels.h"
 #include "Map.h"
 #include "Monster.h"
@@ -144,7 +146,13 @@ extern "C" _declspec(dllexport) void _cdecl EntryProc()
 
 		InitGoldenArcher();
 
-		InitLanguage();
+		//InitLanguage();
+		
+		gLanguage.Init();
+		
+		gWeaponView.Init();
+
+		gOptionsMenu.Init();
 
 		InitPrintPlayer();
 
@@ -182,7 +190,7 @@ extern "C" _declspec(dllexport) void _cdecl EntryProc()
 
 		InitWindowTime();
 
-		InitSoundConvertion();
+		gSound.Init();
 
 		SetDword(0x00552398,(DWORD)&KeysProc);
 

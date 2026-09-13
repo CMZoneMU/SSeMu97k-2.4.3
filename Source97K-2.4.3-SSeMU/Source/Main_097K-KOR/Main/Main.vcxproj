@@ -82,6 +82,8 @@
     <ClInclude Include="ItemMove.h" />
     <ClInclude Include="ItemToolTip.h" />
     <ClInclude Include="Language.h" />
+    <ClInclude Include="OptionsMenu.h" />
+    <ClInclude Include="WeaponView.h" />
     <ClInclude Include="LoadModels.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MathLib.h" />
@@ -102,6 +104,7 @@
     <ClInclude Include="Skill.h" />
     <ClInclude Include="SkillAttackSpeed.h" />
     <ClInclude Include="Sound.h" />
+    <ClInclude Include="MP3.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TrayMode.h" />
@@ -132,6 +135,8 @@
     <ClCompile Include="ItemMove.cpp" />
     <ClCompile Include="ItemToolTip.cpp" />
     <ClCompile Include="Language.cpp" />
+    <ClCompile Include="OptionsMenu.cpp" />
+    <ClCompile Include="WeaponView.cpp" />
     <ClCompile Include="LoadModels.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -151,6 +156,7 @@
     <ClCompile Include="Skill.cpp" />
     <ClCompile Include="SkillAttackSpeed.cpp" />
     <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="MP3.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>

@@ -2,6 +2,10 @@
 
 #define MAX_MAIN_VIEWPORT 400
 
+/* SOUND */
+#define MAX_SOUND_LEVEL 9
+#define MAX_MUSIC_LEVEL 9
+
 #define Color3f(r, b, g)	((g << 16) + (b << 8) + r)
 #define Color4f(r, b, g, o)	((o << 24) + (g << 16) + (b << 8) + r)
 

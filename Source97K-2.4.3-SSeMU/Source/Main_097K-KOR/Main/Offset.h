@@ -55,6 +55,7 @@
 #define g_hFont *(HFONT*)0x055CA00C
 #define g_hFontBold *(HFONT*)0x055CA010
 #define g_hFontBig *(HFONT*)0x055CA014
+#define OpenFont ((void(_cdecl*)())0x0050F690)
 
 // Text
 #define SetTextColor *(DWORD*)0x00559C78
@@ -92,19 +93,32 @@
 #define EnableAlphaTest ((void(__cdecl*)(BYTE)) 0x00511680)
 #define EnableAlphaBlend ((void(__cdecl*)()) 0x00511710)
 #define DisableAlphaBlend ((void(__cdecl*)()) 0x00511600)
+#define DisableTexture ((void(__cdecl*)(bool AlphaTest)) 0x00511590)
+#define ConvertX ((float(__cdecl*)(float x)) 0x00511950)
+#define ConvertY ((float(__cdecl*)(float y)) 0x00511980)
+#define RenderColor ((void(__cdecl*)(float x, float y, float width, float height)) 0x005124C0)
 
 // Sound
-#define PlayBuffer ((int(__cdecl*)(int, int, int))0x00404BC0)
+#define PlayBuffer ((int(__cdecl*)(int Buffer, DWORD Object, BOOL bLooped))0x00404BC0)
 #define CreateStaticBuffer ((HRESULT(__cdecl*)(int Buffer, const char* strFileName, int MaxChannel, bool Enable))0x00404650)
 #define FillBuffer ((HRESULT(__cdecl*)(int Buffer, int MaxChannel, bool Enable))0x00404A00)
 #define LoadWaveFile ((HRESULT(__cdecl*)(int Buffer, TCHAR* strFileName, int MaxChannel, bool Enable))0x00404A10)
 #define g_EnableSound *(bool*)0x00590AC8
 #define g_Enable3DSound *(bool*)0x00590AC9
 #define SoundLoadCount *(int*)0x00590ACC
-#define BufferChannel 0x00583DAC // int BufferChannel[420];
-#define MaxBufferChannel 0x0058E1C4 // int MaxBufferChannel[420];
-#define Enable3DSound 0x00590924 // bool Enable3DSound[420];
+#define BufferChannel (&*(int*)0x00583DAC)// int BufferChannel[420];
+#define MaxBufferChannel (&*(int*)0x0058E1C4) // int MaxBufferChannel[420];
+#define Enable3DSound (&*(bool*)0x00590924) // bool Enable3DSound[420];
 #define BufferName 0x00585E7C // char BufferName[420][64];
+#define g_lpDSBuffer ((LPDIRECTSOUNDBUFFER(*)[4])0x0058C780) // LPDIRECTSOUNDBUFFER g_lpDSBuffer[420][4]
+#define m_SoundOnOff *(int*)0x055C9FE8
+#define m_MusicOnOff *(int*)0x055C9E3C
+#define PlayMp3 ((void(__cdecl*)(char* Name, BOOL bEnforce))0x00412890)
+#define StopMp3 ((void(__cdecl*)(char* Name, BOOL bEnforce))0x004127F0)
+#define Mp3FileName (char*)0x055C9D04
+#define m_bWhisperSound *(bool*)0x07E11D80
+#define Destroy *(bool*)0x055CA018
+#define m_bAutoAttack *(bool*)0x00559C5C
 
 #define AccessModel ((void(*)(int,char*,char*,int))0x005060B0)
 #define OpenTexture ((void(*)(int,char*,int,bool))0x00505C80)
@@ -124,6 +138,10 @@
 #define FindCharacterIndex		((int(_cdecl*)(int Key)) 0x0045AC80)
 
 #define g_iLimitAttackTime *(DWORD*)0x00559858
+#define GlobalText ((char(*)[64])0x05626F78)
+
+#define OpenTextData ((void(_cdecl*)()) 0x00510FE0)
+#define OpenDialogFile ((void(_cdecl*)(char* FileName)) 0x0047B020)
 #define Models *(DWORD*)0x05828D58
 #define TransformPosition ((void(__thiscall*)(DWORD This, float* Matrix, float Position[3], float WorldPosition[3], bool Translate)) 0x004409A0)
 

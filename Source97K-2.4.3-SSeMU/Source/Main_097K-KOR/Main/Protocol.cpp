@@ -17,6 +17,7 @@
 #include "Shop.h"
 #include "Skill.h"
 #include "WindowTime.h"
+#include "OptionsMenu.h"
 
 void InitProtocol()
 {
@@ -43,6 +44,12 @@ void __stdcall ProtocolCoreEx(BYTE head, BYTE* lpMsg)
 {
 	switch (head)
 	{
+		case 0x02:
+			if (m_bWhisperSound && m_SoundOnOff)
+			{
+				PlayBuffer(25, 0, 0);
+			}
+			break;
 		case 0x15:
 			GCDamageRecv((PMSG_DAMAGE_RECV*)lpMsg);
 			break;

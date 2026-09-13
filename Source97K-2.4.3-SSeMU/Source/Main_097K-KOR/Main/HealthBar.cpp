@@ -8,13 +8,17 @@
 
 NEW_HEALTH_BAR gNewHealthBar[MAX_MAIN_VIEWPORT];
 
-bool MonsterHPBarMode = 0;
+bool MonsterHPBarMode = (GetPrivateProfileInt("Antilag", "DeleteHealthBar", 0, ".\\Config.ini") != 0);
 
 void HealthBarToggle() // OK
 {
 	if (SceneFlag == 5)
 	{
 		MonsterHPBarMode ^= 1;
+
+		char Text[10] = { 0 };
+		wsprintf(Text, "%d", MonsterHPBarMode ? 1 : 0);
+		WritePrivateProfileString("Antilag", "DeleteHealthBar", Text, ".\\Config.ini");
 
 		CreateNotice(gCustomMessage.GetMessage(4+MonsterHPBarMode),1);
 	}
