@@ -71,7 +71,7 @@ bool CMemScript::SetBuffer(char* path) // OK
 	if(this->m_buff[0] == char(0xEF) && this->m_buff[1] == char(0xBB) && this->m_buff[2] == char(0xBF))
 	{
 		memmove(this->m_buff,this->m_buff+3,this->m_size-3);
-        this->m_size -= 3;
+		this->m_size -= 3;
 	}
 
 	CloseHandle(file);
