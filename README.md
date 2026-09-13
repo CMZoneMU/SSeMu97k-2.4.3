@@ -3,8 +3,19 @@
 ## Autor: Nilo Master  
 ## Arquivos: Emulador + Cliente Plugin Main.dll
 
-UPDATE CMZ 08 (3.0.8) 06-09-26 / SOURCE 97K KAYITO CUSTOM 01 (UPDATE 21):
-* Correcao do Limite de Texturas e Modelos (Zeus): realocacao da memoria de texturas e modelos nativos (lpTextures e lpModels) para contornar o limite do cliente e resolver o problema de graficos embaralhados/corrompidos ao adicionar muitos itens custom. Remapeados os ponteiros do executavel e reconstruido o carregamento de texturas com os hooks SetTexturesOffset, SetModelsOffset e OpenItemTexturesHook, permitindo suporte para ate 5500 itens. [Main.dll][Define.h][Offset.h][Main.cpp][LoadModels.h/.cpp][Client97K]
+UPDATE CMZ 09 (3.0.9) 08-09-26 / SOURCE 97K KAYITO CUSTOM 02 (UPDATE 21):
+* Menu de Opcoes Avancadas In-Game (Update 21 Kayito): implementado menu interativo completo acionado na interface original de ESC do cliente. Abas incorporadas: Geral, Anti-Lag, Tela, Janela e Fontes. [Main.dll][OptionsMenu.h/.cpp][WeaponView.h/.cpp][Offset.h][Main.cpp][Client97K]
+  - Mock Engine C++: implementado sistema de Mocks (CSoundMock, CGlobalTextMock, CFontMock, CHealthBarMock) para contornar limitacoes do Main.exe da 97k sem necessidade de injecao de classes inteiras originais.
+  - Correcao e Insercao dos ponteiros originais faltantes (m_bAutoAttack, m_bWhisperSound, RenderLinkObject, CreateSprite, m_WindowMode).
+  - Traducao nativa injetada em memoria via macro CGlobalTextMock e GetOptionText para evitar limitacao de index do arquivo Text.bmd.
+* Expansao de Texturas e Modelos 3D (Zeus): realocacao de memoria grafica e remapeamento de ponteiros no Main.exe, eliminando crashes, texturas corrompidas e itens brancos ao adicionar itens custom. [Main.dll][LoadModels.h/.cpp][Client97K]
+
+UPDATE CMZ 07 (3.0.7) 06-09-26 / UPDATE 92 (2.5.0):
+* Refatoracao de ItemBags: suporte a m_MaxItemDropCount < 0 (-1 para dropar todos os itens configurados, <-1 para sorteio 1..abs), correcao de inicializacao de SetOption em Convert, clamping de Option3 com m_MaxItemOption e protecao de DropZen contra drops de zen zerados. [GameServer][ItemBag.cpp][97KOR]
+* Controle de Buffer de Rede: protecao em CSocketManager::DataRecv com buffers locais por thread, validacao rigorosa de tamanho minimo de cabecalho (C1/C3 >= 3, C2/C4 >= 4), limites maximos de pacote (MAX_MAIN_PACKET_SIZE) e reorganizacao com memmove unico seguro pos-laco. [GameServer][SocketManager.cpp][97KOR]
+* AutoAttack (Suporte de Elfa): desacoplamento de Heal em relacao aos buffs continuos (Greater Defense / Greater Damage), ativando cura apenas quando HP <= 50% para evitar travamento do ciclo de auxilio quando o personagem esta com vida cheia. [GameServer][CustomAttack.cpp][97KOR]
+* Console do GameServer (Menus Dinamicos): novo menu Drop Event (0 a 19), expansao de Invasoes (para ate 30) e rotina EditMenuLabel para atualizacao dinamica de titulos e status de menus de acordo com os arquivos de configuracao. [GameServer][Resource.h][GameServer.h/.cpp][DropEvent.h/.cpp][BonusManager.cpp][InvasionManager.h/.cpp][97KOR]
+* Reconexao Offline: preservacao de credenciais de senha em RECONNECT_INFO e restauracao de conta offline apos reconexao com ResumeOffline fora da SafeZone. [GameServer][Reconnect.h/.cpp][97KOR]
 
 UPDATE CMZ 06 (3.0.6) 06-09-26 / UPDATE 91 (2.4.9):
 * Sistema de Anti-Hack de Movimento e Velocidade (HackMoveSpeedCheck): reestruturada a classe para modelo singleton stateless com rastreamento de MoveTime, LastX e LastY por jogador no OBJECTSTRUCT; adicionada tolerancia de distancia extra (+2) para jogadores montados em Uniria ou Dinorant; e integrados logs de auditoria detalhados ([HackMoveCheck]) no console e arquivo de log. [GameServer][HackMoveSpeedCheck.h/.cpp][User.h/.cpp][DSProtocol.cpp][ObjectManager.cpp][97KOR]
