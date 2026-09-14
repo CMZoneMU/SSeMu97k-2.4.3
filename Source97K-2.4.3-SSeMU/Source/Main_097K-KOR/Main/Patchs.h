@@ -4,7 +4,8 @@ void InitPatchs();
 
 void CalcFPS();
 
-void ReduceCPU();
+DWORD WINAPI FrameWait(DWORD dwStartTime);
+void HookFrameWait();
 
 void ReduceRam(LPVOID lpThreadParameter);
 
@@ -23,3 +24,4 @@ int OpenTerrainAttribute(char* FileName);
 int OpenObjectsEnc(char* FileName);
 
 extern char WindowName[128];
+extern int g_IncreaseFPSSwitch;

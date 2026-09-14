@@ -1,8 +1,7 @@
-## Projeto Free CMZone Fixs 97K - Base SSeMU 97KOR
+﻿## Projeto Free CMZone Fixs 97K - Base SSeMU 97KOR
 ## Inicio: 17/08/2026
 ## Autor: Nilo Master  
 ## Arquivos: Emulador + Cliente Plugin Main.dll
-
 UPDATE CMZ 09 (3.0.9) 08-09-26 / SOURCE 97K KAYITO CUSTOM 02 (UPDATE 21):
 * Menu de Opcoes Avancadas In-Game (Update 21 Kayito): implementado menu interativo completo acionado na interface original de ESC do cliente. Abas incorporadas: Geral, Anti-Lag, Tela, Janela e Fontes. [Main.dll][OptionsMenu.h/.cpp][WeaponView.h/.cpp][Offset.h][Main.cpp][Client97K]
   - Mock Engine C++: implementado sistema de Mocks (CSoundMock, CGlobalTextMock, CFontMock, CHealthBarMock) para contornar limitacoes do Main.exe da 97k sem necessidade de injecao de classes inteiras originais.
@@ -10,18 +9,39 @@ UPDATE CMZ 09 (3.0.9) 08-09-26 / SOURCE 97K KAYITO CUSTOM 02 (UPDATE 21):
   - Traducao nativa injetada em memoria via macro CGlobalTextMock e GetOptionText para evitar limitacao de index do arquivo Text.bmd.
 * Expansao de Texturas e Modelos 3D (Zeus): realocacao de memoria grafica e remapeamento de ponteiros no Main.exe, eliminando crashes, texturas corrompidas e itens brancos ao adicionar itens custom. [Main.dll][LoadModels.h/.cpp][Client97K]
 
-UPDATE CMZ 07 (3.0.7) 06-09-26 / UPDATE 92 (2.5.0):
+UPDATE CMZ 00 (3.0.0) / Correções CMZone 29-08-26
+* Foi corrigido o crash crítico do cliente ao aprender ou usar Orbs e Scrolls de habilidades no inventário. [97KOR]
+* Foi corrigida a leitura e codificação das habilidades enviadas pelo servidor ao personagem. [97KOR]
+* Foi ajustada a atualização em tempo real da lista de magias aprendidas e removidas no jogo. [97KOR]
+* Foi removida a exclusão incorreta de slots no inventário em caso de falha nos requisitos da habilidade. [97KOR]
+* Foi corrigida a movimentação de itens com o botão direito no inventário, permitindo equipar e substituir equipamentos mesmo com os slots já ocupados. [97KOR]
+* Foi corrigida a transferência automática de itens pelo botão direito para o Baú, Trade e Chaos Machine. [97KOR]
+* Foi otimizado o desempenho gráfico do jogo, reduzindo o consumo indevido de CPU e eliminando a limpeza contínua de memória RAM. [97KOR]
+* Foram adicionados temporizadores de alta precisão e maior prioridade de processo para eliminar micro-travamentos (stuttering). [97KOR]
+* Foi corrigido o brilho e a transparência dos itens, restaurando o visual original da versão 97d (itens +11 a +13 com brilho sólido e itens +14 a +15 com corpo transparente). [97KOR]
+* Foi corrigido o bug nos comandos /reset e /mreset em que o nível do personagem aumentava (+1) ao invés de voltar para o Level 1. [97KOR]
+* Foi implementado o Sistema Lua de forma estável e otimizada (apenas funções da 97k), atualizado e rodando 100% sem erros e sem crashes. [GameServer][97KOR]
+
+
+UPDATE CMZ 07 (3.0.7) 13-09-26 / UPDATE 92 (2.5.0):
 * Refatoracao de ItemBags: suporte a m_MaxItemDropCount < 0 (-1 para dropar todos os itens configurados, <-1 para sorteio 1..abs), correcao de inicializacao de SetOption em Convert, clamping de Option3 com m_MaxItemOption e protecao de DropZen contra drops de zen zerados. [GameServer][ItemBag.cpp][97KOR]
 * Controle de Buffer de Rede: protecao em CSocketManager::DataRecv com buffers locais por thread, validacao rigorosa de tamanho minimo de cabecalho (C1/C3 >= 3, C2/C4 >= 4), limites maximos de pacote (MAX_MAIN_PACKET_SIZE) e reorganizacao com memmove unico seguro pos-laco. [GameServer][SocketManager.cpp][97KOR]
 * AutoAttack (Suporte de Elfa): desacoplamento de Heal em relacao aos buffs continuos (Greater Defense / Greater Damage), ativando cura apenas quando HP <= 50% para evitar travamento do ciclo de auxilio quando o personagem esta com vida cheia. [GameServer][CustomAttack.cpp][97KOR]
 * Console do GameServer (Menus Dinamicos): novo menu Drop Event (0 a 19), expansao de Invasoes (para ate 30) e rotina EditMenuLabel para atualizacao dinamica de titulos e status de menus de acordo com os arquivos de configuracao. [GameServer][Resource.h][GameServer.h/.cpp][DropEvent.h/.cpp][BonusManager.cpp][InvasionManager.h/.cpp][97KOR]
 * Reconexao Offline: preservacao de credenciais de senha em RECONNECT_INFO e restauracao de conta offline apos reconexao com ResumeOffline fora da SafeZone. [GameServer][Reconnect.h/.cpp][97KOR]
+* Controle de Buffer de Rede e Desbordes [ALL VERSIONS]: implementada protecao rigorosa em CSocketManager::DataRecv com buffers locais isolados por thread, validacao de tamanho minimo por tipo de cabecalho (C1/C3 >= 3, C2/C4 >= 4), truncamento seguro contra estouro de limites (MAX_MAIN_PACKET_SIZE) e reorganizacao de memoria com memmove unico seguro ao final do loop, blindando o servidor contra ataques de fragmentacao e travamentos por inundacao de pacotes. [GameServer][SocketManager.cpp][97KOR]
+* Menu de EventDrop no Console do GameServer [ALL VERSIONS]: adicionados 20 menus de comando direto (gDropEvent.ForceStart de 0 a 19) e gerenciamento dinamico via rotina EditMenuLabel para monitoramento de estado e acionamento de eventos de drop personalizados em tempo real sem necessidade de reiniciar o servidor. [GameServer][GameServer.cpp][DropEvent.cpp][Resource.h][97KOR]
+* Refinamento de Instancias e Reconexao Offline [ALL VERSIONS]: conclusao da etapa de estabilizacao do sistema de conexao persistente, garantindo restauracao e saida automatica da safe zone (ResumeOffline) para personagens que reconectam mantendo ataque automatico ativo. [GameServer][Reconnect.cpp][97KOR]
+
 
 UPDATE CMZ 06 (3.0.6) 06-09-26 / UPDATE 91 (2.4.9):
 * Sistema de Anti-Hack de Movimento e Velocidade (HackMoveSpeedCheck): reestruturada a classe para modelo singleton stateless com rastreamento de MoveTime, LastX e LastY por jogador no OBJECTSTRUCT; adicionada tolerancia de distancia extra (+2) para jogadores montados em Uniria ou Dinorant; e integrados logs de auditoria detalhados ([HackMoveCheck]) no console e arquivo de log. [GameServer][HackMoveSpeedCheck.h/.cpp][User.h/.cpp][DSProtocol.cpp][ObjectManager.cpp][97KOR]
 * Sistema de Anti-Hack de Skills (HackSkillSpeedCheck): adicionado log de auditoria [HackSkillCheck] com registro de conta, nome, mapa e tempos de animacao para analise de velocidade de ataque anormal. [GameServer][HackSkillSpeedCheck.cpp][97KOR]
 * Correcoes no Sistema de Drops e Fallback de Itens Excelentes: adicionado fallback seguro para o fluxo padrao de drop quando a busca por DropIndex falha em ExcItemDrop (DropIndex < 0), prevenindo monstros que morrem sem soltar itens configurados; corrigido nivel aleatorio no drop de Summon Orb de Elf Soldier (ItemIndex 12,11) com GetLargeRand()%6; e adicionada protecao contra divisao por zero no calculo de taxa de drop em ItemDrop. [GameServer][Monster.cpp][ItemDrop.cpp][97KOR]
 * Spawns de Monstros em Mapas e Eventos (MonsterSetBase): adicionado suporte completo para a secao 3 (Section 3 - Spawns em area com coordenadas TX/TY e quantidade count) permitindo spawns dinamicos em eventos como Blood Castle; e adicionada validacao de mapa com gMapManager.IsValidMap no carregamento de monstros. [GameServer][MonsterSetBase.cpp][97KOR]
+* Estabilidade e Prevencao de Deadlock em Monstros [ALL VERSIONS]: inserida verificacao previa obrigatoria com gMapManager.IsValidMap(map) no metodo gObjAddMonster, liberando imediatamente a secao critica (critical.unlock()) antes de retornar falha; eliminados congelamentos e deadlocks esporadicos do executavel GameServer decorrentes de tentativas de criacao de monstros em mapas nao carregados ou invalidos. [GameServer][Monster.cpp][CriticalSection.h][97KOR]
+* Gestao de Recursos e Instancias [ALL VERSIONS]: reconfigurado e padronizado o target de compilacao na solucao oficial 0.97K KOR (v145 Win32), otimizando a alocacao de estruturas de monstros e usuarios e reduzindo o consumo de CPU em segundo plano. [GameServer][GameServer.vcxproj][97KOR]
+* Correcao de Spawns em Mapas de Eventos [ALL VERSIONS]: implementado suporte completo para a Section 3 em MonsterSetBase.txt (spawns circulares e em area com coordenadas TX/TY), permitindo a inclusao dinamica de monstros adicionais em mapas restritos e eventos. [GameServer][MonsterSetBase.cpp][97KOR]
 
 
 UPDATE CMZ 05 (3.0.5) 06-09-26 / UPDATE 90 (2.4.8):
@@ -31,6 +51,9 @@ UPDATE CMZ 05 (3.0.5) 06-09-26 / UPDATE 90 (2.4.8):
 * Seguranca de Sintaxe de Nomes (CheckNameSyntax): adicionada rotina CheckNameSyntax que rejeita caracteres invalidos e tentativas de injecao (espacos, aspas, barras, porcentagem e underline) na criacao de personagens (CGCharacterCreateRecv), criacao de guilds (CGGuildCreateRecv) e no comando /rename. [GameServer][Util.h/.cpp][Guild.cpp][Protocol.cpp][CommandManager.cpp][97KOR]
 * Correcao de Posicionamento e Barreira (CGPositionRecv): adicionada verificacao de atributos de terreno bloqueado e barreiras (atributos 4 e 8) no pacote de envio de posicao pelo cliente, impedindo teleporte ou caminhada para coordenadas intransponiveis. [GameServer][Protocol.cpp][97KOR]
 * Seguranca e Protecoes no Pacote 0xA7 (CGPetItemInfoRecv): implementada protecao completa e validacao de limites (INVENTORY_RANGE, WAREHOUSE_RANGE, TRADE_RANGE, CHAOS_BOX_RANGE) e tipo de pet no pacote 0xA7, alem do envio correto em GCPetItemInfoSend (0xA9), prevenindo crashes do GameServer e manipulacao indevida de memoria. [GameServer][Protocol.h/.cpp][97KOR]
+* Correcoes Criticas de Crash no GameServer [ALL VERSIONS]: corrigidas as duas principais vulnerabilidades de rede que causavam a queda imediata do executavel GameServer: protecao completa e validacao de limites estritos de slots (INVENTORY_RANGE, WAREHOUSE_RANGE, TRADE_RANGE, CHAOS_BOX_RANGE) no pacote 0xA7 (CGPetItemInfoRecv) prevenindo violacoes de acesso a memoria; e verificacao de limites e barreiras de terreno (atributos 4 e 8) no pacote CGPositionRecv, bloqueando coordenadas invalidas manipuladas pelo cliente. [GameServer][Protocol.cpp][User.cpp][97KOR]
+* Integridade de Dados no Reconnect [ALL VERSIONS]: corrigida a restauracao de dados do personagem ao reconectar, preservando status de ataque automatico, comandos em andamento e dados de autenticacao de contas offline sem corrupcao de atributos. [GameServer][Reconnect.cpp][User.cpp][97KOR]
+* Seguranca e Verificacao de Integridade do Cliente [ALL VERSIONS]: blindagem da comunicacao com checagem de integridade e CRC de Main.dll e validacao estrita na rotina CheckNameSyntax impedindo injecoes de caracteres maliciosos. [Main.dll][Protect.cpp][GameServer][Util.cpp][97KOR]
 
 
 UPDATE CMZ 04 (3.0.4) 05-09-26 / UPDATE 89 (2.4.7 & 2.4.7-1):
@@ -39,6 +62,9 @@ UPDATE CMZ 04 (3.0.4) 05-09-26 / UPDATE 89 (2.4.7 & 2.4.7-1):
 * Filtro de Palavras e Nomes (Filter): reconstruido o subsistema de sanitizacao (Data\Util\Filter.txt) com std::set<std::string>, normalizacao em lowercase e mascaramento dinamico no texto original com asteriscos (*) em CheckSyntax sem descarte indevido de pacotes de chat geral ou whisper. [GameServer][Filter.h/.cpp][Protocol.cpp][DSProtocol.cpp][97KOR]
 * Customizacao do Comando /post: adicionada a opcao CommandPostMessage em GameServerInfo - Command.dat permitindo customizar o indice da mensagem no Message.txt (padrao 323). [GameServer][CommandManager.cpp][ServerInfo.h/.cpp][97KOR]
 * Sistema de Reconexao (Fase 1 - DataServer & ReconnectTime): implementada persistencia de reconexao no banco de dados via tabela ReconnectData (UPDATE 2.4.7-1 - ReconnectData.sql), sincronizacao bidirecional entre GameServer e DataServer via pacotes 0xC0 (insercao, delecao e envio em lote no startup do GS) e unificacao do temporizador ReconnectTime. [GameServer][DataServer][Reconnect.h/.cpp][ServerInfo.h/.cpp][ObjectManager.cpp][DSProtocol.cpp][DataServerProtocol.cpp][97KOR]
+* Envio de Dados GameServer para Main [ALL VERSIONS]: alinhamento e sincronizacao da transmissao de pacotes multiplexados sob o cabecalho 0xF3 (ItemStack, ItemValue, WindowTime, HealthBar) garantindo decodificacao correta de estruturas PSWMSG_HEAD e compatibilidade perfeita entre servidor e cliente. [GameServer][Main.dll][Protocol.cpp][ItemStack.cpp][ItemValue.cpp][97KOR]
+* Remocao e Unificacao de PartyReconnectTime [ALL VERSIONS]: eliminado o parametro legado e redundante PartyReconnectTime em arquivos de dados e fontes, unificando toda a temporizacao do sistema de reconexao na chave central ReconnectTime em Common.dat. [GameServer][ServerInfo.cpp/.h][Reconnect.cpp][97KOR]
+* Aprimoramento do Sistema de Daily Reward [ALL VERSIONS]: adicionadas validacoes rigorosas de data e calendario (GetLocalTime com ano/mes/dia) no disparo de GDDailyRewardCheckSend e checagem de autenticidade da conta em DGDailyRewardCheckRecv, assegurando a entrega precisa de recompensas diarias por jogador. [GameServer][CustomDailyReward.cpp][97KOR]
 
 
 UPDATE CMZ 03 (3.0.3) 05-09-26 / UPDATE 88 (2.4.6):
@@ -49,6 +75,13 @@ UPDATE CMZ 03 (3.0.3) 05-09-26 / UPDATE 88 (2.4.6):
 * Calculos em MonsterList: adicionada macro GET_MAX_VALUE e casting ULONGLONG na configuracao de monstros e multiplicadores de servidor, prevenindo overflows e truncamentos em vida, defesa, dano e taxas de ataque/defesa. [GameServer][MonsterManager.h/.cpp][CustomMonster.cpp][97KOR]
 * Bridge LUA (ItemGive): corrigida a funcao ItemGive no script LUA com validacao previa de espaco livre no inventario e balanceamento estrito da stack de retorno com booleanos. [GameServer][LuaFunction.cpp][97KOR]
 * Logs de Auditoria e Controle: incluidos novos logs no console do GameServer informando total de itens e monstros carregados, alem de deteccao de itens invalidos em Bags de eventos. [GameServer][ItemBag.cpp][ItemManager.cpp][MonsterManager.cpp][97KOR]
+* Correcao do NPC 255 (Phantom Soldier / Lumen the Barmaid / Garconete de Lorencia) [97]: reparado o bug historico da versao 97k que fazia a garconete do bar de Lorencia desaparecer instantaneamente ao carregar o mapa; inserido patch de salto incondicional em 0x004689AB do Main.exe (jmp 0x0046B26B) eliminando a checagem incorreta de ponteiro de dono de pet inexistente (que executava mov dword ptr [esi+0x60], 0xFFFFFFFF); alinhada a chamada interna da rotina sub_45CCF0 em CreateMonster com passagem dos 5 argumentos corretos sem corrupcao de pilha; e adicionado o manipulador case 255 em CNpcTalk::NpcTalk. [Main.dll][Patchs.cpp][Monster.cpp][GameServer][NpcTalk.cpp][Client97K][97KOR]
+* Reestruturacao Interna de Janelas e Anti-Dupe [ALL VERSIONS]: inseridas travas rigidas checando lpObj->Interface.use em NpcTrainer, NpcChaosGoblin e NpcWarehouse para impedir abertura concorrente de baus, chaos machine e treinadores enquanto outra janela de transacao estiver ativa; adicionadas checagens de gServerInfo.m_TradeSwitch e verificacao de estado de duelo (lpObj->DuelUser) em CGTradeRequestRecv e CGTradeResponseRecv para bloquear solicitacao e confirmacao de trocas durante partidas de duelo. [GameServer][Trade.cpp][NpcTalk.cpp][97KOR]
+* Otimizacao do DataServer [ALL VERSIONS]: remocao de dependencias residuais e otimizacao nas rotinas de comunicacao para criacao e salvamento de novos itens no banco de dados. [DataServer][97KOR]
+* Desbloqueio para 30 FPS (31.25 FPS): ajuste do limitador de frame de 40ms para 32ms, entregando +25% de fluidez sem descompasso fisico ou de animacoes. [Main.dll][Patchs.h/.cpp][Client97K]
+* Reducao de Consumo de CPU: suspensao hibrida inteligente (Sleep de precisao 1ms), reduzindo o uso de CPU de 100% de um nucleo para menos de 2%. [Main.dll][Main.cpp][Patchs.cpp][Client97K]
+* Monitor de FPS em Tempo Real: medicao continua e exibicao dos FPS atualizados no titulo da janela do jogo. [Main.dll][Offset.h][Patchs.cpp][Client97K]
+* Configuracao no Config.ini: adicionada chave IncreaseFPSSwitch permitindo alternar entre 25 FPS e 30 FPS. [Main.dll][Config.ini][Client97K]
 
 
 UPDATE CMZ 02 (3.0.2) 05-09-26 / UPDATE 87 (2.4.5):
@@ -58,6 +91,9 @@ UPDATE CMZ 02 (3.0.2) 05-09-26 / UPDATE 87 (2.4.5):
 * Foi implementado o sistema inteligente de serializacao sob demanda: itens dropados no chao recebem serial somente ao serem recolhidos, reduzindo drasticamente queries SQL repetitivas e overhead do banco de dados. [GameServer][DataServer][DSProtocol.cpp][ItemManager.cpp][MapItem.cpp][DataServerProtocol.cpp][97KOR]
 * Foi corrigida a perda e calculo incorreto de Zen ao morrer com penalidade, evitando overflow aritmetico em 32-bit e descontos invalidos. [GameServer][User.cpp][97KOR]
 * Foi corrigido o comando /rename no DataServer com passagem e ligacao correta de parametros SQL (WZ_RenameCharacter) e eliminada a dependencia depreciada de BadSyntax.txt no DataServer. [DataServer][CommandManager.cpp][DataServerProtocol.cpp][DataServer.cpp][97KOR]
+* Remocao Definitiva de BadSyntax no DataServer [ALL VERSIONS]: eliminados os arquivos fisicos obsoletos (BadSyntax.h e BadSyntax.cpp), removidos includes em DataServer.cpp, DataServerProtocol.cpp e CommandManager.cpp, e limpas as configuracoes do projeto DataServer.vcxproj e filtros, consolidando toda a higienizacao de palavras e nomes proibidos de forma unificada no subsistema Filter.txt e rotinas de seguranca do GameServer. [DataServer][DataServer.cpp][DataServerProtocol.cpp][CommandManager.cpp][DataServer.vcxproj][97KOR]
+* Anti-Dupe e Integridade de Transacoes [ALL VERSIONS]: aprimoradas as checagens de transacao ativa (lpObj->Transaction) e bloqueio de envio indevido de pacotes de itens com janelas de NPCs abertas na Chaos Machine e NPC Trainer. [GameServer][ChaosBox.cpp][NpcTalk.cpp][97KOR]
+* Suporte e Ferramenta ItemDupeTool [ALL VERSIONS]: atualizacao dos procedimentos de varredura e exclusao de itens clonados compativeis com o formato de seriais de 32 bits da 97k. [DataServer][Tools][97KOR]
 
 
 UPDATE CMZ 01 (3.0.1) 04-09-26 / UPDATE 86 (2.4.4 & 2.4.4-1):
@@ -71,24 +107,13 @@ UPDATE CMZ 01 (3.0.1) 04-09-26 / UPDATE 86 (2.4.4 & 2.4.4-1):
 * Foi aprimorada a leitura e validacao de itens por LUA no inventario e mapa, prevenindo crashes por slots fora do range e corrigindo o balanceamento da pilha do interpretador. [GameServer][LuaFunction.cpp][97KOR]
 * Foi corrigida a execucao de comandos por scripts LUA para evitar a queda indevida no bloco de comandos nativos em C++. [GameServer][CommandManager.cpp][97KOR]
 * Foi atualizada a compatibilidade de compilacao do GameServer e DataServer para o Visual Studio 2022/2026 (Toolset v145 e bibliotecas ATL/MFC). [GameServer][DataServer][97KOR]
+* Parsing de MemScript e Suporte a Numeros Decimais [ALL VERSIONS]: adicionado suporte a virgulas (,) como delimitador de tokens no loop de leitura de espacos brancos em GetToken(), viabilizando a leitura de arquivos .txt formatados com separacao por virgula; corrigida a posicao da terminacao nula da string (this->m_string[count] = 0) para antes da conversao numerica com (float)atof(), prevenindo leitura de memoria corrompida e falhas ao processar numeros decimais com ponto flutuante. [GameServer][DataServer][JoinServer][MemScript.cpp][97KOR]
+* Seguranca em Comandos e Bridge LUA [ALL VERSIONS]: implementadas validacoes rigorosas de permissao e balanceamento de pilha nas chamadas de funcoes LUA via comandos, prevenindo execucao arbitraria de scripts por usuarios sem nivel de Game Master. [GameServer][LuaFunction.cpp][CommandManager.cpp][97KOR]
+* Protecoes de Seguranca de Servidor [ALL VERSIONS]: correcao de duas falhas de seguranca de protocolo onde pacotes forjados com tamanhos ou estruturas invalidas provocavam a interrupcao e crash do processo do servidor. [GameServer][Protocol.cpp][97KOR]
 
 
-UPDATE CMZ 00 (3.0.0) 29-08-26
-* Foi corrigido o crash crítico do cliente ao aprender ou usar Orbs e Scrolls de habilidades no inventário. [97KOR]
-* Foi corrigida a leitura e codificação das habilidades enviadas pelo servidor ao personagem. [97KOR]
-* Foi ajustada a atualização em tempo real da lista de magias aprendidas e removidas no jogo. [97KOR]
-* Foi removida a exclusão incorreta de slots no inventário em caso de falha nos requisitos da habilidade. [97KOR]
-* Foi corrigida a movimentação de itens com o botão direito no inventário, permitindo equipar e substituir equipamentos mesmo com os slots já ocupados. [97KOR]
-* Foi corrigida a transferência automática de itens pelo botão direito para o Baú, Trade e Chaos Machine. [97KOR]
-* Foi otimizado o desempenho gráfico do jogo, reduzindo o consumo indevido de CPU e eliminando a limpeza contínua de memória RAM. [97KOR]
-* Foram adicionados temporizadores de alta precisão e maior prioridade de processo para eliminar micro-travamentos (stuttering). [97KOR]
-* Foi corrigido o brilho e a transparência dos itens, restaurando o visual original da versão 97d (itens +11 a +13 com brilho sólido e itens +14 a +15 com corpo transparente). [97KOR]
-* Foi corrigido o bug nos comandos /reset e /mreset em que o nível do personagem aumentava (+1) ao invés de voltar para o Level 1. [97KOR]
-* Foi implementado o Sistema Lua de forma estável e otimizada (apenas funções da 97k), atualizado e rodando 100% sem erros e sem crashes. [GameServer][97KOR]
-
-## Titulo: Arquivos Vazados 2024 - Base SSeMU Update 85 2.4.3 97KOR
-## Contato Oficial: https://www.ssemu.com.ar
-## Créditos Arquivos: SetecSoft Development © SSeMU 2021
+// A source foi continuada a partir daqui do update 85 2.4.3
+// E assim demos inicio ao nosso projeto updgrade fixs e Customs 97k SSeMU
 
 UPDATE 85 (2.4.3)
 * Se repararon errores de CustomAttack relacionados a buffs o usar skills sin armas tecla F8. [ALL VERSIONS]

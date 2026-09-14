@@ -84,6 +84,8 @@ bool CNpcTalk::NpcTalk(LPOBJ lpNpc,LPOBJ lpObj) // OK
 		case 241:
 			this->NpcGuildMaster(lpNpc,lpObj);
 			break;
+		case 255:
+			break;
 		default:
 			return 0;
 	}
@@ -93,6 +95,11 @@ bool CNpcTalk::NpcTalk(LPOBJ lpNpc,LPOBJ lpObj) // OK
 
 void CNpcTalk::NpcTrainer(LPOBJ lpNpc,LPOBJ lpObj) // OK
 {
+	if(lpObj->Interface.use != 0)
+	{
+		return;
+	}
+
 	if(lpObj->PShopOpen != 0)
 	{
 		return;
@@ -167,6 +174,11 @@ void CNpcTalk::NpcCharon(LPOBJ lpNpc,LPOBJ lpObj) // OK
 
 void CNpcTalk::NpcChaosGoblin(LPOBJ lpNpc,LPOBJ lpObj) // OK
 {
+	if(lpObj->Interface.use != 0)
+	{
+		return;
+	}
+
 	if(lpObj->PShopOpen != 0)
 	{
 		return;
@@ -196,7 +208,7 @@ void CNpcTalk::NpcChaosGoblin(LPOBJ lpNpc,LPOBJ lpObj) // OK
 
 void CNpcTalk::NpcWarehouse(LPOBJ lpNpc,LPOBJ lpObj) // OK
 {
-	if(lpObj->Interface.type == INTERFACE_TRADE || lpObj->Interface.type == INTERFACE_CHAOS_BOX || lpObj->Interface.type == INTERFACE_PERSONAL_SHOP)
+	if(lpObj->Interface.use != 0 || lpObj->Interface.type == INTERFACE_TRADE || lpObj->Interface.type == INTERFACE_CHAOS_BOX || lpObj->Interface.type == INTERFACE_PERSONAL_SHOP)
 	{
 		return;
 	}

@@ -119,5 +119,5 @@ DWORD CreateMonster(int index,int x,int y,int key) // OK
 		}
 	}
 
-	return ((DWORD(*)(int,int,int,int))0x0045CCF0)(index,x,y,key);
+	return ((DWORD(*)(int,int,int,int,int))0x0045CCF0)((unsigned char)index,x,y,key,0);
 }

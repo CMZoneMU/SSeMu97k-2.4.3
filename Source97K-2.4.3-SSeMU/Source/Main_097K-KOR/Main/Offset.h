@@ -196,4 +196,8 @@ struct CHARACTER_ATTRIBUTE
 #define OpenItemTextures ((void(_cdecl*)())0x00508D10)
 #define FindTextureByName ((short(_cdecl*)(char* Name, BITMAP_t** Texture)) 0x00505BF0)
 #define PartObjectColor ((void(_cdecl*)(int Type, float Alpha, float Bright, float Light[3], bool ExtraMon))0x00503CF0)
-// Fim Update 21 Kayito -> 97K
+// Fim Update 21 Kayito -> 97K
+
+// FPS Monitor (97.11 WebZen)
+#define FPS *(float*)0x05826DF8
+

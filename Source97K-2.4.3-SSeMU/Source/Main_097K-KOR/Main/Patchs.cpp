@@ -7,6 +7,7 @@
 #include "Protocol.h"
 
 char WindowName[128];
+int g_IncreaseFPSSwitch = 1;
 
 void InitPatchs()
 {
@@ -60,7 +61,27 @@ void InitPatchs()
 
 	SetWord(0x00444B76, 0x19EB); //-> Uniria & Dinorant Reflect
 
-	// SetCompleteHook(0xE9, 0x00526A5A, &ReduceCPU); // Disabled to eliminate stutter/lag in render loop
+	g_IncreaseFPSSwitch = GetPrivateProfileInt("Config", "IncreaseFPSSwitch", GetPrivateProfileInt("Graphics", "IncreaseFPSSwitch", 1, ".\\Config.ini"), ".\\Config.ini");
+
+	if (g_IncreaseFPSSwitch != 0)
+	{
+		// 30 FPS Fluido (32 ms / ~31.25 FPS em vez de 40 ms / 25 FPS)
+		// DecIDA_Main 97.11 WebZen.c Linha 205228: while (dword_5616B8 >= 32)
+		SetByte(0x00525D57, 0x20);
+
+		// DecIDA_Main 97.11 WebZen.c Linha 205533: dword_5616B8 -= 32
+		SetByte(0x00526713, 0x20);
+	}
+
+	// Troca GetTickCount() por timeGetTime() no inicio da medicao do frame (0x0052696D: call ds:[00552404])
+	// Garante resolucao de 1ms em vez dos 15.6ms do TickCount que travavam o jogo em 24 FPS
+	SetDword(0x0052696F, 0x00552404);
+
+	// Hook de Frame Wait de alta precisao e Reducao de CPU (0x00526A3F a 0x00526A6E = 47 bytes)
+	// Substitui o loop busy-wait por suspensao hibrida (Sleep(1) + Sleep(0)), reduzindo CPU para < 2% e cravando 31.25 FPS
+	SetCompleteHook(0xE9, 0x00526A3F, &HookFrameWait);
+	MemorySet(0x00526A3F + 5, 0x90, 42);
+
 
 	// CreateThread(0, 0, (LPTHREAD_START_ROUTINE)ReduceRam, 0, 0, 0); // Disabled to prevent constant RAM flushing
 
@@ -115,14 +136,14 @@ void InitPatchs()
 	SetCompleteHook(0xE8, 0x00525D4C, &CalcFPS);
 
 	// --- Render path principal (gameplay normal) ---
-	// Patch 1: Transparência do corpo do item a partir de +14 (era +12)
+	// Patch 1: TransparÃªncia do corpo do item a partir de +14 (era +12)
 	SetByte(0x0050565F, 0x0D);
 
-	// Patch 2: Alinha o bloco do brilho dourado (overlay 0x240) até +13
+	// Patch 2: Alinha o bloco do brilho dourado (overlay 0x240) atÃ© +13
 	SetByte(0x005056E3, 0x0E);
 
-	// --- Render path secundário (troca de mapa / recarregar personagem) ---
-	// Patch 3: Transparência no carregamento de mapa
+	// --- Render path secundÃ¡rio (troca de mapa / recarregar personagem) ---
+	// Patch 3: TransparÃªncia no carregamento de mapa
 	SetByte(0x004F825F, 0x0D);
 
 	// Patch 4: Texture lookup path A
@@ -130,6 +151,10 @@ void InitPatchs()
 
 	// Patch 5: Texture lookup path B
 	SetByte(0x004EF451, 0x0D);
+
+	// Update 88: CorreÃ§Ã£o do NPC 255 (Phantom Soldier / Lumen the Barmaid / GarÃ§onete de Lorencia)
+	SetByte(0x004689AB, 0xE9);
+	SetDword(0x004689AB + 1, 0x000028BB);
 }
 
 void CalcFPS() // OK
@@ -142,13 +167,16 @@ void CalcFPS() // OK
 
 		RightClickMove();
 
-		if(WindowName[0] == 0)
+		static DWORD dwLastTitleUpdate = 0;
+		if (GetTickCount() - dwLastTitleUpdate >= 500)
 		{
-			SetWindowText(g_hWnd,gProtect.m_MainInfo.WindowName);
-		}
-		else
-		{
-			SetWindowText(g_hWnd,WindowName);
+			dwLastTitleUpdate = GetTickCount();
+
+			char szTitle[256];
+			char* baseTitle = (WindowName[0] == 0) ? gProtect.m_MainInfo.WindowName : WindowName;
+
+			sprintf_s(szTitle, "%s || FPS: %.0f", baseTitle, FPS);
+			SetWindowText(g_hWnd, szTitle);
 		}
 
 		if(CustomAttack != 0)
@@ -174,21 +202,44 @@ void CalcFPS() // OK
 	}
 }
 
-__declspec(naked) void ReduceCPU()
+DWORD WINAPI FrameWait(DWORD dwStartTime)
 {
-	static DWORD JmpBack = 0x00526A60;
+	DWORD dwTarget = (g_IncreaseFPSSwitch != 0) ? 32 : 40;
+	DWORD dwElapsed = timeGetTime() - dwStartTime;
+
+	while (dwElapsed < dwTarget)
+	{
+		DWORD dwRemaining = dwTarget - dwElapsed;
+
+		if (dwRemaining > 2)
+		{
+			Sleep(1);
+		}
+		else
+		{
+			Sleep(0);
+		}
+
+		dwElapsed = timeGetTime() - dwStartTime;
+	}
+
+	return dwElapsed;
+}
+
+__declspec(naked) void HookFrameWait()
+{
+	static DWORD JmpBack = 0x00526A6E;
 
 	__asm
 	{
-		Push 1;
-
-		Call Dword Ptr Ds : [0x00552128] ; //Sleep
-
-		Call Dword Ptr Ds : [0x00552198] ; //GetTickCount
-
-		Jmp[JmpBack];
+		Mov Eax, Dword Ptr Ss:[Ebp-0x158]
+		Push Eax
+		Call FrameWait
+		Mov Dword Ptr Ss:[Ebp-0x160], Eax
+		Jmp [JmpBack]
 	}
 }
+
 
 void ReduceRam(LPVOID lpThreadParameter)
 {

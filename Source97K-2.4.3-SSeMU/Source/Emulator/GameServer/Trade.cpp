@@ -104,6 +104,11 @@ void CTrade::ExchangeTradeItemLog(LPOBJ lpObj,LPOBJ lpTarget) // OK
 
 void CTrade::CGTradeRequestRecv(PMSG_TRADE_REQUEST_RECV* lpMsg,int aIndex) // OK
 {
+	if(gServerInfo.m_TradeSwitch == 0)
+	{
+		return;
+	}
+
 	LPOBJ lpObj = &gObj[aIndex];
 
 	if(gObjIsConnectedGP(aIndex) == 0)
@@ -132,6 +137,12 @@ void CTrade::CGTradeRequestRecv(PMSG_TRADE_REQUEST_RECV* lpMsg,int aIndex) // OK
 
 	if(lpObj->Permission[7] != 0 || lpTarget->Permission[7] != 0)
 	{
+		return;
+	}
+
+	if(OBJECT_RANGE(lpObj->DuelUser) != 0 || OBJECT_RANGE(lpTarget->DuelUser) != 0)
+	{
+		this->GCTradeResponseSend(aIndex,0,lpTarget->Name,0,0);
 		return;
 	}
 
@@ -176,6 +187,11 @@ void CTrade::CGTradeRequestRecv(PMSG_TRADE_REQUEST_RECV* lpMsg,int aIndex) // OK
 
 void CTrade::CGTradeResponseRecv(PMSG_TRADE_RESPONSE_RECV* lpMsg,int aIndex) // OK
 {
+	if(gServerInfo.m_TradeSwitch == 0)
+	{
+		return;
+	}
+
 	LPOBJ lpObj = &gObj[aIndex];
 
 	if(gObjIsConnectedGP(aIndex) == 0)
@@ -205,6 +221,11 @@ void CTrade::CGTradeResponseRecv(PMSG_TRADE_RESPONSE_RECV* lpMsg,int aIndex) // 
 	if(lpObj->Permission[7] != 0 || lpTarget->Permission[7] != 0)
 	{
 		return;
+	}
+
+	if(OBJECT_RANGE(lpObj->DuelUser) != 0 || OBJECT_RANGE(lpTarget->DuelUser) != 0)
+	{
+		goto CLEAR_JUMP;
 	}
 
 	if(gMapManager.GetMapTradeEnable(lpTarget->Map) == 0)

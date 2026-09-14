@@ -2,7 +2,6 @@
 #include "resource.h"
 #include "DataServer.h"
 #include "AllowableIpList.h"
-#include "BadSyntax.h"
 #include "GuildManager.h"
 #include "ItemManager.h"
 #include "MiniDump.h"

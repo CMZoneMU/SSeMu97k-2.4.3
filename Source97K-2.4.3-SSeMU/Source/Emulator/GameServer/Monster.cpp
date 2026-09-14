@@ -595,6 +595,12 @@ int gObjAddMonster(int map) // OK
 	int index = -1;
 	int count = gObjMonCount;
 
+	if(gMapManager.IsValidMap(map) == 0)
+	{
+		critical.unlock();
+		return -1;
+	}
+
 	if(gMemoryAllocator.GetMemoryAllocatorFree(&index,OBJECT_START_MONSTER,MAX_OBJECT_MONSTER,10000) != 0)
 	{
 		gObjAllocData(index);

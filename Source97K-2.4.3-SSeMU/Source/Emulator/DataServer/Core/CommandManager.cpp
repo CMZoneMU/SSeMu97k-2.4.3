@@ -4,7 +4,6 @@
 
 #include "stdafx.h"
 #include "CommandManager.h"
-#include "BadSyntax.h"
 #include "QueryManager.h"
 #include "SocketManager.h"
 #include "Util.h"

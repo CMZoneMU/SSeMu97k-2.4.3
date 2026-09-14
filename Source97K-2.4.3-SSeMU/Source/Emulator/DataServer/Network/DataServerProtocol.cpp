@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "DataServerProtocol.h"
-#include "BadSyntax.h"
 #include "CharacterManager.h"
 #include "CommandManager.h"
 #include "CustomDailyReward.h"

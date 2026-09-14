@@ -24,9 +24,6 @@
     <ClInclude Include="Core\AllowableIpList.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Core\BadSyntax.h">
-      <Filter>Core</Filter>
-    </ClInclude>
     <ClInclude Include="Core\CharacterManager.h">
       <Filter>Core</Filter>
     </ClInclude>
@@ -110,9 +107,6 @@
     <ClCompile Include="..\..\..\Util\Sha256\Sha256.cpp">
     </ClCompile>
     <ClCompile Include="Core\AllowableIpList.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\BadSyntax.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Core\CharacterManager.cpp">
