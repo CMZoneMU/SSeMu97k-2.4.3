@@ -4,7 +4,10 @@
 #include "ChaosBox.h"
 #include "CommandManager.h"
 #include "CustomDailyReward.h"
+#include "CustomGift.h"
+#include "CustomMonsterKillCount.h"
 #include "CustomPick.h"
+#include "DefaultClassFreebies.h"
 #include "Filter.h"
 #include "Fruit.h"
 #include "GameMain.h"
@@ -84,6 +87,9 @@ void DataServerProtocolCore(BYTE head,BYTE* lpMsg,int size) // OK
 				case 0x01:
 					gCommandManager.DGCommandMasterResetRecv((SDHP_COMMAND_MASTER_RESET_RECV*)lpMsg);
 					break;
+				case 0x03:
+					gCustomGift.DGCommandGiftRecv((SDHP_COMMAND_GIFT_RECV*)lpMsg);
+					break;
 				case 0x04:
 					gCommandManager.DGCommandRenameRecv((SDHP_COMMAND_RENAME_RECV*)lpMsg);
 					break;
@@ -106,6 +112,9 @@ void DataServerProtocolCore(BYTE head,BYTE* lpMsg,int size) // OK
 		// Update 88 2.4.6 -> 97K - Sistema de recompensas diárias
 		case 0x16:
 			gCustomDailyReward.DGDailyRewardCheckRecv((SDHP_DAILY_REWARD_INFO_RECV*)lpMsg);
+			break;
+		case 0x50:
+			gCustomMonsterKillCount.DGMonsterKillCountRecv((SDHP_MONSTER_KILL_COUNT_RECV*)lpMsg);
 			break;
 		case 0x20:
 			DGGlobalPostRecv((SDHP_GLOBAL_POST_RECV*)lpMsg);
@@ -496,6 +505,9 @@ void DGCharacterInfoRecv(SDHP_CHARACTER_INFO_RECV* lpMsg) // OK
 	gItemValue.GCItemListValueSend(lpObj->Index);
 
 	gScriptLoader.OnCharacterEntry(lpObj->Index);
+
+	// Update 93 2.5.1 -> 97K - Presentes iniciais para novos personagens
+	gDefaultClassFreebies.GetCharacterFreebies(lpObj,lpMsg->IsNewChar);
 
 	// Update 91 2.4.9 -> 97K - Inicializacao de rastreamento de movimento no login
 	gHackMoveSpeedCheck.Reset(lpObj);

@@ -1,4 +1,4 @@
-﻿## Projeto Free CMZone Fixs 97K - Base SSeMU 97KOR
+## Projeto Free CMZone Fixs 97K - Base SSeMU 97KOR
 ## Inicio: 17/08/2026
 ## Créditos Source: SSeMU SetecSoft Development  
 ## Créditos MuServer e Cliente: SSeMU SetecSoft Development
@@ -23,6 +23,18 @@ UPDATE CMZ 00 (3.0.0) / Correções CMZone 29-08-26
 * Foi corrigido o brilho e a transparência dos itens, restaurando o visual original da versão 97d (itens +11 a +13 com brilho sólido e itens +14 a +15 com corpo transparente). [97KOR]
 * Foi corrigido o bug nos comandos /reset e /mreset em que o nível do personagem aumentava (+1) ao invés de voltar para o Level 1. [97KOR]
 * Foi implementado o Sistema Lua de forma estável e otimizada (apenas funções da 97k), atualizado e rodando 100% sem erros e sem crashes. [GameServer][97KOR]
+
+
+UPDATE CMZ 08 (3.0.8) 14-09-26 / UPDATE 93 (2.5.1):
+* Comando /buyvip (CustomBuyVip): implementado sistema de compra de pacotes VIP via comando in-game com validacao de moedas/zen, tempo de duracao configuravel e recarga dinamica de status. [GameServer][CustomBuyVip.h/.cpp][CommandManager.cpp][97KOR]
+* Comando /gift e Tabela [GiftData] (CustomGift): implementado resgate de codigos promocionais com persistencia no banco de dados via pacote 0x03 entre GameServer e DataServer. [GameServer][DataServer][CustomGift.h/.cpp][CommandManager.cpp][97KOR]
+* Evento NPC Luke Helper (CustomLukeHelper): implementado evento com spawn dinamico em mapas/coordenadas configuraveis, contagem regressiva, distribuicao de buffs ou drop de itens via bag especial Luke Helper.txt. [GameServer][CustomLukeHelper.h/.cpp][NpcTalk.cpp][User.cpp][97KOR]
+* Evento de Chuva de Drops (CustomEventDrop): implementado evento massivo de queda de itens e caixas especiais em zonas configuraveis por mapa e horarios com avisos globais. [GameServer][CustomEventDrop.h/.cpp][User.cpp][97KOR]
+* Filtro de Barra de Vida de Monstros (CustomHealthBar): adicionado filtro de exibicao de HP Bar acima dos monstros por mapa e classe de monstro em GCNewHealthBarSend. [GameServer][CustomHealthBar.h/.cpp][Protocol.cpp][97KOR]
+* Sistema de Caça de Monstros e Metas (CustomMonsterKillCount): implementado sistema de missoes de abates de monstros com persistencia em [MonsterKillCount] no DataServer (pacote 0x50), recompensas em zen/itens e mensagens personalizadas. [GameServer][DataServer][CustomMonsterKillCount.h/.cpp][Monster.cpp][97KOR]
+* Presentes Iniciais para Novos Personagens (DefaultClassFreebies): concessao automatica de pacotes de itens, zen, pontos e buffs temporarios para personagens recem-criados (IsNewChar == 1) por classe. [GameServer][DataServer][DefaultClassFreebies.h/.cpp][DSProtocol.cpp][97KOR]
+* CustomPick Aprimorado: suporte a filtros por AccountLevel (VIP) e novos switches de coleta seletiva (zen, joias, exc, ancient). [GameServer][CustomPick.h/.cpp][97KOR]
+* Banco de Dados (UPDATE 2.5.1.sql): gerado script SQL para criacao das tabelas GiftData, MonsterKillCount e inclusao da coluna IsNewChar na tabela Character. [DataServer][MuServer97K]
 
 
 UPDATE CMZ 07 (3.0.7) 13-09-26 / UPDATE 92 (2.5.0):

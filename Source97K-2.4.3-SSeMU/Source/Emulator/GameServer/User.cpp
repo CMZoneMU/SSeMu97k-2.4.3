@@ -9,6 +9,8 @@
 #include "ConnectionManager.h"
 #include "CustomArena.h"
 #include "CustomAttack.h"
+#include "CustomEventDrop.h"
+#include "CustomLukeHelper.h"
 #include "CustomWindowTime.h"
 #include "DefaultClassInfo.h"
 #include "DevilSquare.h"
@@ -78,6 +80,10 @@ void gObjEventRunProc() // OK
 	gBonusManager.MainProc();
 
 	gCustomArena.MainProc();
+
+	gCustomEventDrop.MainProc();
+
+	gCustomLukeHelper.MainProc();
 
 	gDevilSquare.MainProc();
 

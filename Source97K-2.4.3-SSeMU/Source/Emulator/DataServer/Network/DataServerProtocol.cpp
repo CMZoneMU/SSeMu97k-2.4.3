@@ -79,6 +79,9 @@ void DataServerProtocolCore(int index,BYTE head,BYTE* lpMsg,int size) // OK
 				case 0x02:
 					gCommandManager.GDCommandDivorceRecv((SDHP_COMMAND_DIVORCE_RECV*)lpMsg,index);
 					break;
+				case 0x03:
+					gCommandManager.GDCommandGiftRecv((SDHP_COMMAND_GIFT_RECV*)lpMsg,index);
+					break;
 				case 0x04:
 					gCommandManager.GDCommandRenameRecv((SDHP_COMMAND_RENAME_RECV*)lpMsg,index);
 					break;
@@ -583,7 +586,19 @@ void GDCharacterInfoRecv(SDHP_CHARACTER_INFO_RECV* lpMsg,int index) // OK
 
 		pMsg.FruitPoint = (WORD)gQueryManager.GetAsInteger("FruitAddPoint");
 
+		pMsg.IsNewChar = gQueryManager.GetAsInteger("IsNewChar");
+
+		pMsg.Married = gQueryManager.GetAsInteger("Married");
+
+		gQueryManager.GetAsString("MarryName",pMsg.MarryName,sizeof(pMsg.MarryName));
+
 		gQueryManager.Close();
+
+		if(pMsg.IsNewChar != 0)
+		{
+			gQueryManager.ExecQuery("UPDATE Character SET IsNewChar=0 WHERE AccountID='%s' AND Name='%s'",lpMsg->account,lpMsg->name);
+			gQueryManager.Close();
+		}
 
 		gQueryManager.ExecQuery("EXEC WZ_GetResetInfo '%s','%s'",lpMsg->account,lpMsg->name);
 

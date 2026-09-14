@@ -7,6 +7,8 @@
 #include "BloodCastle.h"
 #include "BonusManager.h"
 #include "CustomAttack.h"
+#include "CustomBuyVip.h"
+#include "CustomGift.h"
 #include "CustomPick.h"
 #include "DevilSquare.h"
 #include "DSProtocol.h"
@@ -379,6 +381,12 @@ void CCommandManager::ManagementCore(LPOBJ lpObj,char* message) // OK
 			break;
 		case COMMAND_CUSTOM_ATTACK_OFFLINE:
 			gCustomAttack.CommandCustomAttackOffline(lpObj);
+			break;
+		case COMMAND_GIFT:
+			gCustomGift.CommandGift(lpObj,argument);
+			break;
+		case COMMAND_CUSTOM_BUY_VIP:
+			gCustomBuyVip.CommandBuyVip(lpObj,argument);
 			break;
 		case COMMAND_CUSTOM_PICK:
 			gCustomPick.CommandCustomPick(lpObj,argument);

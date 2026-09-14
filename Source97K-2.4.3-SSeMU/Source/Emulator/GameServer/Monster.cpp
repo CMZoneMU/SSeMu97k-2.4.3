@@ -6,6 +6,7 @@
 #include "BonusManager.h"
 #include "CriticalSection.h"
 #include "CustomMonster.h"
+#include "CustomMonsterKillCount.h"
 #include "DevilSquare.h"
 #include "DropEvent.h"
 #include "DSProtocol.h"
@@ -43,6 +44,9 @@ void gObjMonsterDieGiveItem(LPOBJ lpObj,LPOBJ lpTarget) // OK
 	{
 		return;
 	}
+
+	// Update 93 2.5.1 -> 97K - Contador de mortes de monstro
+	gCustomMonsterKillCount.CheckMonsterKill(lpObj,lpTarget);
 
 	if(lpObj->Class == 132 || lpObj->Class == 133 || lpObj->Class == 134) // Statue of Saint
 	{

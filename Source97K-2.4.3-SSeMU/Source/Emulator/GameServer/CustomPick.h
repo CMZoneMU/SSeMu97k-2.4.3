@@ -58,6 +58,7 @@ struct CUSTOM_PICK_INFO
 {
 	int ItemIndex;
 	int ItemLevel;
+	int AccountLevel;
 };
 
 class CCustomPick
@@ -71,7 +72,7 @@ public:
 	void CommandCustomPick(LPOBJ lpObj,char* arg);
 	void CommandCustomAdd(LPOBJ lpObj,char* arg);
 	void CommandCustomClear(LPOBJ lpObj);
-	bool CheckItem(int ItemIndex,int ItemLevel);
+	bool CheckItem(LPOBJ lpObj,int ItemIndex,int ItemLevel);
 	void OnPickClose(LPOBJ lpObj);
 	void DGCustomPickRecv(SDHP_CUSTOM_PICK_RECV* lpMsg);
 	void GDCustomPickSend(int aIndex);
@@ -80,6 +81,11 @@ private:
 	int m_CustomPickSwitch;
 	int m_CustomPickMapZone;
 	int m_CustomPickMapList[MAX_MAP];
+	int m_CustomPickMaxRange;
+	int m_CustomPickMoneyPick;
+	int m_CustomPickJewelPick;
+	int m_CustomPickExcellentPick;
+	int m_CustomPickAncientPick;
 	int m_CustomPickMaxTime[MAX_ACCOUNT_LEVEL];
 	std::vector<CUSTOM_PICK_INFO> m_CustomPickInfo;
 };

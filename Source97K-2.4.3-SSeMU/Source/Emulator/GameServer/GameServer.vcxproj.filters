@@ -400,6 +400,27 @@
     <ClInclude Include="CustomDailyReward.h">
       <Filter>Custom</Filter>
     </ClInclude>
+    <ClInclude Include="CustomBuyVip.h">
+      <Filter>Custom</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomEventDrop.h">
+      <Filter>Custom</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomGift.h">
+      <Filter>Custom</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomHealthBar.h">
+      <Filter>Custom</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomLukeHelper.h">
+      <Filter>Custom</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomMonsterKillCount.h">
+      <Filter>Custom</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultClassFreebies.h">
+      <Filter>Custom</Filter>
+    </ClInclude>
     <ClInclude Include="CustomMonster.h">
       <Filter>Custom</Filter>
     </ClInclude>
@@ -760,6 +781,27 @@
       <Filter>Game\Item</Filter>
     </ClCompile>
     <ClCompile Include="CustomDailyReward.cpp">
+      <Filter>Custom</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomBuyVip.cpp">
+      <Filter>Custom</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomEventDrop.cpp">
+      <Filter>Custom</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomGift.cpp">
+      <Filter>Custom</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomHealthBar.cpp">
+      <Filter>Custom</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomLukeHelper.cpp">
+      <Filter>Custom</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomMonsterKillCount.cpp">
+      <Filter>Custom</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultClassFreebies.cpp">
       <Filter>Custom</Filter>
     </ClCompile>
     <ClCompile Include="CustomMonster.cpp">
