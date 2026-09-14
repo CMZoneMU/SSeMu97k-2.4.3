@@ -1,7 +1,9 @@
 ﻿## Projeto Free CMZone Fixs 97K - Base SSeMU 97KOR
 ## Inicio: 17/08/2026
-## Autor: Nilo Master  
-## Arquivos: Emulador + Cliente Plugin Main.dll
+## Créditos Source: SSeMU SetecSoft Development  
+## Créditos MuServer e Cliente: SSeMU SetecSoft Development
+## IDE Antigravity: Organizar e Implementar as Correções.
+
 UPDATE CMZ 09 (3.0.9) 08-09-26 / SOURCE 97K KAYITO CUSTOM 02 (UPDATE 21):
 * Menu de Opcoes Avancadas In-Game (Update 21 Kayito): implementado menu interativo completo acionado na interface original de ESC do cliente. Abas incorporadas: Geral, Anti-Lag, Tela, Janela e Fontes. [Main.dll][OptionsMenu.h/.cpp][WeaponView.h/.cpp][Offset.h][Main.cpp][Client97K]
   - Mock Engine C++: implementado sistema de Mocks (CSoundMock, CGlobalTextMock, CFontMock, CHealthBarMock) para contornar limitacoes do Main.exe da 97k sem necessidade de injecao de classes inteiras originais.
@@ -111,9 +113,12 @@ UPDATE CMZ 01 (3.0.1) 04-09-26 / UPDATE 86 (2.4.4 & 2.4.4-1):
 * Seguranca em Comandos e Bridge LUA [ALL VERSIONS]: implementadas validacoes rigorosas de permissao e balanceamento de pilha nas chamadas de funcoes LUA via comandos, prevenindo execucao arbitraria de scripts por usuarios sem nivel de Game Master. [GameServer][LuaFunction.cpp][CommandManager.cpp][97KOR]
 * Protecoes de Seguranca de Servidor [ALL VERSIONS]: correcao de duas falhas de seguranca de protocolo onde pacotes forjados com tamanhos ou estruturas invalidas provocavam a interrupcao e crash do processo do servidor. [GameServer][Protocol.cpp][97KOR]
 
-
-// A source foi continuada a partir daqui do update 85 2.4.3
-// E assim demos inicio ao nosso projeto updgrade fixs e Customs 97k SSeMU
+## Titulo: Arquivos Vazados 2024 - Base SSeMU Update 85 2.4.3 97KOR
+## Contato Oficial: https://www.ssemu.com.ar
+## Créditos Arquivos: SetecSoft Development © SSeMU 2021
+- Essa source foi postada em forums estava no Update 85 (2.4.3)
+- Eu peguei essa source e continuei a partir daqui do update 85 2.4.3
+- E assim demos inicio ao nosso projeto updgrade fixs e Customs 97k SSeMU
 
 UPDATE 85 (2.4.3)
 * Se repararon errores de CustomAttack relacionados a buffs o usar skills sin armas tecla F8. [ALL VERSIONS]
