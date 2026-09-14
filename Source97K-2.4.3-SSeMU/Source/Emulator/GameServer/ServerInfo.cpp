@@ -11,11 +11,18 @@
 #include "ConnectMember.h"
 #include "CustomArena.h"
 #include "CustomAttack.h"
+#include "CustomBuyVip.h"
 #include "CustomDailyReward.h"
+#include "CustomEventDrop.h"
+#include "CustomGift.h"
+#include "CustomHealthBar.h"
+#include "CustomLukeHelper.h"
 #include "CustomMonster.h"
+#include "CustomMonsterKillCount.h"
 #include "CustomPick.h"
 #include "DamageTable.h"
 #include "DefaultClassInfo.h"
+#include "DefaultClassFreebies.h"
 #include "DevilSquare.h"
 #include "DropEvent.h"
 #include "EffectManager.h"
@@ -135,6 +142,8 @@ void CServerInfo::ReadCharacterInfo() // OK
 	this->ReadCharacterInfo("GameServerInfo",".\\Data\\GameServerInfo - Character.dat");
 
 	gDefaultClassInfo.Load(gPath.GetFullPath("Character\\DefaultClassInfo.txt"));
+
+	gDefaultClassFreebies.Load(gPath.GetFullPath("Character\\DefaultClassFreebies.txt"));
 }
 
 void CServerInfo::ReadCommandInfo() // OK
@@ -163,18 +172,39 @@ void CServerInfo::ReadCustomInfo() // OK
 
 	gCustomAttack.ReadCustomAttackInfo("GameServerInfo",".\\Data\\GameServerInfo - Custom.dat");
 
+	gCustomBuyVip.ReadCustomBuyVipInfo("GameServerInfo",".\\Data\\GameServerInfo - Custom.dat");
+
+	gCustomEventDrop.ReadCustomEventDropInfo("GameServerInfo",".\\Data\\GameServerInfo - Custom.dat");
+
+	gCustomGift.ReadCustomGiftInfo("GameServerInfo",".\\Data\\GameServerInfo - Custom.dat");
+
+	gCustomLukeHelper.ReadCustomLukeHelperInfo("GameServerInfo",".\\Data\\GameServerInfo - Custom.dat");
+
+	gCustomMonsterKillCount.ReadCustomMonsterKillCountInfo("GameServerInfo",".\\Data\\GameServerInfo - Custom.dat");
+
 	gCustomPick.ReadCustomPickInfo("GameServerInfo",".\\Data\\GameServerInfo - Custom.dat");
 
 	gCustomArena.Load(gPath.GetFullPath("Custom\\CustomArena.txt"));
 
 	gCustomAttack.Load(gPath.GetFullPath("Custom\\CustomAttack.txt"));
 
+	gCustomBuyVip.Load(gPath.GetFullPath("Custom\\CustomBuyVip.txt"));
+
+	gCustomDailyReward.Load(gPath.GetFullPath("Custom\\CustomDailyReward.txt"));
+
+	gCustomEventDrop.Load(gPath.GetFullPath("Custom\\CustomEventDrop.txt"));
+
+	gCustomGift.Load(gPath.GetFullPath("Custom\\CustomGift.txt"));
+
+	gCustomHealthBar.Load(gPath.GetFullPath("Custom\\CustomHealthBar.txt"));
+
+	gCustomLukeHelper.Load(gPath.GetFullPath("Custom\\CustomLukeHelper.txt"));
+
 	gCustomMonster.Load(gPath.GetFullPath("Custom\\CustomMonster.txt"));
 
-	gCustomPick.Load(gPath.GetFullPath("Custom\\CustomPick.txt"));
+	gCustomMonsterKillCount.Load(gPath.GetFullPath("Custom\\CustomMonsterKillCount.txt"));
 
-	// Update 88 2.4.6 -> 97K - Sistema de recompensas diárias
-	gCustomDailyReward.Load(gPath.GetFullPath("Custom\\CustomDailyReward.txt"));
+	gCustomPick.Load(gPath.GetFullPath("Custom\\CustomPick.txt"));
 }
 
 void CServerInfo::ReadEventInfo() // OK

@@ -6,6 +6,7 @@
 #include "NpcTalk.h"
 #include "BloodCastle.h"
 #include "ChaosBox.h"
+#include "CustomLukeHelper.h"
 #include "DevilSquare.h"
 #include "DSProtocol.h"
 #include "EffectManager.h"
@@ -278,6 +279,12 @@ void CNpcTalk::CGNpcTalkRecv(PMSG_NPC_TALK_RECV* lpMsg,int aIndex) // OK
 
 	// Update 88 2.4.6 -> 97K - Correção de distância de diálogo com NPC
 	if(gObjCalcDistance(lpObj,lpNpc) > 5)
+	{
+		return;
+	}
+
+	// Update 93 2.5.1 -> 97K - Evento Luke Helper
+	if(gCustomLukeHelper.NpcLukeHelper(lpNpc,lpObj) != 0)
 	{
 		return;
 	}

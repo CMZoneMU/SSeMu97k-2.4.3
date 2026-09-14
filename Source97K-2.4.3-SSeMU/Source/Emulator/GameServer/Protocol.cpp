@@ -6,6 +6,7 @@
 #include "CommandManager.h"
 #include "ConnectionManager.h"
 #include "CustomAttack.h"
+#include "CustomHealthBar.h"
 #include "DefaultClassInfo.h"
 #include "DevilSquare.h"
 #include "DSProtocol.h"
@@ -2014,6 +2015,11 @@ void GCNewHealthBarSend(LPOBJ lpObj) // OK
 		}
 
 		if(lpTarget->Class == 200)
+		{
+			continue;
+		}
+
+		if(gCustomHealthBar.CheckHealthBar(lpTarget->Class,lpTarget->Map) == 0)
 		{
 			continue;
 		}

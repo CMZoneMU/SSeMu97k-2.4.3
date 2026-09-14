@@ -533,6 +533,9 @@ struct SDHP_CHARACTER_INFO_SEND
 	BYTE Effect[MAX_EFFECT_LIST][13];
 	DWORD Reset;
 	DWORD MasterReset;
+	DWORD IsNewChar;
+	WORD Married;
+	char MarryName[11];
 	WORD BCCount;
 	WORD CCCount;
 	WORD DSCount;

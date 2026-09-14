@@ -33,6 +33,15 @@ struct SDHP_COMMAND_DIVORCE_RECV
 	char name[11];
 };
 
+struct SDHP_COMMAND_GIFT_RECV
+{
+	PSBMSG_HEAD header; // C1:0F:03
+	WORD index;
+	char Name[11];
+	WORD GiftIndex;
+	DWORD MaxCount;
+};
+
 struct SDHP_COMMAND_RENAME_RECV
 {
 	PSBMSG_HEAD header; // C1:0F:04
@@ -84,6 +93,15 @@ struct SDHP_COMMAND_MASTER_RESET_SEND
 	UINT MasterResetMon;
 };
 
+struct SDHP_COMMAND_GIFT_SEND
+{
+	PSBMSG_HEAD header; // C1:0F:03
+	WORD index;
+	char Name[11];
+	WORD GiftIndex;
+	BYTE Result;
+};
+
 struct SDHP_COMMAND_RENAME_SEND
 {
 	PSBMSG_HEAD header; // C1:0F:04
@@ -124,6 +142,7 @@ public:
 	void GDCommandResetRecv(SDHP_COMMAND_RESET_RECV* lpMsg,int index);
 	void GDCommandMasterResetRecv(SDHP_COMMAND_MASTER_RESET_RECV* lpMsg,int index);
 	void GDCommandDivorceRecv(SDHP_COMMAND_DIVORCE_RECV* lpMsg,int index);
+	void GDCommandGiftRecv(SDHP_COMMAND_GIFT_RECV* lpMsg,int index);
 	void GDCommandRenameRecv(SDHP_COMMAND_RENAME_RECV* lpMsg,int index);
 	void GDCommandBanAccountRecv(SDHP_COMMAND_BAN_ACCOUNT_RECV* lpMsg,int index);
 	void GDCommandBanCharacterRecv(SDHP_COMMAND_BAN_CHARACTER_RECV* lpMsg,int index);

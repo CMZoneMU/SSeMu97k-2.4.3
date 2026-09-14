@@ -61,6 +61,11 @@ CustomAttackOfflineMaxTimeLimit_AL2 = 0
 CustomAttackOfflineMaxTimeLimit_AL3 = 0
 
 ;==================================================
+; Custom Buy VIP Settings
+;==================================================
+CustomBuyVipSwitch = 0
+
+;==================================================
 ; Custom Event Drop Settings
 ;==================================================
 CustomEventDropSwitch = 0
@@ -76,13 +81,20 @@ CustomGiftSwitch = 0
 CustomLukeHelperSwitch = 0
 
 ;==================================================
+; Custom Monster Kill Count Settings
+;==================================================
+CustomMonsterKillCountSwitch = 0
+
+;==================================================
 ; Custom Pick Settings
 ;==================================================
 CustomPickSwitch = 0
 CustomPickMapZone = -1
+CustomPickMaxRange = 5
 CustomPickMoneyPick = 1
 CustomPickJewelPick = 1
 CustomPickExcellentPick = 1
+CustomPickAncientPick = 1
 CustomPickMaxTime_AL0 = 0
 CustomPickMaxTime_AL1 = 0
 CustomPickMaxTime_AL2 = 0

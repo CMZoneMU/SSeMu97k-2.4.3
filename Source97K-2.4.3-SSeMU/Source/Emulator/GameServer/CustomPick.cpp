@@ -24,6 +24,15 @@ CCustomPick gCustomPick;
 
 CCustomPick::CCustomPick() // OK
 {
+	this->m_CustomPickSwitch = 0;
+	this->m_CustomPickMapZone = 0;
+	memset(this->m_CustomPickMapList,0,sizeof(this->m_CustomPickMapList));
+	this->m_CustomPickMaxRange = 5;
+	this->m_CustomPickMoneyPick = 0;
+	this->m_CustomPickJewelPick = 0;
+	this->m_CustomPickExcellentPick = 0;
+	this->m_CustomPickAncientPick = 0;
+	memset(this->m_CustomPickMaxTime,0,sizeof(this->m_CustomPickMaxTime));
 	this->m_CustomPickInfo.clear();
 }
 
@@ -60,6 +69,16 @@ void CCustomPick::ReadCustomPickInfo(char* section,char* path) // OK
 			token = strtok_s(0,",",&next_token);
 		}
 	}
+
+	this->m_CustomPickMaxRange = GetPrivateProfileInt(section,"CustomPickMaxRange",5,path);
+
+	this->m_CustomPickMoneyPick = GetPrivateProfileInt(section,"CustomPickMoneyPick",0,path);
+
+	this->m_CustomPickJewelPick = GetPrivateProfileInt(section,"CustomPickJewelPick",0,path);
+
+	this->m_CustomPickExcellentPick = GetPrivateProfileInt(section,"CustomPickExcellentPick",0,path);
+
+	this->m_CustomPickAncientPick = GetPrivateProfileInt(section,"CustomPickAncientPick",0,path);
 
 	this->m_CustomPickMaxTime[0] = GetPrivateProfileInt(section,"CustomPickMaxTime_AL0",0,path);
 
@@ -105,9 +124,13 @@ void CCustomPick::Load(char* path) // OK
 
 			CUSTOM_PICK_INFO info;
 
-			info.ItemIndex = SafeGetItem(GET_ITEM(lpMemScript->GetNumber(),lpMemScript->GetAsNumber()));
+			int ItemCat = lpMemScript->GetNumber();
+
+			info.ItemIndex = SafeGetItem(GET_ITEM(ItemCat,lpMemScript->GetAsNumber()));
 
 			info.ItemLevel = lpMemScript->GetAsNumber();
+
+			info.AccountLevel = lpMemScript->GetAsNumber();
 
 			this->m_CustomPickInfo.push_back(info);
 		}
@@ -168,12 +191,12 @@ void CCustomPick::MainProc(LPOBJ lpObj) // OK
 			continue;
 		}
 
-		if(this->CheckItem(lpItem->m_Index,lpItem->m_Level) != 0)
+		if(this->CheckItem(lpObj,lpItem->m_Index,lpItem->m_Level) != 0)
 		{
 			continue;
 		}
 
-		if(gViewport.CheckViewportObjectPosition(lpObj->Index,lpObj->Map,lpItem->m_X,lpItem->m_Y,5) != 0)
+		if(gViewport.CheckViewportObjectPosition(lpObj->Index,lpObj->Map,lpItem->m_X,lpItem->m_Y,this->m_CustomPickMaxRange) != 0)
 		{
 			PMSG_ITEM_GET_RECV pMsg;
 
@@ -182,28 +205,40 @@ void CCustomPick::MainProc(LPOBJ lpObj) // OK
 			pMsg.index[0] = SET_NUMBERHB(n);
 			pMsg.index[1] = SET_NUMBERLB(n);
 
-			if(lpObj->Pick.PickJewel != 0 && gItemManager.IsJewelItem(lpItem->m_Index) != 0)
+			if(this->m_CustomPickJewelPick != 0)
 			{
-				gItemManager.CGItemGetRecv(&pMsg,lpObj->Index);
-				continue;
-			}
-				
-			if(lpObj->Pick.PickSet != 0 && lpItem->IsSetItem() != 0)
-			{
-				gItemManager.CGItemGetRecv(&pMsg,lpObj->Index);
-				continue;
+				if(lpObj->Pick.PickJewel != 0 && gItemManager.IsJewelItem(lpItem->m_Index) != 0)
+				{
+					gItemManager.CGItemGetRecv(&pMsg,lpObj->Index);
+					continue;
+				}
 			}
 
-			if(lpObj->Pick.PickExc != 0 && lpItem->IsExcItem() != 0)
+			if(this->m_CustomPickAncientPick != 0)
 			{
-				gItemManager.CGItemGetRecv(&pMsg,lpObj->Index);
-				continue;
+				if(lpObj->Pick.PickSet != 0 && lpItem->IsSetItem() != 0)
+				{
+					gItemManager.CGItemGetRecv(&pMsg,lpObj->Index);
+					continue;
+				}
 			}
 
-			if(lpObj->Pick.PickMoney != 0 && lpItem->m_Index == GET_ITEM(14,15))
+			if(this->m_CustomPickExcellentPick != 0)
 			{
-				gItemManager.CGItemGetRecv(&pMsg,lpObj->Index);
-				continue;
+				if(lpObj->Pick.PickExc != 0 && lpItem->IsExcItem() != 0)
+				{
+					gItemManager.CGItemGetRecv(&pMsg,lpObj->Index);
+					continue;
+				}
+			}
+
+			if(this->m_CustomPickMoneyPick != 0)
+			{
+				if(lpObj->Pick.PickMoney != 0 && lpItem->m_Index == GET_ITEM(14,15))
+				{
+					gItemManager.CGItemGetRecv(&pMsg,lpObj->Index);
+					continue;
+				}
 			}
 
 			if(lpObj->Pick.ItemCount > 0)
@@ -371,16 +406,21 @@ void CCustomPick::CommandCustomClear(LPOBJ lpObj) // OK
 	gCommandManager.DiscountRequirement(lpObj,COMMAND_CUSTOM_PICK_CLEAR);
 }
 
-bool CCustomPick::CheckItem(int ItemIndex,int ItemLevel) // OK
+bool CCustomPick::CheckItem(LPOBJ lpObj,int ItemIndex,int ItemLevel) // OK
 {
-	for each(CUSTOM_PICK_INFO lpInfo in this->m_CustomPickInfo)
+	for(std::vector<CUSTOM_PICK_INFO>::iterator it = this->m_CustomPickInfo.begin(); it != this->m_CustomPickInfo.end(); it++)
 	{
-		if(lpInfo.ItemIndex != ItemIndex)
+		if(it->AccountLevel != -1 && it->AccountLevel < lpObj->AccountLevel)
 		{
 			continue;
 		}
 
-		if(lpInfo.ItemLevel != -1 && lpInfo.ItemLevel != ItemLevel)
+		if(it->ItemIndex != ItemIndex)
+		{
+			continue;
+		}
+
+		if(it->ItemLevel != -1 && it->ItemLevel != ItemLevel)
 		{
 			continue;
 		}

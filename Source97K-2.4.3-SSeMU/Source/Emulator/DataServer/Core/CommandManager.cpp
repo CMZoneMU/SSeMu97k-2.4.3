@@ -84,6 +84,49 @@ void CCommandManager::GDCommandDivorceRecv(SDHP_COMMAND_DIVORCE_RECV* lpMsg, int
 	gQueryManager.Close();
 }
 
+void CCommandManager::GDCommandGiftRecv(SDHP_COMMAND_GIFT_RECV* lpMsg, int index) // OK
+{
+	SDHP_COMMAND_GIFT_SEND pMsg;
+
+	pMsg.header.set(0x0F, 0x03, sizeof(pMsg));
+
+	pMsg.index = lpMsg->index;
+
+	memcpy(pMsg.Name, lpMsg->Name, sizeof(pMsg.Name));
+
+	pMsg.GiftIndex = lpMsg->GiftIndex;
+
+	pMsg.Result = 0;
+
+	DWORD Count = 0;
+
+	if(gQueryManager.ExecQuery("SELECT * FROM GiftData WHERE Name='%s' and [Index]='%d'", lpMsg->Name, lpMsg->GiftIndex) == 0 || gQueryManager.Fetch() == SQL_NO_DATA)
+	{
+		gQueryManager.Close();
+
+		gQueryManager.ExecQuery("INSERT INTO GiftData (Name,[Index],Count) VALUES ('%s',%d,0)", lpMsg->Name, lpMsg->GiftIndex);
+
+		gQueryManager.Close();
+	}
+	else
+	{
+		Count = gQueryManager.GetAsInteger("Count");
+
+		gQueryManager.Close();
+	}
+
+	if(lpMsg->MaxCount == -1 || Count < lpMsg->MaxCount)
+	{
+		pMsg.Result = 1;
+
+		gQueryManager.ExecQuery("UPDATE GiftData SET Count=Count+1 WHERE Name='%s' and [Index]='%d'", lpMsg->Name, lpMsg->GiftIndex);
+
+		gQueryManager.Close();
+	}
+
+	gSocketManager.DataSend(index, (BYTE*)&pMsg, pMsg.header.size);
+}
+
 void CCommandManager::GDCommandRenameRecv(SDHP_COMMAND_RENAME_RECV* lpMsg, int index) // OK
 {
 	SDHP_COMMAND_RENAME_SEND pMsg;
