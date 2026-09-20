@@ -2095,13 +2095,20 @@ void GCNewMessageSendToAll(int type,int color,char* message,...) // OK
 	#endif
 }
 
-void GCWindowsNameSend(int aIndex,char* title) // OK
+void GCWindowsNameSend(int aIndex,char* message,...) // OK
 {
+	char buff[128];
+
+	va_list arg;
+	va_start(arg,message);
+	vsprintf_s(buff,message,arg);
+	va_end(arg);
+
 	PMSG_WINDOW_NAME_SEND pMsg;
 
 	pMsg.header.set(0xF3,0xE8,sizeof(pMsg));
 
-	memcpy(pMsg.title,title,sizeof(pMsg.title));
+	memcpy(pMsg.title,buff,sizeof(pMsg.title));
 
 	DataSend(aIndex,(BYTE*)&pMsg,pMsg.header.size);
 }

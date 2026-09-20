@@ -25,6 +25,16 @@ UPDATE CMZ 00 (3.0.0) / Correções CMZone 29-08-26
 * Foi implementado o Sistema Lua de forma estável e otimizada (apenas funções da 97k), atualizado e rodando 100% sem erros e sem crashes. [GameServer][97KOR]
 
 
+UPDATE CMZ 10 (3.1.0) 20-09-26 / SSeMU UPDATE 95 (2.5.3):
+* Sistema de Filtragem de Nomes Improprios (BadSyntax): implementado modulo BadSyntax.h/.cpp no DataServer carregando DataServer\BadSyntax.txt para bloquear criacao de chars, guilds e rename com termos proibidos. [DataServer][BadSyntax.h/.cpp][Util.cpp][DataServer.cpp][97KOR]
+* Metodo Lua BridgeFunction_OnUserMove (ScriptCore.lua): adicionadas chamadas gScriptLoader.OnUserMove em gObjMoveGate, gObjTeleport e gObjSummonAlly para integracao com scripts de movimentacao. [GameServer][User.cpp][97KOR]
+* Taxas Divididas PvM e PvP em Habilidades (SkillDamage): suporte a colunas DamageRatePvM e DamageRatePvP em SkillDamage.txt com calculo especifico em GetDamageRate por tipo de alvo (lpTarget->Type). [GameServer][SkillDamage.h/.cpp][Attack.cpp][97KOR]
+* Etapa 4 do Devil Square: estagios reescalonados para 80%, 60%, 40% e 20% restantes com adicao de SetStage3 acionando StageSpawn(lpLevel, 4). [GameServer][DevilSquare.cpp][97KOR]
+* Redesenho do HitManager de Monstros & MonsterGetTopHitDamageUserMaxTime: sistema temporal baseado em time(0) consistente em segundos, reinicio de dano apos expiracao (30s) e limpeza total de slots de dano em DelHitDamageUser. [GameServer][Monster.cpp][ServerInfo.h/.cpp][GameServerInfo - Common.dat][97KOR]
+* Correcao de Congelamento e Crash em Titulo de Janela Lua (SetObjectWindowTitle): protecao contra desconexoes, strings nulas e formatacao com GCWindowsNameSend variadico seguro (%s) e pacote 0xF3, 0xE8. [GameServer][LuaFunction.cpp][Protocol.h/.cpp][97KOR]
+* Correcao de Crash em Armadilhas e Filtro de Invisibilidade: protecao contra estouro de array (IndexCount >= MAX_VIEWPORT) e verificacao de EFFECT_INVISIBILITY em gObjTrapFindTarget e gObjMonsterFindTarget. [GameServer][Monster.cpp][97KOR]
+
+
 UPDATE CMZ 09 (3.0.9) 20-09-26 / UPDATE 94 (2.5.2):
 * Mensagens de Sistema (Data\Message.txt): adicionadas mensagens 740 a 744 (Guerra de Cerco e limites de mistura da Chaos Machine) com textos 100% ASCII. [GameServer][Message.txt][97KOR]
 * Switch de Balanceamento Lua (GameServerInfo - Character.dat): adicionada a configuracao CalcLuaScriptSwitch para alternar entre calculos de atributos nativos em C++ (0) e calculos dinamicos em Lua (1). [GameServer][ServerInfo.h/.cpp][97KOR]

@@ -69,9 +69,16 @@ void CSkillDamage::Load(char* path) // OK
 
 					info.Index = lpMemScript->GetNumber();
 
-					info.Rate = lpMemScript->GetAsNumber();
+					info.RatePvM = lpMemScript->GetAsNumber();
 
-					this->SetInfo(0,info);
+					info.RatePvP = lpMemScript->GetAsNumber();
+
+					std::map<int,SKILL_DAMAGE_INFO>::iterator it = this->m_SkillDamageRateInfo.find(info.Index);
+
+					if(it == this->m_SkillDamageRateInfo.end())
+					{
+						this->m_SkillDamageRateInfo.insert(std::pair<int,SKILL_DAMAGE_INFO>(info.Index,info));
+					}
 				}
 				else if(section == 1)
 				{
@@ -80,13 +87,18 @@ void CSkillDamage::Load(char* path) // OK
 						break;
 					}
 
-					SKILL_DAMAGE_INFO info;
+					SKILL_EFFECT_INFO info;
 
 					info.Index = lpMemScript->GetNumber();
 
 					info.Rate = lpMemScript->GetAsNumber();
 
-					this->SetInfo(1,info);
+					std::map<int,SKILL_EFFECT_INFO>::iterator it = this->m_SkillEffectRateInfo.find(info.Index);
+
+					if(it == this->m_SkillEffectRateInfo.end())
+					{
+						this->m_SkillEffectRateInfo.insert(std::pair<int,SKILL_EFFECT_INFO>(info.Index,info));
+					}
 				}
 				else
 				{
@@ -103,29 +115,7 @@ void CSkillDamage::Load(char* path) // OK
 	delete lpMemScript;
 }
 
-void CSkillDamage::SetInfo(int type,SKILL_DAMAGE_INFO info) // OK
-{
-	if(type == 0)
-	{
-		std::map<int,SKILL_DAMAGE_INFO>::iterator it = this->m_SkillDamageRateInfo.find(info.Index);
-
-		if(it == this->m_SkillDamageRateInfo.end())
-		{
-			this->m_SkillDamageRateInfo.insert(std::pair<int,SKILL_DAMAGE_INFO>(info.Index,info));
-		}
-	}
-	else if(type == 1)
-	{
-		std::map<int,SKILL_DAMAGE_INFO>::iterator it = this->m_SkillEffectRateInfo.find(info.Index);
-
-		if(it == this->m_SkillEffectRateInfo.end())
-		{
-			this->m_SkillEffectRateInfo.insert(std::pair<int,SKILL_DAMAGE_INFO>(info.Index,info));
-		}
-	}
-}
-
-int CSkillDamage::GetDamageRate(CSkill* lpSkill,int damage) // OK
+int CSkillDamage::GetDamageRate(CSkill* lpSkill,WORD type,int damage) // OK
 {
 	if(lpSkill != 0)
 	{
@@ -133,7 +123,7 @@ int CSkillDamage::GetDamageRate(CSkill* lpSkill,int damage) // OK
 
 		if(it != this->m_SkillDamageRateInfo.end())
 		{
-			damage = (damage*it->second.Rate)/100;
+			damage = (damage*((type==OBJECT_MONSTER)? it->second.RatePvM:it->second.RatePvP))/100;
 		}
 	}
 	
@@ -144,7 +134,7 @@ int CSkillDamage::GetEffectRate(CSkill* lpSkill) // OK
 {
 	if(lpSkill != 0)
 	{
-		std::map<int,SKILL_DAMAGE_INFO>::iterator it = this->m_SkillEffectRateInfo.find(lpSkill->m_index);
+		std::map<int,SKILL_EFFECT_INFO>::iterator it = this->m_SkillEffectRateInfo.find(lpSkill->m_index);
 
 		if(it != this->m_SkillEffectRateInfo.end())
 		{

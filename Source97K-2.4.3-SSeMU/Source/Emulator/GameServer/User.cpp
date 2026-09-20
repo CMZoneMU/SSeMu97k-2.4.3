@@ -40,6 +40,7 @@
 #include "Quest.h"
 #include "RandomManager.h"
 #include "Reconnect.h"
+#include "ScriptLoader.h"
 #include "SerialCheck.h"
 #include "ServerInfo.h"
 #include "SkillManager.h"
@@ -2142,6 +2143,8 @@ int gObjMoveGate(int aIndex,int gate) // OK
 
 	gHackMoveSpeedCheck.Reset(lpObj);
 
+	gScriptLoader.OnUserMove(aIndex,lpObj->Map);
+
 	return 1;
 
 ERROR_JUMP:
@@ -2207,6 +2210,8 @@ void gObjTeleport(int aIndex,int map,int x,int y) // OK
 	lpObj->RegenOk = 1;
 
 	gHackMoveSpeedCheck.Reset(lpObj);
+
+	gScriptLoader.OnUserMove(aIndex,map);
 }
 
 void gObjSummonAlly(LPOBJ lpObj,int map,int x,int y) // OK
@@ -2251,6 +2256,8 @@ void gObjSummonAlly(LPOBJ lpObj,int map,int x,int y) // OK
 	lpObj->RegenOk = 1;
 
 	gHackMoveSpeedCheck.Reset(lpObj);
+
+	gScriptLoader.OnUserMove(lpObj->Index,map);
 }
 
 void gObjSkillUseProc(LPOBJ lpObj) // OK

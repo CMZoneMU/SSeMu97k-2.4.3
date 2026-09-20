@@ -1969,7 +1969,15 @@ int LuaSetObjectWindowTitle(lua_State *L) {
     return 0;
   }
 
-  GCWindowsNameSend(aIndex, const_cast<char *>(aString));
+  if (gObjIsConnectedGP(aIndex) == 0) {
+    return 0;
+  }
+
+  if (aString == 0) {
+    return 0;
+  }
+
+  GCWindowsNameSend(aIndex, "%s", aString);
 
   return 1;
 }

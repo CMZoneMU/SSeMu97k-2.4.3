@@ -434,19 +434,26 @@ void gObjMonsterSetHitDamage(LPOBJ lpObj,int aIndex,int damage) // OK
 
 		if(lpObj->HitDamage[n].index == aIndex)
 		{
-			lpObj->HitDamage[n].damage = (((lpObj->HitDamage[n].damage+damage)>lpObj->MaxLife)?(int)lpObj->MaxLife:(lpObj->HitDamage[n].damage+damage));
-			lpObj->HitDamage[n].time = GetTickCount();
-			return;
+			if((time(0)-lpObj->HitDamage[n].time) > gServerInfo.m_MonsterGetTopHitDamageUserMaxTime)
+			{
+				lpObj->HitDamage[n].damage = damage;
+				lpObj->HitDamage[n].time = time(0);
+				return;
+			}
+			else
+			{
+				lpObj->HitDamage[n].damage += damage;
+				lpObj->HitDamage[n].time = time(0);
+				return;
+			}
 		}
 	}
 
-	if(CHECK_RANGE(HitDamageIndex,MAX_HIT_DAMAGE) != 0 || OBJECT_RANGE(HitDamageIndex=gObjMonsterDelHitDamageUser(lpObj)) != 0)
+	if(CHECK_RANGE(HitDamageIndex,MAX_HIT_DAMAGE) != 0 || CHECK_RANGE((HitDamageIndex=gObjMonsterDelHitDamageUser(lpObj)),MAX_HIT_DAMAGE) != 0)
 	{
 		lpObj->HitDamage[HitDamageIndex].index = aIndex;
-
-		lpObj->HitDamage[HitDamageIndex].damage = ((damage>lpObj->MaxLife)?(int)lpObj->MaxLife:damage);
-
-		lpObj->HitDamage[HitDamageIndex].time = GetTickCount();
+		lpObj->HitDamage[HitDamageIndex].damage = damage;
+		lpObj->HitDamage[HitDamageIndex].time = time(0);
 	}
 }
 
@@ -461,28 +468,30 @@ int gObjMonsterDelHitDamageUser(LPOBJ lpObj) // OK
 			continue;
 		}
 
-		int result = 0;
+		bool result = false;
 
 		if(gObjIsConnected(lpObj->HitDamage[n].index) == 0)
 		{
-			result = 1;
+			result = true;
 		}
-		else if((GetTickCount()-lpObj->HitDamage[n].time) > (DWORD)(gServerInfo.m_MonsterGetTopHitDamageUserMaxTime*1000))
+		else if((time(0)-lpObj->HitDamage[n].time) > gServerInfo.m_MonsterGetTopHitDamageUserMaxTime)
 		{
-			result = 1;
+			result = true;
 		}
 		else if(lpObj->Map != gObj[lpObj->HitDamage[n].index].Map)
 		{
-			result = 1;
+			result = true;
 		}
 		else if(gObjCalcDistance(lpObj,&gObj[lpObj->HitDamage[n].index]) > 20)
 		{
-			result = 1;
+			result = true;
 		}
 
-		if(result != 0)
+		if(result == true)
 		{
 			lpObj->HitDamage[n].index = -1;
+			lpObj->HitDamage[n].damage = 0;
+			lpObj->HitDamage[n].time = 0;
 			HitDamageIndex = n;
 		}
 	}
@@ -504,7 +513,7 @@ int gObjMonsterGetTopHitDamageUser(LPOBJ lpObj) // OK
 			continue;
 		}
 
-		if((GetTickCount()-lpObj->HitDamage[n].time) > (DWORD)(gServerInfo.m_MonsterGetTopHitDamageUserMaxTime*1000))
+		if((time(0)-lpObj->HitDamage[n].time) > gServerInfo.m_MonsterGetTopHitDamageUserMaxTime)
 		{
 			continue;
 		}
@@ -552,7 +561,7 @@ int gObjMonsterGetTopHitDamageParty(LPOBJ lpObj,int PartyNumber,int* TopHitDamag
 			continue;
 		}
 
-		if((GetTickCount()-lpObj->HitDamage[n].time) > (DWORD)(gServerInfo.m_MonsterGetTopHitDamageUserMaxTime*1000))
+		if((time(0)-lpObj->HitDamage[n].time) > gServerInfo.m_MonsterGetTopHitDamageUserMaxTime)
 		{
 			continue;
 		}
@@ -1094,6 +1103,11 @@ void gObjTrapFindTarget(LPOBJ lpObj) // OK
 			continue;
 		}
 
+		if(gEffectManager.CheckEffect(&gObj[lpObj->VpPlayer2[n].index],EFFECT_INVISIBILITY) != 0)
+		{
+			continue;
+		}
+
 		if(gSkillManager.CheckSkillTarget(lpObj,lpObj->VpPlayer2[n].index,-1,lpObj->VpPlayer2[n].type) == 0)
 		{
 			continue;
@@ -1102,6 +1116,11 @@ void gObjTrapFindTarget(LPOBJ lpObj) // OK
 		if(gViewport.CheckViewportObjectPosition(lpObj->Index,gObj[lpObj->VpPlayer2[n].index].Map,gObj[lpObj->VpPlayer2[n].index].X,gObj[lpObj->VpPlayer2[n].index].Y,lpObj->AttackRange) == 0)
 		{
 			continue;
+		}
+
+		if(IndexCount >= MAX_VIEWPORT)
+		{
+			break;
 		}
 
 		IndexTable[IndexCount++] = lpObj->VpPlayer2[n].index;
@@ -1544,6 +1563,11 @@ void gObjMonsterFindTarget(LPOBJ lpObj) // OK
 			continue;
 		}
 
+		if(gEffectManager.CheckEffect(&gObj[lpObj->VpPlayer2[n].index],EFFECT_INVISIBILITY) != 0)
+		{
+			continue;
+		}
+
 		if(gViewport.CheckViewportObjectPosition(lpObj->Index,gObj[lpObj->VpPlayer2[n].index].Map,gObj[lpObj->VpPlayer2[n].index].X,gObj[lpObj->VpPlayer2[n].index].Y,lpObj->ViewRange) == 0)
 		{
 			continue;
@@ -1556,6 +1580,11 @@ void gObjMonsterFindTarget(LPOBJ lpObj) // OK
 
 		if((lpObj->Class == 247 || lpObj->Class == 249) && gObj[lpObj->VpPlayer2[n].index].PKLevel > 4)
 		{
+			if(IndexCount >= MAX_VIEWPORT)
+			{
+				break;
+			}
+
 			IndexTable[IndexCount++] = lpObj->VpPlayer2[n].index;
 			continue;
 		}
@@ -1563,6 +1592,11 @@ void gObjMonsterFindTarget(LPOBJ lpObj) // OK
 		if(gSkillManager.CheckSkillTarget(lpObj,lpObj->VpPlayer2[n].index,-1,lpObj->VpPlayer2[n].type) == 0)
 		{
 			continue;
+		}
+
+		if(IndexCount >= MAX_VIEWPORT)
+		{
+			break;
 		}
 
 		IndexTable[IndexCount++] = lpObj->VpPlayer2[n].index;
