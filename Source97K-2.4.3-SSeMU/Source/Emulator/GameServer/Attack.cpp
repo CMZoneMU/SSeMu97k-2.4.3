@@ -1139,7 +1139,7 @@ int CAttack::GetAttackDamage(LPOBJ lpObj,LPOBJ lpTarget,CSkill* lpSkill,WORD* ef
 
 	damage = ((damage<0)?0:damage);
 
-	return gSkillDamage.GetDamageRate(lpSkill,damage);
+	return gSkillDamage.GetDamageRate(lpSkill,lpTarget->Type,damage);
 }
 
 int CAttack::GetAttackDamageWizard(LPOBJ lpObj,LPOBJ lpTarget,CSkill* lpSkill,WORD* effect,int TargetDefense) // OK
@@ -1201,7 +1201,7 @@ int CAttack::GetAttackDamageWizard(LPOBJ lpObj,LPOBJ lpTarget,CSkill* lpSkill,WO
 
 	damage = ((damage<0)?0:damage);
 
-	return gSkillDamage.GetDamageRate(lpSkill,damage);
+	return gSkillDamage.GetDamageRate(lpSkill,lpTarget->Type,damage);
 }
 
 void CAttack::GetPreviewDefense(LPOBJ lpObj,DWORD* defense) // OK

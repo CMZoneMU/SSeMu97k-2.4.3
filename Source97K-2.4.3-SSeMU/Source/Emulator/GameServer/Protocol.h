@@ -868,4 +868,4 @@ void GCNewCharacterCalcSend(LPOBJ lpObj);
 void GCNewHealthBarSend(LPOBJ lpObj);
 void GCNewMessageSend(int aIndex,int type,int color,char* message,...);
 void GCNewMessageSendToAll(int type,int color,char* message,...);
-void GCWindowsNameSend(int aIndex,char* title);
+void GCWindowsNameSend(int aIndex,char* message,...);

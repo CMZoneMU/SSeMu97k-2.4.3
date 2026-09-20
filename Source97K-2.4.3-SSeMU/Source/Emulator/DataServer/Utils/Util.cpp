@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "BadSyntax.h"
 #include "CharacterManager.h"
 #include "ServerManager.h"
 #include "Util.h"
@@ -75,6 +76,11 @@ bool CheckTextSyntax(char* text,int size) // OK
 		{
 			return 0;
 		}
+	}
+
+	if(gBadSyntax.CheckSyntax(text) == 0)
+	{
+		return 0;
 	}
 
 	return 1;

@@ -91,6 +91,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\Util\Sha256\Sha256.h" />
     <ClInclude Include="Core\AllowableIpList.h" />
+    <ClInclude Include="Core\BadSyntax.h" />
     <ClInclude Include="Core\CharacterManager.h" />
     <ClInclude Include="Core\CommandManager.h" />
     <ClInclude Include="Utils\CriticalSection.h" />
@@ -122,6 +123,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\Util\Sha256\Sha256.cpp" />
     <ClCompile Include="Core\AllowableIpList.cpp" />
+    <ClCompile Include="Core\BadSyntax.cpp" />
     <ClCompile Include="Core\CharacterManager.cpp" />
     <ClCompile Include="Core\CommandManager.cpp" />
     <ClCompile Include="Utils\CriticalSection.cpp" />

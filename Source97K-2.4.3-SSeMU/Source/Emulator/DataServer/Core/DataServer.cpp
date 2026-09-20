@@ -2,6 +2,7 @@
 #include "resource.h"
 #include "DataServer.h"
 #include "AllowableIpList.h"
+#include "BadSyntax.h"
 #include "GuildManager.h"
 #include "ItemManager.h"
 #include "MiniDump.h"
@@ -82,6 +83,8 @@ int APIENTRY WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine
 					else
 					{
 						gAllowableIpList.Load("AllowableIpList.txt");
+
+						gBadSyntax.Load("BadSyntax.txt");
 
 						gGuildManager.Init();
 

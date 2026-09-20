@@ -529,7 +529,7 @@ void CDevilSquare::SetState_CLEAN(DEVIL_SQUARE_LEVEL* lpLevel) // OK
 
 void CDevilSquare::SetStage0(DEVIL_SQUARE_LEVEL* lpLevel) // OK
 {
-	if(((lpLevel->RemainTime*100)/(this->m_EventTime*60)) > 75)
+	if(((lpLevel->RemainTime*100)/(this->m_EventTime*60)) > 80)
 	{
 		return;
 	}
@@ -541,7 +541,7 @@ void CDevilSquare::SetStage0(DEVIL_SQUARE_LEVEL* lpLevel) // OK
 
 void CDevilSquare::SetStage1(DEVIL_SQUARE_LEVEL* lpLevel) // OK
 {
-	if(((lpLevel->RemainTime*100)/(this->m_EventTime*60)) > 50)
+	if(((lpLevel->RemainTime*100)/(this->m_EventTime*60)) > 60)
 	{
 		return;
 	}
@@ -553,7 +553,7 @@ void CDevilSquare::SetStage1(DEVIL_SQUARE_LEVEL* lpLevel) // OK
 
 void CDevilSquare::SetStage2(DEVIL_SQUARE_LEVEL* lpLevel) // OK
 {
-	if(((lpLevel->RemainTime*100)/(this->m_EventTime*60)) > 25)
+	if(((lpLevel->RemainTime*100)/(this->m_EventTime*60)) > 40)
 	{
 		return;
 	}
@@ -565,7 +565,14 @@ void CDevilSquare::SetStage2(DEVIL_SQUARE_LEVEL* lpLevel) // OK
 
 void CDevilSquare::SetStage3(DEVIL_SQUARE_LEVEL* lpLevel) // OK
 {
+	if(((lpLevel->RemainTime*100)/(this->m_EventTime*60)) > 20)
+	{
+		return;
+	}
 
+	lpLevel->Stage = 4;
+
+	this->StageSpawn(lpLevel,4);
 }
 
 void CDevilSquare::CheckSync(DEVIL_SQUARE_LEVEL* lpLevel) // OK
