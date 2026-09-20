@@ -327,6 +327,8 @@ void CServerInfo::ReadScriptInfo() // OK
 	gScriptLoader.OnShutScript();
 
 	gScriptLoader.Load(gPath.GetFullPath("Script\\ScriptMain.lua"));
+
+	this->m_CalcCharacter.Load(gPath.GetFullPath("Script\\Character\\CalcCharacter.lua"));
 }
 
 void CServerInfo::ReadShopInfo() // OK
@@ -595,6 +597,8 @@ void CServerInfo::ReadChaosMixInfo(char* section,char* path) // OK
 
 void CServerInfo::ReadCharacterInfo(char* section,char* path) // OK
 {
+	this->m_CalcLuaScriptSwitch = GetPrivateProfileInt(section,"CalcLuaScriptSwitch",0,path);
+
 	this->m_DuelDamageRate = GetPrivateProfileInt(section,"DuelDamageRate",0,path);
 
 	this->m_CustomArenaDamageRate = GetPrivateProfileInt(section,"CustomArenaDamageRate",0,path);
@@ -917,7 +921,7 @@ void CServerInfo::ReadCommandInfo(char* section,char* path) // OK
 
 	this->m_CommandPostType = GetPrivateProfileInt(section,"CommandPostType",0,path);
 
-	// Update 89 2.4.7 -> 97K - Comando /post personalizável
+	// Update 89 2.4.7 -> 97K - Comando /post personalizavel
 	this->m_CommandPostMessage = GetPrivateProfileInt(section,"CommandPostMessage",323,path);
 
 	this->m_CommandPKClearType = GetPrivateProfileInt(section,"CommandPKClearType",0,path);
@@ -1223,7 +1227,7 @@ void CServerInfo::ReadCommonInfo(char* section,char* path) // OK
 	this->m_GuildInsertMaxUser2 = GetPrivateProfileInt(section,"GuildInsertMaxUser2",0,path);
 	#endif
 
-	// Update 89 2.4.7 -> 97K - Guild War & Battle Soccer Configurações
+	// Update 89 2.4.7 -> 97K - Guild War & Battle Soccer Configuracoes
 	this->m_GuildWarSwitch = GetPrivateProfileInt(section,"GuildWarSwitch",1,path);
 	this->m_GuildWarAttackEnable = GetPrivateProfileInt(section,"GuildWarAttackEnable",0,path);
 	this->m_GuildWarScoreMax1 = GetPrivateProfileInt(section,"GuildWarScoreMax1",20,path);

@@ -1922,21 +1922,38 @@ void CObjectManager::CharacterCalcAttribute(int aIndex) // OK
 
 	if(lpObj->Class == CLASS_DW)
 	{
-		lpObj->PhysiDamageMinRight = Strength/gServerInfo.m_DWPhysiDamageMinConstA;
-		lpObj->PhysiDamageMaxRight = Strength/gServerInfo.m_DWPhysiDamageMaxConstA;
-		lpObj->PhysiDamageMinLeft = Strength/gServerInfo.m_DWPhysiDamageMinConstA;
-		lpObj->PhysiDamageMaxLeft = Strength/gServerInfo.m_DWPhysiDamageMaxConstA;
-		lpObj->MagicDamageMin = Energy/gServerInfo.m_DWMagicDamageMinConstA;
-		lpObj->MagicDamageMax = Energy/gServerInfo.m_DWMagicDamageMaxConstA;
+		if(gServerInfo.m_CalcLuaScriptSwitch != 0)
+		{
+			gServerInfo.m_CalcCharacter.Execute("DWPhysiDamageCalculate","i>iiii",aIndex,&lpObj->PhysiDamageMinRight,&lpObj->PhysiDamageMinLeft,&lpObj->PhysiDamageMaxRight,&lpObj->PhysiDamageMaxLeft);
+			gServerInfo.m_CalcCharacter.Execute("DWMagicDamageCalculate","i>ii",aIndex,&lpObj->MagicDamageMin,&lpObj->MagicDamageMax);
+		}
+		else
+		{
+			lpObj->PhysiDamageMinRight = Strength/gServerInfo.m_DWPhysiDamageMinConstA;
+			lpObj->PhysiDamageMaxRight = Strength/gServerInfo.m_DWPhysiDamageMaxConstA;
+			lpObj->PhysiDamageMinLeft = Strength/gServerInfo.m_DWPhysiDamageMinConstA;
+			lpObj->PhysiDamageMaxLeft = Strength/gServerInfo.m_DWPhysiDamageMaxConstA;
+			lpObj->MagicDamageMin = Energy/gServerInfo.m_DWMagicDamageMinConstA;
+			lpObj->MagicDamageMax = Energy/gServerInfo.m_DWMagicDamageMaxConstA;
+		}
 	}
 	else if(lpObj->Class == CLASS_DK)
 	{
-		lpObj->PhysiDamageMinRight = Strength / gServerInfo.m_DKPhysiDamageMinConstA;
-		lpObj->PhysiDamageMaxRight = Strength/gServerInfo.m_DKPhysiDamageMaxConstA;
-		lpObj->PhysiDamageMinLeft = Strength/gServerInfo.m_DKPhysiDamageMinConstA;
-		lpObj->PhysiDamageMaxLeft = Strength/gServerInfo.m_DKPhysiDamageMaxConstA;
-		lpObj->MagicDamageMin = Energy/gServerInfo.m_DKMagicDamageMinConstA;
-		lpObj->MagicDamageMax = Energy/gServerInfo.m_DKMagicDamageMaxConstA;
+		if(gServerInfo.m_CalcLuaScriptSwitch != 0)
+		{
+			gServerInfo.m_CalcCharacter.Execute("DKPhysiDamageCalculate","i>iiii",aIndex,&lpObj->PhysiDamageMinRight,&lpObj->PhysiDamageMinLeft,&lpObj->PhysiDamageMaxRight,&lpObj->PhysiDamageMaxLeft);
+			gServerInfo.m_CalcCharacter.Execute("DKMagicDamageCalculate","i>ii",aIndex,&lpObj->MagicDamageMin,&lpObj->MagicDamageMax);
+		}
+		else
+		{
+			lpObj->PhysiDamageMinRight = Strength / gServerInfo.m_DKPhysiDamageMinConstA;
+			lpObj->PhysiDamageMaxRight = Strength/gServerInfo.m_DKPhysiDamageMaxConstA;
+			lpObj->PhysiDamageMinLeft = Strength/gServerInfo.m_DKPhysiDamageMinConstA;
+			lpObj->PhysiDamageMaxLeft = Strength/gServerInfo.m_DKPhysiDamageMaxConstA;
+			lpObj->MagicDamageMin = Energy/gServerInfo.m_DKMagicDamageMinConstA;
+			lpObj->MagicDamageMax = Energy/gServerInfo.m_DKMagicDamageMaxConstA;
+		}
+
 		lpObj->DKDamageMultiplierRate = 200+(Energy/gServerInfo.m_DKDamageMultiplierConstA);
 		lpObj->DKDamageMultiplierRate = ((lpObj->DKDamageMultiplierRate>gServerInfo.m_DKDamageMultiplierMaxRate)?gServerInfo.m_DKDamageMultiplierMaxRate:lpObj->DKDamageMultiplierRate);
 	}
@@ -1944,68 +1961,128 @@ void CObjectManager::CharacterCalcAttribute(int aIndex) // OK
 	{
 		if(Right->IsItem() != 0 && Right->m_Index >= GET_ITEM(4,0) && Right->m_Index < GET_ITEM(5,0) && Right->m_Index != GET_ITEM(4,15))
 		{
-			lpObj->PhysiDamageMinRight = (Strength/gServerInfo.m_FEPhysiDamageMinBowConstA)+(Dexterity/gServerInfo.m_FEPhysiDamageMinBowConstB);
-			lpObj->PhysiDamageMaxRight = (Strength/gServerInfo.m_FEPhysiDamageMaxBowConstA)+(Dexterity/gServerInfo.m_FEPhysiDamageMaxBowConstB);
-			lpObj->PhysiDamageMinLeft = (Strength/gServerInfo.m_FEPhysiDamageMinBowConstA)+(Dexterity/gServerInfo.m_FEPhysiDamageMinBowConstB);
-			lpObj->PhysiDamageMaxLeft = (Strength/gServerInfo.m_FEPhysiDamageMaxBowConstA)+(Dexterity/gServerInfo.m_FEPhysiDamageMaxBowConstB);
+			if(gServerInfo.m_CalcLuaScriptSwitch != 0)
+			{
+				gServerInfo.m_CalcCharacter.Execute("FEPhysiDamageCalculate","ii>iiii",aIndex,1,&lpObj->PhysiDamageMinRight,&lpObj->PhysiDamageMinLeft,&lpObj->PhysiDamageMaxRight,&lpObj->PhysiDamageMaxLeft);
+			}
+			else
+			{
+				lpObj->PhysiDamageMinRight = (Strength/gServerInfo.m_FEPhysiDamageMinBowConstA)+(Dexterity/gServerInfo.m_FEPhysiDamageMinBowConstB);
+				lpObj->PhysiDamageMaxRight = (Strength/gServerInfo.m_FEPhysiDamageMaxBowConstA)+(Dexterity/gServerInfo.m_FEPhysiDamageMaxBowConstB);
+				lpObj->PhysiDamageMinLeft = (Strength/gServerInfo.m_FEPhysiDamageMinBowConstA)+(Dexterity/gServerInfo.m_FEPhysiDamageMinBowConstB);
+				lpObj->PhysiDamageMaxLeft = (Strength/gServerInfo.m_FEPhysiDamageMaxBowConstA)+(Dexterity/gServerInfo.m_FEPhysiDamageMaxBowConstB);
+			}
 		}
 		else if(Left->IsItem() != 0 && Left->m_Index >= GET_ITEM(4,0) && Left->m_Index < GET_ITEM(5,0) && Left->m_Index != GET_ITEM(4,7))
 		{
-			lpObj->PhysiDamageMinRight = (Strength/gServerInfo.m_FEPhysiDamageMinBowConstA)+(Dexterity/gServerInfo.m_FEPhysiDamageMinBowConstB);
-			lpObj->PhysiDamageMaxRight = (Strength/gServerInfo.m_FEPhysiDamageMaxBowConstA)+(Dexterity/gServerInfo.m_FEPhysiDamageMaxBowConstB);
-			lpObj->PhysiDamageMinLeft = (Strength/gServerInfo.m_FEPhysiDamageMinBowConstA)+(Dexterity/gServerInfo.m_FEPhysiDamageMinBowConstB);
-			lpObj->PhysiDamageMaxLeft = (Strength/gServerInfo.m_FEPhysiDamageMaxBowConstA)+(Dexterity/gServerInfo.m_FEPhysiDamageMaxBowConstB);
+			if(gServerInfo.m_CalcLuaScriptSwitch != 0)
+			{
+				gServerInfo.m_CalcCharacter.Execute("FEPhysiDamageCalculate","ii>iiii",aIndex,2,&lpObj->PhysiDamageMinRight,&lpObj->PhysiDamageMinLeft,&lpObj->PhysiDamageMaxRight,&lpObj->PhysiDamageMaxLeft);
+			}
+			else
+			{
+				lpObj->PhysiDamageMinRight = (Strength/gServerInfo.m_FEPhysiDamageMinBowConstA)+(Dexterity/gServerInfo.m_FEPhysiDamageMinBowConstB);
+				lpObj->PhysiDamageMaxRight = (Strength/gServerInfo.m_FEPhysiDamageMaxBowConstA)+(Dexterity/gServerInfo.m_FEPhysiDamageMaxBowConstB);
+				lpObj->PhysiDamageMinLeft = (Strength/gServerInfo.m_FEPhysiDamageMinBowConstA)+(Dexterity/gServerInfo.m_FEPhysiDamageMinBowConstB);
+				lpObj->PhysiDamageMaxLeft = (Strength/gServerInfo.m_FEPhysiDamageMaxBowConstA)+(Dexterity/gServerInfo.m_FEPhysiDamageMaxBowConstB);
+			}
 		}
 		else
 		{
-			lpObj->PhysiDamageMinRight = (Strength+Dexterity)/gServerInfo.m_FEPhysiDamageMinConstA;
-			lpObj->PhysiDamageMaxRight = (Strength+Dexterity)/gServerInfo.m_FEPhysiDamageMaxConstA;
-			lpObj->PhysiDamageMinLeft = (Strength+Dexterity)/gServerInfo.m_FEPhysiDamageMinConstA;
-			lpObj->PhysiDamageMaxLeft = (Strength+Dexterity)/gServerInfo.m_FEPhysiDamageMaxConstA;
+			if(gServerInfo.m_CalcLuaScriptSwitch != 0)
+			{
+				gServerInfo.m_CalcCharacter.Execute("FEPhysiDamageCalculate","ii>iiii",aIndex,0,&lpObj->PhysiDamageMinRight,&lpObj->PhysiDamageMinLeft,&lpObj->PhysiDamageMaxRight,&lpObj->PhysiDamageMaxLeft);
+			}
+			else
+			{
+				lpObj->PhysiDamageMinRight = (Strength+Dexterity)/gServerInfo.m_FEPhysiDamageMinConstA;
+				lpObj->PhysiDamageMaxRight = (Strength+Dexterity)/gServerInfo.m_FEPhysiDamageMaxConstA;
+				lpObj->PhysiDamageMinLeft = (Strength+Dexterity)/gServerInfo.m_FEPhysiDamageMinConstA;
+				lpObj->PhysiDamageMaxLeft = (Strength+Dexterity)/gServerInfo.m_FEPhysiDamageMaxConstA;
+			}
 		}
 
-		lpObj->MagicDamageMin = Energy/gServerInfo.m_FEMagicDamageMinConstA;
-		lpObj->MagicDamageMax = Energy/gServerInfo.m_FEMagicDamageMaxConstA;
+		if(gServerInfo.m_CalcLuaScriptSwitch != 0)
+		{
+			gServerInfo.m_CalcCharacter.Execute("FEMagicDamageCalculate","i>ii",aIndex,&lpObj->MagicDamageMin,&lpObj->MagicDamageMax);
+		}
+		else
+		{
+			lpObj->MagicDamageMin = Energy/gServerInfo.m_FEMagicDamageMinConstA;
+			lpObj->MagicDamageMax = Energy/gServerInfo.m_FEMagicDamageMaxConstA;
+		}
 	}
 	else if(lpObj->Class == CLASS_MG)
 	{
-		lpObj->PhysiDamageMinRight = (Strength/gServerInfo.m_MGPhysiDamageMinConstA)+(Energy/gServerInfo.m_MGPhysiDamageMinConstB);
-		lpObj->PhysiDamageMaxRight = (Strength/gServerInfo.m_MGPhysiDamageMaxConstA)+(Energy/gServerInfo.m_MGPhysiDamageMaxConstB);
-		lpObj->PhysiDamageMinLeft = (Strength/gServerInfo.m_MGPhysiDamageMinConstA)+(Energy/gServerInfo.m_MGPhysiDamageMinConstB);
-		lpObj->PhysiDamageMaxLeft = (Strength/gServerInfo.m_MGPhysiDamageMaxConstA)+(Energy/gServerInfo.m_MGPhysiDamageMaxConstB);
-		lpObj->MagicDamageMin = Energy/gServerInfo.m_MGMagicDamageMinConstA;
-		lpObj->MagicDamageMax = Energy/gServerInfo.m_MGMagicDamageMaxConstA;
+		if(gServerInfo.m_CalcLuaScriptSwitch != 0)
+		{
+			gServerInfo.m_CalcCharacter.Execute("MGPhysiDamageCalculate","i>iiii",aIndex,&lpObj->PhysiDamageMinRight,&lpObj->PhysiDamageMinLeft,&lpObj->PhysiDamageMaxRight,&lpObj->PhysiDamageMaxLeft);
+			gServerInfo.m_CalcCharacter.Execute("MGMagicDamageCalculate","i>ii",aIndex,&lpObj->MagicDamageMin,&lpObj->MagicDamageMax);
+		}
+		else
+		{
+			lpObj->PhysiDamageMinRight = (Strength/gServerInfo.m_MGPhysiDamageMinConstA)+(Energy/gServerInfo.m_MGPhysiDamageMinConstB);
+			lpObj->PhysiDamageMaxRight = (Strength/gServerInfo.m_MGPhysiDamageMaxConstA)+(Energy/gServerInfo.m_MGPhysiDamageMaxConstB);
+			lpObj->PhysiDamageMinLeft = (Strength/gServerInfo.m_MGPhysiDamageMinConstA)+(Energy/gServerInfo.m_MGPhysiDamageMinConstB);
+			lpObj->PhysiDamageMaxLeft = (Strength/gServerInfo.m_MGPhysiDamageMaxConstA)+(Energy/gServerInfo.m_MGPhysiDamageMaxConstB);
+			lpObj->MagicDamageMin = Energy/gServerInfo.m_MGMagicDamageMinConstA;
+			lpObj->MagicDamageMax = Energy/gServerInfo.m_MGMagicDamageMaxConstA;
+		}
 	}
 
 	if(Right->IsItem() != 0)
 	{
-		if(Right->m_Index >= GET_ITEM(5,0) && Right->m_Index < GET_ITEM(6,0))
+		if(gServerInfo.m_CalcLuaScriptSwitch != 0)
 		{
-			lpObj->PhysiDamageMinRight += Right->GetDamageMin()/2;
-			lpObj->PhysiDamageMaxRight += Right->GetDamageMax()/2;
+			int DamageMinRight = 0;
+			int DamageMaxRight = 0;
+			gServerInfo.m_CalcCharacter.Execute("PhysiDamageRight","iii>ii",Right->m_Index,Right->GetDamageMin(),Right->GetDamageMax(),&DamageMinRight,&DamageMaxRight);
+			lpObj->PhysiDamageMinRight += DamageMinRight;
+			lpObj->PhysiDamageMaxRight += DamageMaxRight;
 			lpObj->SkillLongSpearChange = ((Right->m_SkillChange==0)?lpObj->SkillLongSpearChange:1);
 		}
 		else
 		{
-			lpObj->PhysiDamageMinRight += Right->GetDamageMin()/1;
-			lpObj->PhysiDamageMaxRight += Right->GetDamageMax()/1;
-			lpObj->SkillLongSpearChange = ((Right->m_SkillChange==0)?lpObj->SkillLongSpearChange:1);
+			if(Right->m_Index >= GET_ITEM(5,0) && Right->m_Index < GET_ITEM(6,0))
+			{
+				lpObj->PhysiDamageMinRight += Right->GetDamageMin()/2;
+				lpObj->PhysiDamageMaxRight += Right->GetDamageMax()/2;
+				lpObj->SkillLongSpearChange = ((Right->m_SkillChange==0)?lpObj->SkillLongSpearChange:1);
+			}
+			else
+			{
+				lpObj->PhysiDamageMinRight += Right->GetDamageMin()/1;
+				lpObj->PhysiDamageMaxRight += Right->GetDamageMax()/1;
+				lpObj->SkillLongSpearChange = ((Right->m_SkillChange==0)?lpObj->SkillLongSpearChange:1);
+			}
 		}
 	}
 
 	if(Left->IsItem() != 0)
 	{
-		if(Left->m_Index >= GET_ITEM(5,0) && Left->m_Index < GET_ITEM(6,0))
+		if(gServerInfo.m_CalcLuaScriptSwitch != 0)
 		{
-			lpObj->PhysiDamageMinLeft += Left->GetDamageMin()/2;
-			lpObj->PhysiDamageMaxLeft += Left->GetDamageMax()/2;
+			int DamageMinLeft = 0;
+			int DamageMaxLeft = 0;
+			gServerInfo.m_CalcCharacter.Execute("PhysiDamageLeft","iii>ii",Left->m_Index,Left->GetDamageMin(),Left->GetDamageMax(),&DamageMinLeft,&DamageMaxLeft);
+			lpObj->PhysiDamageMinLeft += DamageMinLeft;
+			lpObj->PhysiDamageMaxLeft += DamageMaxLeft;
 			lpObj->SkillLongSpearChange = ((Left->m_SkillChange==0)?lpObj->SkillLongSpearChange:1);
 		}
 		else
 		{
-			lpObj->PhysiDamageMinLeft += Left->GetDamageMin()/1;
-			lpObj->PhysiDamageMaxLeft += Left->GetDamageMax()/1;
-			lpObj->SkillLongSpearChange = ((Left->m_SkillChange==0)?lpObj->SkillLongSpearChange:1);
+			if(Left->m_Index >= GET_ITEM(5,0) && Left->m_Index < GET_ITEM(6,0))
+			{
+				lpObj->PhysiDamageMinLeft += Left->GetDamageMin()/2;
+				lpObj->PhysiDamageMaxLeft += Left->GetDamageMax()/2;
+				lpObj->SkillLongSpearChange = ((Left->m_SkillChange==0)?lpObj->SkillLongSpearChange:1);
+			}
+			else
+			{
+				lpObj->PhysiDamageMinLeft += Left->GetDamageMin()/1;
+				lpObj->PhysiDamageMaxLeft += Left->GetDamageMax()/1;
+				lpObj->SkillLongSpearChange = ((Left->m_SkillChange==0)?lpObj->SkillLongSpearChange:1);
+			}
 		}
 	}
 
@@ -2016,42 +2093,56 @@ void CObjectManager::CharacterCalcAttribute(int aIndex) // OK
 	lpObj->MagicDamageMin += lpObj->DrinkDamage;
 	lpObj->MagicDamageMax += lpObj->DrinkDamage;
 
-	if(lpObj->Class == CLASS_DW)
+	if(gServerInfo.m_CalcLuaScriptSwitch != 0)
 	{
-		lpObj->AttackSuccessRate = (lpObj->Level*gServerInfo.m_DWAttackSuccessRateConstA)+((Dexterity*gServerInfo.m_DWAttackSuccessRateConstB)/gServerInfo.m_DWAttackSuccessRateConstC)+(Strength/gServerInfo.m_DWAttackSuccessRateConstD);
+		gServerInfo.m_CalcCharacter.Execute("CalcAttackSuccessRate","i>i",aIndex,&lpObj->AttackSuccessRate);
 	}
-	else if(lpObj->Class == CLASS_DK)
+	else
 	{
-		lpObj->AttackSuccessRate = (lpObj->Level*gServerInfo.m_DKAttackSuccessRateConstA)+((Dexterity*gServerInfo.m_DKAttackSuccessRateConstB)/gServerInfo.m_DKAttackSuccessRateConstC)+(Strength/gServerInfo.m_DKAttackSuccessRateConstD);
-	}
-	else if(lpObj->Class == CLASS_FE)
-	{
-		lpObj->AttackSuccessRate = (lpObj->Level*gServerInfo.m_FEAttackSuccessRateConstA)+((Dexterity*gServerInfo.m_FEAttackSuccessRateConstB)/gServerInfo.m_FEAttackSuccessRateConstC)+(Strength/gServerInfo.m_FEAttackSuccessRateConstD);
-	}
-	else if(lpObj->Class == CLASS_MG)
-	{
-		lpObj->AttackSuccessRate = (lpObj->Level*gServerInfo.m_MGAttackSuccessRateConstA)+((Dexterity*gServerInfo.m_MGAttackSuccessRateConstB)/gServerInfo.m_MGAttackSuccessRateConstC)+(Strength/gServerInfo.m_MGAttackSuccessRateConstD);
+		if(lpObj->Class == CLASS_DW)
+		{
+			lpObj->AttackSuccessRate = (lpObj->Level*gServerInfo.m_DWAttackSuccessRateConstA)+((Dexterity*gServerInfo.m_DWAttackSuccessRateConstB)/gServerInfo.m_DWAttackSuccessRateConstC)+(Strength/gServerInfo.m_DWAttackSuccessRateConstD);
+		}
+		else if(lpObj->Class == CLASS_DK)
+		{
+			lpObj->AttackSuccessRate = (lpObj->Level*gServerInfo.m_DKAttackSuccessRateConstA)+((Dexterity*gServerInfo.m_DKAttackSuccessRateConstB)/gServerInfo.m_DKAttackSuccessRateConstC)+(Strength/gServerInfo.m_DKAttackSuccessRateConstD);
+		}
+		else if(lpObj->Class == CLASS_FE)
+		{
+			lpObj->AttackSuccessRate = (lpObj->Level*gServerInfo.m_FEAttackSuccessRateConstA)+((Dexterity*gServerInfo.m_FEAttackSuccessRateConstB)/gServerInfo.m_FEAttackSuccessRateConstC)+(Strength/gServerInfo.m_FEAttackSuccessRateConstD);
+		}
+		else if(lpObj->Class == CLASS_MG)
+		{
+			lpObj->AttackSuccessRate = (lpObj->Level*gServerInfo.m_MGAttackSuccessRateConstA)+((Dexterity*gServerInfo.m_MGAttackSuccessRateConstB)/gServerInfo.m_MGAttackSuccessRateConstC)+(Strength/gServerInfo.m_MGAttackSuccessRateConstD);
+		}
 	}
 
-	if(lpObj->Class == CLASS_DW)
+	if(gServerInfo.m_CalcLuaScriptSwitch != 0)
 	{
-		lpObj->PhysiSpeed = Dexterity/gServerInfo.m_DWPhysiSpeedConstA;
-		lpObj->MagicSpeed = Dexterity/gServerInfo.m_DWMagicSpeedConstA;
+		gServerInfo.m_CalcCharacter.Execute("CalcAttackSpeed","i>ii",aIndex,&lpObj->PhysiSpeed,&lpObj->MagicSpeed);
 	}
-	if(lpObj->Class == CLASS_DK)
+	else
 	{
-		lpObj->PhysiSpeed = Dexterity/gServerInfo.m_DKPhysiSpeedConstA;
-		lpObj->MagicSpeed = Dexterity/gServerInfo.m_DKMagicSpeedConstA;
-	}
-	else if(lpObj->Class == CLASS_FE)
-	{
-		lpObj->PhysiSpeed = Dexterity/gServerInfo.m_FEPhysiSpeedConstA;
-		lpObj->MagicSpeed = Dexterity/gServerInfo.m_FEMagicSpeedConstA;
-	}
-	else if(lpObj->Class == CLASS_MG)
-	{
-		lpObj->PhysiSpeed = Dexterity/gServerInfo.m_MGPhysiSpeedConstA;
-		lpObj->MagicSpeed = Dexterity/gServerInfo.m_MGMagicSpeedConstA;
+		if(lpObj->Class == CLASS_DW)
+		{
+			lpObj->PhysiSpeed = Dexterity/gServerInfo.m_DWPhysiSpeedConstA;
+			lpObj->MagicSpeed = Dexterity/gServerInfo.m_DWMagicSpeedConstA;
+		}
+		else if(lpObj->Class == CLASS_DK)
+		{
+			lpObj->PhysiSpeed = Dexterity/gServerInfo.m_DKPhysiSpeedConstA;
+			lpObj->MagicSpeed = Dexterity/gServerInfo.m_DKMagicSpeedConstA;
+		}
+		else if(lpObj->Class == CLASS_FE)
+		{
+			lpObj->PhysiSpeed = Dexterity/gServerInfo.m_FEPhysiSpeedConstA;
+			lpObj->MagicSpeed = Dexterity/gServerInfo.m_FEMagicSpeedConstA;
+		}
+		else if(lpObj->Class == CLASS_MG)
+		{
+			lpObj->PhysiSpeed = Dexterity/gServerInfo.m_MGPhysiSpeedConstA;
+			lpObj->MagicSpeed = Dexterity/gServerInfo.m_MGMagicSpeedConstA;
+		}
 	}
 
 	lpObj->PhysiSpeed += lpObj->DrinkSpeed;
@@ -2111,21 +2202,28 @@ void CObjectManager::CharacterCalcAttribute(int aIndex) // OK
 		lpObj->MagicSpeed += Amulet->m_AttackSpeed;
 	}
 
-	if(lpObj->Class == CLASS_DW)
+	if(gServerInfo.m_CalcLuaScriptSwitch != 0)
 	{
-		lpObj->DefenseSuccessRate = Dexterity/gServerInfo.m_DWDefenseSuccessRateConstA;
+		gServerInfo.m_CalcCharacter.Execute("CalcDefenseSuccessRate","i>i",aIndex,&lpObj->DefenseSuccessRate);
 	}
-	else if(lpObj->Class == CLASS_DK)
+	else
 	{
-		lpObj->DefenseSuccessRate = Dexterity/gServerInfo.m_DKDefenseSuccessRateConstA;
-	}
-	else if(lpObj->Class == CLASS_FE)
-	{
-		lpObj->DefenseSuccessRate = Dexterity/gServerInfo.m_FEDefenseSuccessRateConstA;
-	}
-	else if(lpObj->Class == CLASS_MG)
-	{
-		lpObj->DefenseSuccessRate = Dexterity/gServerInfo.m_MGDefenseSuccessRateConstA;
+		if(lpObj->Class == CLASS_DW)
+		{
+			lpObj->DefenseSuccessRate = Dexterity/gServerInfo.m_DWDefenseSuccessRateConstA;
+		}
+		else if(lpObj->Class == CLASS_DK)
+		{
+			lpObj->DefenseSuccessRate = Dexterity/gServerInfo.m_DKDefenseSuccessRateConstA;
+		}
+		else if(lpObj->Class == CLASS_FE)
+		{
+			lpObj->DefenseSuccessRate = Dexterity/gServerInfo.m_FEDefenseSuccessRateConstA;
+		}
+		else if(lpObj->Class == CLASS_MG)
+		{
+			lpObj->DefenseSuccessRate = Dexterity/gServerInfo.m_MGDefenseSuccessRateConstA;
+		}
 	}
 
 	lpObj->DefenseSuccessRate += lpObj->Inventory[INVENTORY_SLOT_WEAPON2].GetDefenseSuccessRate();
@@ -2209,21 +2307,28 @@ void CObjectManager::CharacterCalcAttribute(int aIndex) // OK
 		lpObj->DefenseSuccessRate += (lpObj->DefenseSuccessRate*10)/100;
 	}
 
-	if(lpObj->Class == CLASS_DW)
+	if(gServerInfo.m_CalcLuaScriptSwitch != 0)
 	{
-		lpObj->Defense = Dexterity/gServerInfo.m_DWDefenseConstA;
+		gServerInfo.m_CalcCharacter.Execute("CalcDefense","i>i",aIndex,&lpObj->Defense);
 	}
-	else if(lpObj->Class == CLASS_DK)
+	else
 	{
-		lpObj->Defense = Dexterity/gServerInfo.m_DKDefenseConstA;
-	}
-	else if(lpObj->Class == CLASS_FE)
-	{
-		lpObj->Defense = Dexterity/gServerInfo.m_FEDefenseConstA;
-	}
-	else if(lpObj->Class == CLASS_MG)
-	{
-		lpObj->Defense = Dexterity/gServerInfo.m_MGDefenseConstA;
+		if(lpObj->Class == CLASS_DW)
+		{
+			lpObj->Defense = Dexterity/gServerInfo.m_DWDefenseConstA;
+		}
+		else if(lpObj->Class == CLASS_DK)
+		{
+			lpObj->Defense = Dexterity/gServerInfo.m_DKDefenseConstA;
+		}
+		else if(lpObj->Class == CLASS_FE)
+		{
+			lpObj->Defense = Dexterity/gServerInfo.m_FEDefenseConstA;
+		}
+		else if(lpObj->Class == CLASS_MG)
+		{
+			lpObj->Defense = Dexterity/gServerInfo.m_MGDefenseConstA;
+		}
 	}
 
 	lpObj->Defense += lpObj->Inventory[INVENTORY_SLOT_WEAPON2].GetDefense();
@@ -2252,27 +2357,69 @@ void CObjectManager::CharacterCalcAttribute(int aIndex) // OK
 	{
 		if(Level15Count == 5)
 		{
-			lpObj->Defense += (lpObj->Defense*30)/100;
+			if(gServerInfo.m_CalcLuaScriptSwitch != 0)
+			{
+				gServerInfo.m_CalcCharacter.Execute("CalcBonusDefense","ii>i",aIndex,5,&lpObj->Defense);
+			}
+			else
+			{
+				lpObj->Defense += (lpObj->Defense*30)/100;
+			}
 		}
 		else if(Level14Count == 5 || (Level14Count+Level15Count) == 5)
 		{
-			lpObj->Defense += (lpObj->Defense*25)/100;
+			if(gServerInfo.m_CalcLuaScriptSwitch != 0)
+			{
+				gServerInfo.m_CalcCharacter.Execute("CalcBonusDefense","ii>i",aIndex,4,&lpObj->Defense);
+			}
+			else
+			{
+				lpObj->Defense += (lpObj->Defense*25)/100;
+			}
 		}
 		else if(Level13Count == 5 || (Level13Count+Level14Count+Level15Count) == 5)
 		{
-			lpObj->Defense += (lpObj->Defense*20)/100;
+			if(gServerInfo.m_CalcLuaScriptSwitch != 0)
+			{
+				gServerInfo.m_CalcCharacter.Execute("CalcBonusDefense","ii>i",aIndex,3,&lpObj->Defense);
+			}
+			else
+			{
+				lpObj->Defense += (lpObj->Defense*20)/100;
+			}
 		}
 		else if(Level12Count == 5 || (Level12Count+Level13Count+Level14Count+Level15Count) == 5)
 		{
-			lpObj->Defense += (lpObj->Defense*15)/100;
+			if(gServerInfo.m_CalcLuaScriptSwitch != 0)
+			{
+				gServerInfo.m_CalcCharacter.Execute("CalcBonusDefense","ii>i",aIndex,2,&lpObj->Defense);
+			}
+			else
+			{
+				lpObj->Defense += (lpObj->Defense*15)/100;
+			}
 		}
 		else if(Level11Count == 5 || (Level11Count+Level12Count+Level13Count+Level14Count+Level15Count) == 5)
 		{
-			lpObj->Defense += (lpObj->Defense*10)/100;
+			if(gServerInfo.m_CalcLuaScriptSwitch != 0)
+			{
+				gServerInfo.m_CalcCharacter.Execute("CalcBonusDefense","ii>i",aIndex,1,&lpObj->Defense);
+			}
+			else
+			{
+				lpObj->Defense += (lpObj->Defense*10)/100;
+			}
 		}
 		else if(Level10Count == 5 || (Level10Count+Level11Count+Level12Count+Level13Count+Level14Count+Level15Count) == 5)
 		{
-			lpObj->Defense += (lpObj->Defense*5)/100;
+			if(gServerInfo.m_CalcLuaScriptSwitch != 0)
+			{
+				gServerInfo.m_CalcCharacter.Execute("CalcBonusDefense","ii>i",aIndex,0,&lpObj->Defense);
+			}
+			else
+			{
+				lpObj->Defense += (lpObj->Defense*5)/100;
+			}
 		}
 	}
 

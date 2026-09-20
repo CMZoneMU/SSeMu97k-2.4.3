@@ -154,6 +154,11 @@ bool CAttack::Attack(LPOBJ lpObj,LPOBJ lpTarget,CSkill* lpSkill,bool send,BYTE f
 		lpObj->HPAutoRecuperationTime = GetTickCount();
 		lpObj->MPAutoRecuperationTime = GetTickCount();
 		lpObj->BPAutoRecuperationTime = GetTickCount();
+
+		if(lpObj->Authority == AUTHORITY_USER)
+		{
+			gEffectManager.DelEffect(lpObj,EFFECT_INVISIBILITY);
+		}
 	}
 
 	if(lpTarget->Type == OBJECT_USER)

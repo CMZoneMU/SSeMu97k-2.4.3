@@ -57,6 +57,24 @@ int LuaCommandCheckGameMasterLevel(lua_State *L) {
 }
 
 void InitLuaFunction(lua_State *L) {
+  lua_register(L, "GET_ITEM", LuaGetItem);
+  lua_register(L, "GetObjectClass", LuaGetObjectClass);
+  lua_register(L, "GetObjectLevel", LuaGetObjectLevel);
+  lua_register(L, "GetObjectLevelUpPoint", LuaGetObjectLevelUpPoint);
+  lua_register(L, "GetObjectMoney", LuaGetObjectMoney);
+  lua_register(L, "GetObjectStrength", LuaGetObjectStrength);
+  lua_register(L, "GetObjectDexterity", LuaGetObjectDexterity);
+  lua_register(L, "GetObjectVitality", LuaGetObjectVitality);
+  lua_register(L, "GetObjectEnergy", LuaGetObjectEnergy);
+  lua_register(L, "GetObjectLeadership", LuaGetObjectLeadership);
+  lua_register(L, "GetObjectTotalLevel", LuaGetObjectTotalLevel);
+  lua_register(L, "GetObjectTotalStrength", LuaGetObjectTotalStrength);
+  lua_register(L, "GetObjectTotalDexterity", LuaGetObjectTotalDexterity);
+  lua_register(L, "GetObjectTotalVitality", LuaGetObjectTotalVitality);
+  lua_register(L, "GetObjectTotalEnergy", LuaGetObjectTotalEnergy);
+  lua_register(L, "GetObjectTotalLeadership", LuaGetObjectTotalLeadership);
+  lua_register(L, "GetObjectDefense", LuaGetObjectDefense);
+
   lua_register(L, "CommandCheckGameMasterLevel",
                LuaCommandCheckGameMasterLevel);
 
@@ -2607,7 +2625,7 @@ int LuaItemGive(lua_State *L) {
     return 1;
   }
 
-  // Update 88 2.4.6 -> 97K - Correção no ItemGive do script LUA
+  // Update 88 2.4.6 -> 97K - Correcao no ItemGive do script LUA
   if (gItemManager.CheckItemInventorySpace(&gObj[aIndex], item.m_Index) == 0) {
     lua_pushboolean(L, 0);
     return 1;
