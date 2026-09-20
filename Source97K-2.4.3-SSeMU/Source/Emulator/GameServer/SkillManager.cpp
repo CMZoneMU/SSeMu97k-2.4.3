@@ -886,6 +886,11 @@ bool CSkillManager::RunningSkill(int aIndex,int bIndex,CSkill* lpSkill,BYTE x,BY
 
 	lpObj->ShieldDamageReductionTime = 0;
 
+	if(lpObj->Authority == AUTHORITY_USER)
+	{
+		gEffectManager.DelEffect(lpObj,EFFECT_INVISIBILITY);
+	}
+
 	switch(lpSkill->m_index)
 	{
 		case SKILL_FLAME:

@@ -533,4 +533,11 @@
    675     "Plano VIP informado nao existe."
    676     "Zen insuficiente para comprar este plano VIP (Necessario: %d Zen)."
    680     "Voce comprou o plano VIP com sucesso!"
+
+   // Update 94 2.5.2 -> 97K
+   740     "Voce nao pode entrar em uma guilda durante a Guerra de Cerco."
+   741     "Voce nao pode excluir uma guilda durante a Guerra de Cerco."
+   742     "Voce nao pode formar aliancas ate a conclusao da Guerra de Cerco."
+   743     "So pode ser usado pelo Mestre de Guilda da guilda proprietaria."
+   744     "O limite de misturas permitidas por dia foi alcancado."
 end

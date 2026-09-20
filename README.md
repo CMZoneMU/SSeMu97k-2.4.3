@@ -25,6 +25,14 @@ UPDATE CMZ 00 (3.0.0) / Correções CMZone 29-08-26
 * Foi implementado o Sistema Lua de forma estável e otimizada (apenas funções da 97k), atualizado e rodando 100% sem erros e sem crashes. [GameServer][97KOR]
 
 
+UPDATE CMZ 09 (3.0.9) 20-09-26 / UPDATE 94 (2.5.2):
+* Mensagens de Sistema (Data\Message.txt): adicionadas mensagens 740 a 744 (Guerra de Cerco e limites de mistura da Chaos Machine) com textos 100% ASCII. [GameServer][Message.txt][97KOR]
+* Switch de Balanceamento Lua (GameServerInfo - Character.dat): adicionada a configuracao CalcLuaScriptSwitch para alternar entre calculos de atributos nativos em C++ (0) e calculos dinamicos em Lua (1). [GameServer][ServerInfo.h/.cpp][97KOR]
+* Balanceamento Dinamico via Script Lua (CalcCharacter.lua): criado script Data\Script\Character\CalcCharacter.lua balanceado para classes DW, DK, FE e MG, controlando dano fisico/magico, velocidade de ataque, taxas de acerto, defesa e bonus de armadura +10 a +15. [GameServer][ObjectManager.cpp][CalcCharacter.lua][97KOR]
+* Registro de Bindings em Lua (LuaFunction.cpp): registradas no ambiente Lua as funcoes GET_ITEM, GetObjectClass, GetObjectTotalLevel, GetObjectTotalStrength, GetObjectTotalDexterity, GetObjectTotalVitality, GetObjectTotalEnergy, GetObjectTotalLeadership e GetObjectDefense. [GameServer][LuaFunction.cpp][97KOR]
+* Correcao do Buff de Invisibilidade (EFFECT_INVISIBILITY): corrigida a remocao automatica da invisibilidade ao desferir ataques corpo-a-corpo/distancia (Attack.cpp) ou executar habilidades (SkillManager.cpp) para jogadores comuns, preservando o modo invisivel para Game Masters. [GameServer][Attack.cpp][SkillManager.cpp][97KOR]
+
+
 UPDATE CMZ 08 (3.0.8) 14-09-26 / UPDATE 93 (2.5.1):
 * Comando /buyvip (CustomBuyVip): implementado sistema de compra de pacotes VIP via comando in-game com validacao de moedas/zen, tempo de duracao configuravel e recarga dinamica de status. [GameServer][CustomBuyVip.h/.cpp][CommandManager.cpp][97KOR]
 * Comando /gift e Tabela [GiftData] (CustomGift): implementado resgate de codigos promocionais com persistencia no banco de dados via pacote 0x03 entre GameServer e DataServer. [GameServer][DataServer][CustomGift.h/.cpp][CommandManager.cpp][97KOR]

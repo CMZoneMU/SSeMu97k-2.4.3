@@ -6,6 +6,7 @@
 
 #include "DefaultClassInfo.h"
 #include "Party.h"
+#include "Script.h"
 #include "User.h"
 
 class CServerInfo
@@ -145,7 +146,7 @@ public:
 	int m_GuildCreateMinReset[MAX_ACCOUNT_LEVEL];
 	int m_GuildInsertMaxUser1;
 	int m_GuildInsertMaxUser2;
-	// Update 89 2.4.7 -> 97K - Guild War & Battle Soccer Configurações
+	// Update 89 2.4.7 -> 97K - Guild War & Battle Soccer Configuracoes
 	int m_GuildWarSwitch;
 	int m_GuildWarAttackEnable;
 	int m_GuildWarScoreMax1;
@@ -372,7 +373,7 @@ public:
 	int m_DLDefenseConstA;
 	int m_CommandPostGlobal;
 	int m_CommandPostType;
-	// Update 89 2.4.7 -> 97K - Comando /post personalizável
+	// Update 89 2.4.7 -> 97K - Comando /post personalizavel
 	int m_CommandPostMessage;
 	int m_CommandPKClearType;
 	int m_CommandPKClearMoney[MAX_ACCOUNT_LEVEL];
@@ -503,6 +504,8 @@ public:
 	int m_OliveOfLoveIncSpeedTime;
 	int m_RemedyOfLoveIncDamage;
 	int m_RemedyOfLoveIncDamageTime;
+	int m_CalcLuaScriptSwitch;
+	CScript m_CalcCharacter;
 };
 
 extern CServerInfo gServerInfo;
