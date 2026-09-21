@@ -160,6 +160,8 @@ int LuaMoveUser(lua_State* L);
 int LuaMoveUserEx(lua_State* L);
 int LuaMessageSend(lua_State* L);
 int LuaMessageSendToAll(lua_State* L);
+// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 96 (2.5.4) - Declaracao da funcao Lua MessageGlobalSend
+int LuaMessageGlobalSend(lua_State* L);
 int LuaNoticeSend(lua_State* L);
 int LuaNoticeSendToAll(lua_State* L);
 int LuaNoticeGlobalSend(lua_State* L);

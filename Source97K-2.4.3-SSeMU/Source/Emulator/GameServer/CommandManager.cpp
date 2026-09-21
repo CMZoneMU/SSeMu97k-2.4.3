@@ -4,6 +4,7 @@
 
 #include "stdafx.h"
 #include "CommandManager.h"
+#include "CommandRequirement.h"
 #include "BloodCastle.h"
 #include "BonusManager.h"
 #include "CustomAttack.h"
@@ -302,6 +303,12 @@ void CCommandManager::ManagementCore(LPOBJ lpObj,char* message) // OK
 		return;
 	}
 
+	// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 96 (2.5.4) - Verificacao de requisitos customizados de comandos
+	if(gCommandRequirement.CommandCheck(lpObj,lpInfo.Index) != 0)
+	{
+		return;
+	}
+
 	int result = gScriptLoader.OnCommandManager(lpObj->Index, lpInfo.Index, argument);
 
 	if(result != 0)
@@ -497,6 +504,11 @@ void CCommandManager::DiscountRequirement(LPOBJ lpObj,int index) // OK
 		GCMoneySend(lpObj->Index,lpObj->Money);
 	}
 
+	// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 96 (2.5.4) - Execucao de consumo de requisitos e callback Lua
+	gCommandRequirement.CommandDone(lpObj,index);
+
+	gScriptLoader.OnCommandDone(lpObj->Index,index);
+
 	lpObj->CommandCheckTime[lpInfo.Index] = GetTickCount();
 }
 
@@ -609,7 +621,7 @@ void CCommandManager::CommandPost(LPOBJ lpObj,char* arg) // OK
 		return;
 	}
 
-	// Update 89 2.4.7 -> 97K - Comando /post personalizável
+	// Update 89 2.4.7 -> 97K - Comando /post personalizavel
 	int messageIndex = (gServerInfo.m_CommandPostMessage == 0) ? 323 : gServerInfo.m_CommandPostMessage;
 
 	char buff[256] = {0};
@@ -2188,7 +2200,7 @@ void CCommandManager::DGCommandResetRecv(SDHP_COMMAND_RESET_RECV* lpMsg) // OK
 
 	this->DiscountRequirement(lpObj,COMMAND_RESET);
 
-	// Update 89 2.4.7 -> 97K - Correção na subtração de níveis no reset
+	// Update 89 2.4.7 -> 97K - Correcao na subtracao de niveis no reset
 	lpObj->Level = ((gServerInfo.m_CommandResetStartLevel[lpObj->AccountLevel] == -1) ? (lpObj->Level - gServerInfo.m_CommandResetLevel[lpObj->AccountLevel]) : gServerInfo.m_CommandResetStartLevel[lpObj->AccountLevel]);
 
 	lpObj->Level = ((lpObj->Level < 1) ? 1 : lpObj->Level);
@@ -2233,7 +2245,7 @@ void CCommandManager::DGCommandResetRecv(SDHP_COMMAND_RESET_RECV* lpMsg) // OK
 		gQuest.GCQuestInfoSend(lpObj->Index);
 	}
 
-	// Update 89 2.4.7 -> 97K - Preservação de habilidades nativas e de armas no reset
+	// Update 89 2.4.7 -> 97K - Preservacao de habilidades nativas e de armas no reset
 	if(gServerInfo.m_CommandResetClearSkill[lpObj->AccountLevel] != 0)
 	{
 		for(int n=0;n < MAX_SKILL_LIST;n++)
@@ -2389,14 +2401,14 @@ void CCommandManager::DGCommandMasterResetRecv(SDHP_COMMAND_MASTER_RESET_RECV* l
 
 	this->DiscountRequirement(lpObj,COMMAND_MASTER_RESET);
 
-	// Update 89 2.4.7 -> 97K - Correção na subtração de níveis no master reset
+	// Update 89 2.4.7 -> 97K - Correcao na subtracao de niveis no master reset
 	lpObj->Level = ((gServerInfo.m_CommandMasterResetStartLevel[lpObj->AccountLevel] == -1) ? (lpObj->Level - gServerInfo.m_CommandMasterResetLevel[lpObj->AccountLevel]) : gServerInfo.m_CommandMasterResetStartLevel[lpObj->AccountLevel]);
 
 	lpObj->Level = ((lpObj->Level < 1) ? 1 : lpObj->Level);
 
 	lpObj->Experience = gLevelExperience[lpObj->Level - 1];
 
-	// Update 89 2.4.7 -> 97K - Correção na subtração de resets no master reset
+	// Update 89 2.4.7 -> 97K - Correcao na subtracao de resets no master reset
 	lpObj->Reset = ((gServerInfo.m_CommandMasterResetStartReset[lpObj->AccountLevel] == -1) ? (lpObj->Reset - gServerInfo.m_CommandMasterResetReset[lpObj->AccountLevel]) : gServerInfo.m_CommandMasterResetStartReset[lpObj->AccountLevel]);
 
 	lpObj->Reset = ((lpObj->Reset < 0) ? 0 : lpObj->Reset);
@@ -2427,7 +2439,7 @@ void CCommandManager::DGCommandMasterResetRecv(SDHP_COMMAND_MASTER_RESET_RECV* l
 		gQuest.GCQuestInfoSend(lpObj->Index);
 	}
 
-	// Update 89 2.4.7 -> 97K - Preservação de habilidades nativas e de armas no master reset
+	// Update 89 2.4.7 -> 97K - Preservacao de habilidades nativas e de armas no master reset
 	if(gServerInfo.m_CommandMasterResetClearSkill[lpObj->AccountLevel] != 0)
 	{
 		for(int n = 0; n < MAX_SKILL_LIST; n++)

@@ -104,7 +104,7 @@ void DataServerProtocolCore(int index,BYTE head,BYTE* lpMsg,int size) // OK
 					break;
 			}
 			break;
-		// Update 88 2.4.6 -> 97K - Sistema de recompensas diárias
+		// Update 88 2.4.6 -> 97K - Sistema de recompensas diarias
 		case 0x16:
 			gCustomDailyReward.GDDailyRewardCheckRecv((SDHP_DAILY_REWARD_INFO_RECV*)lpMsg,index);
 			break;
@@ -113,6 +113,10 @@ void DataServerProtocolCore(int index,BYTE head,BYTE* lpMsg,int size) // OK
 			break;
 		case 0x21:
 			GDGlobalNoticeRecv((SDHP_GLOBAL_NOTICE_RECV*)lpMsg,index);
+			break;
+		// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 96 (2.5.4) - Processamento de recebimento de mensagem global no DataServer
+		case 0x2B:
+			GDGlobalMessageRecv((SDHP_GLOBAL_MESSAGE_RECV*)lpMsg,index);
 			break;
 		case 0x2A:
 			switch(((lpMsg[0]==0xC1)?lpMsg[3]:lpMsg[4]))
@@ -210,7 +214,7 @@ void DataServerProtocolCore(int index,BYTE head,BYTE* lpMsg,int size) // OK
 					break;
 			}
 			break;
-		// Update 89 2.4.7 -> 97K - Sistema de Reconexão (Fase 1: Persistência no DataServer)
+		// Update 89 2.4.7 -> 97K - Sistema de Reconexao (Fase 1: Persistencia no DataServer)
 		case 0xC0:
 			switch(((lpMsg[0]==0xC1)?lpMsg[3]:lpMsg[4]))
 			{
@@ -805,6 +809,30 @@ void GDGlobalNoticeRecv(SDHP_GLOBAL_NOTICE_RECV* lpMsg,int index) // OK
 	pMsg.color = lpMsg->color;
 
 	pMsg.speed = lpMsg->speed;
+
+	memcpy(pMsg.message,lpMsg->message,sizeof(pMsg.message));
+
+	for(int n=0;n < MAX_SERVER;n++)
+	{
+		if(gServerManager[n].CheckState() != SERVER_OFFLINE)
+		{
+			gSocketManager.DataSend(n,(BYTE*)&pMsg,pMsg.header.size);
+		}
+	}
+}
+
+// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 96 (2.5.4) - Processamento e broadcast de mensagem global
+void GDGlobalMessageRecv(SDHP_GLOBAL_MESSAGE_RECV* lpMsg,int index) // OK
+{
+	SDHP_GLOBAL_MESSAGE_SEND pMsg;
+
+	pMsg.header.set(0x2B,sizeof(pMsg));
+
+	pMsg.MapServerGroup = lpMsg->MapServerGroup;
+
+	pMsg.type = lpMsg->type;
+
+	pMsg.color = lpMsg->color;
 
 	memcpy(pMsg.message,lpMsg->message,sizeof(pMsg.message));
 

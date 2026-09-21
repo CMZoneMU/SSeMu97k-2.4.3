@@ -8,6 +8,7 @@
 #include "BloodCastle.h"
 #include "BonusManager.h"
 #include "CommandManager.h"
+#include "CommandRequirement.h"
 #include "ConnectMember.h"
 #include "CustomArena.h"
 #include "CustomAttack.h"
@@ -151,6 +152,9 @@ void CServerInfo::ReadCommandInfo() // OK
 	this->ReadCommandInfo("GameServerInfo",".\\Data\\GameServerInfo - Command.dat");
 
 	gCommandManager.Load(gPath.GetFullPath("CommandManager.txt"));
+
+	// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 96 (2.5.4) - Carregamento de CommandRequirement.txt
+	gCommandRequirement.Load(gPath.GetFullPath("CommandRequirement.txt"));
 }
 
 void CServerInfo::ReadCommonInfo() // OK

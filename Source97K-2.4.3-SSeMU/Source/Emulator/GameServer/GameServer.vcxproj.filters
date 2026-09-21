@@ -349,6 +349,9 @@
     <ClInclude Include="CommandManager.h">
       <Filter>Others</Filter>
     </ClInclude>
+    <ClInclude Include="CommandRequirement.h">
+      <Filter>Others</Filter>
+    </ClInclude>
     <ClInclude Include="ItemMoneyDrop.h">
       <Filter>Game\Item</Filter>
     </ClInclude>
@@ -730,6 +733,9 @@
       <Filter>Others</Filter>
     </ClCompile>
     <ClCompile Include="CommandManager.cpp">
+      <Filter>Others</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandRequirement.cpp">
       <Filter>Others</Filter>
     </ClCompile>
     <ClCompile Include="ItemMoneyDrop.cpp">

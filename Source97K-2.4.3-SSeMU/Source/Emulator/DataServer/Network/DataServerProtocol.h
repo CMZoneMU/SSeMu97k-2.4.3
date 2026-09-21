@@ -251,6 +251,16 @@ struct SDHP_GLOBAL_NOTICE_RECV
 	char message[128];
 };
 
+// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 96 (2.5.4) - Estrutura de recebimento de mensagem global
+struct SDHP_GLOBAL_MESSAGE_RECV
+{
+	PBMSG_HEAD header; // C1:2B
+	WORD MapServerGroup;
+	BYTE type;
+	BYTE color;
+	char message[128];
+};
+
 struct SDHP_SNS_DATA_RECV
 {
 	PBMSG_HEAD header; // C1:24
@@ -625,6 +635,16 @@ struct SDHP_GLOBAL_NOTICE_SEND
 	char message[128];
 };
 
+// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 96 (2.5.4) - Estrutura de envio de mensagem global
+struct SDHP_GLOBAL_MESSAGE_SEND
+{
+	PBMSG_HEAD header; // C1:2B
+	WORD MapServerGroup;
+	BYTE type;
+	BYTE color;
+	char message[128];
+};
+
 struct SDHP_MONSTER_KILL_COUNT_SEND
 {
 	PBMSG_HEAD header; // C1:50
@@ -672,6 +692,8 @@ void GDOptionDataRecv(SDHP_OPTION_DATA_RECV* lpMsg,int index);
 void GDPetItemInfoRecv(SDHP_PET_ITEM_INFO_RECV* lpMsg,int index);
 void GDGlobalPostRecv(SDHP_GLOBAL_POST_RECV* lpMsg,int index);
 void GDGlobalNoticeRecv(SDHP_GLOBAL_NOTICE_RECV* lpMsg,int index);
+// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 96 (2.5.4) - Declaracao de recebimento de mensagem global no DataServer
+void GDGlobalMessageRecv(SDHP_GLOBAL_MESSAGE_RECV* lpMsg,int index);
 void GDCustomMonsterKilLCountRecv(SDHP_MONSTER_KILL_COUNT_RECV* lpMsg, int index);
 void GDCharacterInfoSaveRecv(SDHP_CHARACTER_INFO_SAVE_RECV* lpMsg);
 void GDInventoryItemSaveRecv(SDHP_INVENTORY_ITEM_SAVE_RECV* lpMsg);

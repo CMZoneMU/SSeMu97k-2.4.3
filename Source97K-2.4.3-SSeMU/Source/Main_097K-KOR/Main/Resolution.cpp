@@ -43,7 +43,8 @@ __declspec(naked) void CResolution::ResolutionSwitch()
 	NEXT4:
 		Cmp Eax, 0x04;
 		Jnz NEXT5;
-		Mov Dword Ptr Ds : [0x0056156C] , 1360; //MAIN_RESOLUTION_X
+		// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 96 (2.5.4) - Correcao da resolucao 1366x768
+		Mov Dword Ptr Ds : [0x0056156C] , 1366; //MAIN_RESOLUTION_X
 		Mov Dword Ptr Ds : [0x00561570] , 768; //MAIN_RESOLUTION_Y
 		Jmp EXIT;
 	NEXT5:

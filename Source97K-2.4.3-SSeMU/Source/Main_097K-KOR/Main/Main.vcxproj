@@ -29,7 +29,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\..\..\Program\MuServer97K\Tools\GetMainInfo\Path\</OutDir>
+    <OutDir>..\..\..\..\GetMainInfo\Path\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)</TargetName>
     <GenerateManifest>false</GenerateManifest>

@@ -100,6 +100,7 @@
     <ClInclude Include="BonusManager.h" />
     <ClInclude Include="ChaosBox.h" />
     <ClInclude Include="CommandManager.h" />
+    <ClInclude Include="CommandRequirement.h" />
     <ClInclude Include="Connection.h" />
     <ClInclude Include="ConnectionManager.h" />
     <ClInclude Include="ConnectMember.h" />
@@ -230,6 +231,7 @@
     <ClCompile Include="BonusManager.cpp" />
     <ClCompile Include="ChaosBox.cpp" />
     <ClCompile Include="CommandManager.cpp" />
+    <ClCompile Include="CommandRequirement.cpp" />
     <ClCompile Include="Connection.cpp" />
     <ClCompile Include="ConnectionManager.cpp" />
     <ClCompile Include="ConnectMember.cpp" />

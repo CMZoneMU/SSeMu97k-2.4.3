@@ -109,7 +109,7 @@ void DataServerProtocolCore(BYTE head,BYTE* lpMsg,int size) // OK
 					break;
 			}
 			break;
-		// Update 88 2.4.6 -> 97K - Sistema de recompensas diárias
+		// Update 88 2.4.6 -> 97K - Sistema de recompensas diarias
 		case 0x16:
 			gCustomDailyReward.DGDailyRewardCheckRecv((SDHP_DAILY_REWARD_INFO_RECV*)lpMsg);
 			break;
@@ -121,6 +121,10 @@ void DataServerProtocolCore(BYTE head,BYTE* lpMsg,int size) // OK
 			break;
 		case 0x21:
 			DGGlobalNoticeRecv((SDHP_GLOBAL_NOTICE_RECV*)lpMsg);
+			break;
+		// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 96 (2.5.4) - Processamento de recebimento de mensagem global
+		case 0x2B:
+			DGGlobalMessageRecv((SDHP_GLOBAL_MESSAGE_RECV*)lpMsg);
 			break;
 		case 0x2A:
 			switch(((lpMsg[0]==0xC1)?lpMsg[3]:lpMsg[4]))
@@ -512,7 +516,7 @@ void DGCharacterInfoRecv(SDHP_CHARACTER_INFO_RECV* lpMsg) // OK
 	// Update 91 2.4.9 -> 97K - Inicializacao de rastreamento de movimento no login
 	gHackMoveSpeedCheck.Reset(lpObj);
 
-	// Update 88 2.4.6 -> 97K - Sistema de recompensas diárias
+	// Update 88 2.4.6 -> 97K - Sistema de recompensas diarias
 	gCustomDailyReward.GDDailyRewardCheckSend(lpObj->Index);
 
 	gLog.Output(LOG_CONNECT,"[ObjectManager][%d] AddCharacterInfo [%s] [%s][%s]",lpObj->Index,lpObj->Name,lpObj->IpAddr,lpObj->HardwareId);
@@ -759,6 +763,12 @@ void DGGlobalPostRecv(SDHP_GLOBAL_POST_RECV* lpMsg) // OK
 void DGGlobalNoticeRecv(SDHP_GLOBAL_NOTICE_RECV* lpMsg) // OK
 {
 	gNotice.GCNoticeSendToAll(lpMsg->type,lpMsg->count,lpMsg->opacity,lpMsg->delay,lpMsg->color,lpMsg->speed,"%s",lpMsg->message);
+}
+
+// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 96 (2.5.4) - Processamento de recebimento de mensagem global
+void DGGlobalMessageRecv(SDHP_GLOBAL_MESSAGE_RECV* lpMsg) // OK
+{
+	GCNewMessageSendToAll(lpMsg->type,lpMsg->color,"%s",lpMsg->message);
 }
 
 void DGGlobalWhisperRecv(SDHP_GLOBAL_WHISPER_RECV* lpMsg) // OK
@@ -1036,6 +1046,31 @@ void GDGlobalNoticeSend(BYTE type,BYTE count,BYTE opacity,WORD delay,DWORD color
 	pMsg.color = color;
 
 	pMsg.speed = speed;
+
+	memcpy(pMsg.message,buff,sizeof(pMsg.message));
+
+	gDataServerConnection.DataSend((BYTE*)&pMsg,sizeof(pMsg));
+}
+
+// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 96 (2.5.4) - Envio de mensagem global para o DataServer
+void GDGlobalMessageSend(int MapServerGroup,BYTE type,BYTE color,char* message,...) // OK
+{
+	char buff[256] = {0};
+
+	va_list arg;
+	va_start(arg,message);
+	vsprintf_s(buff,message,arg);
+	va_end(arg);
+
+	SDHP_GLOBAL_MESSAGE_SEND pMsg;
+
+	pMsg.header.set(0x2B,sizeof(pMsg));
+
+	pMsg.MapServerGroup = MapServerGroup;
+
+	pMsg.type = type;
+
+	pMsg.color = color;
 
 	memcpy(pMsg.message,buff,sizeof(pMsg.message));
 
