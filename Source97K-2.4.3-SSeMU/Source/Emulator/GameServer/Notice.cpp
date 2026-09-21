@@ -45,6 +45,13 @@ void CNotice::Load(char* path) // OK
 
 	this->m_count = 0;
 
+	// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 96 (2.5.4) - Inicializacao de contadores de noticias
+	this->m_NoticeValue = 0;
+
+	this->m_NoticeTime = GetTickCount();
+
+	memset(this->m_NoticeInfo,0,sizeof(this->m_NoticeInfo));
+
 	this->LoadFree();
 
 	try
@@ -69,10 +76,97 @@ void CNotice::Load(char* path) // OK
 
 			info.Type = lpMemScript->GetAsNumber();
 
-			info.RepeatTime = lpMemScript->GetAsNumber()*1000;
+			int thirdVal = lpMemScript->GetAsNumber();
 
-			this->SetInfo(info);
+			eTokenResult token = lpMemScript->GetToken();
+
+			if(token == TOKEN_NUMBER)
+			{
+				info.Count = thirdVal;
+				info.Opacity = lpMemScript->GetNumber();
+				info.Delay = lpMemScript->GetAsNumber();
+
+				int colorR = lpMemScript->GetAsNumber();
+				int colorG = lpMemScript->GetAsNumber();
+				int colorB = lpMemScript->GetAsNumber();
+
+				info.Color = 0;
+				info.Color |= colorR;
+				info.Color |= (colorG << 8);
+				info.Color |= (colorB << 16);
+				info.Color |= (info.Opacity << 24);
+
+				info.Speed = lpMemScript->GetAsNumber();
+				info.RepeatTime = lpMemScript->GetAsNumber()*1000;
+
+				this->SetInfo(info);
+			}
+			else
+			{
+				info.RepeatTime = thirdVal*1000;
+
+				this->SetInfo(info);
+
+				if(token == TOKEN_END)
+				{
+					break;
+				}
+
+				if(strcmp("end",lpMemScript->GetString()) == 0)
+				{
+					break;
+				}
+
+				while(true)
+				{
+					memset(&info,0,sizeof(info));
+
+					strcpy_s(info.Message,lpMemScript->GetString());
+
+					info.Type = lpMemScript->GetAsNumber();
+
+					thirdVal = lpMemScript->GetAsNumber();
+
+					token = lpMemScript->GetToken();
+
+					if(token == TOKEN_NUMBER)
+					{
+						info.Count = thirdVal;
+						info.Opacity = lpMemScript->GetNumber();
+						info.Delay = lpMemScript->GetAsNumber();
+
+						int colorR = lpMemScript->GetAsNumber();
+						int colorG = lpMemScript->GetAsNumber();
+						int colorB = lpMemScript->GetAsNumber();
+
+						info.Color = 0;
+						info.Color |= colorR;
+						info.Color |= (colorG << 8);
+						info.Color |= (colorB << 16);
+						info.Color |= (info.Opacity << 24);
+
+						info.Speed = lpMemScript->GetAsNumber();
+						info.RepeatTime = lpMemScript->GetAsNumber()*1000;
+
+						this->SetInfo(info);
+						break;
+					}
+					else
+					{
+						info.RepeatTime = thirdVal*1000;
+
+						this->SetInfo(info);
+
+						if(token == TOKEN_END || strcmp("end",lpMemScript->GetString()) == 0)
+						{
+							goto LOAD_END;
+						}
+					}
+				}
+			}
 		}
+
+LOAD_END:;
 	}
 	catch(...)
 	{
@@ -104,13 +198,19 @@ void CNotice::MainProc() // OK
 		return;
 	}
 
+	// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 96 (2.5.4) - Correcao no ciclo e exibicao do sistema de noticias
+	if(this->m_NoticeValue < 0 || this->m_NoticeValue >= this->m_count)
+	{
+		this->m_NoticeValue = 0;
+	}
+
 	NOTICE_INFO* lpInfo = &this->m_NoticeInfo[this->m_NoticeValue];
 
 	if((GetTickCount()-this->m_NoticeTime) >= ((DWORD)lpInfo->RepeatTime))
 	{
+		this->GCNoticeSendToAll(lpInfo->Type,lpInfo->Count,lpInfo->Opacity,lpInfo->Delay,lpInfo->Color,lpInfo->Speed,"%s",lpInfo->Message);
 		this->m_NoticeValue = (((this->m_NoticeValue+1)>=this->m_count)?0:(this->m_NoticeValue+1));
 		this->m_NoticeTime = GetTickCount();
-		this->GCNoticeSendToAll(lpInfo->Type,lpInfo->Count,lpInfo->Opacity,lpInfo->Delay,lpInfo->Color,lpInfo->Speed,"%s",lpInfo->Message);
 	}
 }
 

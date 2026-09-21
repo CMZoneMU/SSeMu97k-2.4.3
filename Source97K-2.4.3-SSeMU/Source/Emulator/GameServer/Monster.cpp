@@ -1226,6 +1226,12 @@ void gObjMonsterUpdateProc(LPOBJ lpObj) // OK
 
 void gObjMonsterReactionProc(LPOBJ lpObj) // OK
 {
+	// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 96 (2.5.4) - Correcao do bug de monstros estaticos
+	if(lpObj->PathCount == 0 && lpObj->PathStartEnd != 0)
+	{
+		lpObj->PathStartEnd = 0;
+	}
+
 	if(OBJECT_RANGE(lpObj->TargetNumber) == 0)
 	{
 		lpObj->ActionState.Emotion = EMOTION_REST;

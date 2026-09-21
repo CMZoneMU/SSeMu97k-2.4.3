@@ -125,6 +125,8 @@ void InitLuaFunction(lua_State *L) {
   lua_register(L, "MoveUserEx", LuaMoveUserEx);
   lua_register(L, "MessageSend", LuaMessageSend);
   lua_register(L, "MessageSendToAll", LuaMessageSendToAll);
+  // Update SSeMU 92 2.4.9 -> 97K SSeMU Update 96 (2.5.4) - Registro da funcao Lua MessageGlobalSend
+  lua_register(L, "MessageGlobalSend", LuaMessageGlobalSend);
   lua_register(L, "NoticeSend", LuaNoticeSend);
   lua_register(L, "NoticeSendToAll", LuaNoticeSendToAll);
   lua_register(L, "NoticeGlobalSend", LuaNoticeGlobalSend);
@@ -3127,6 +3129,21 @@ int LuaMessageSendToAll(lua_State *L) {
       GCNewMessageSend(n, aValue, bValue, "%s", aString);
     }
   }
+
+  return 1;
+}
+
+// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 96 (2.5.4) - Implementacao da funcao Lua MessageGlobalSend
+int LuaMessageGlobalSend(lua_State *L) {
+  if (lua_gettop(L) != 3) {
+    return luaL_error(L, LUA_SCRIPT_CODE_ERROR1, 3);
+  }
+
+  int aValue = lua_tointeger(L, 1);
+  int bValue = lua_tointeger(L, 2);
+  const char *aString = LuaString(L, 3);
+
+  GDGlobalMessageSend(0, (BYTE)aValue, (BYTE)bValue, "%s", aString);
 
   return 1;
 }

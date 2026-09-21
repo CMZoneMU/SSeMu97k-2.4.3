@@ -25,6 +25,13 @@ UPDATE CMZ 00 (3.0.0) / Correções CMZone 29-08-26
 * Foi implementado o Sistema Lua de forma estável e otimizada (apenas funções da 97k), atualizado e rodando 100% sem erros e sem crashes. [GameServer][97KOR]
 
 
+UPDATE CMZ 11 (3.1.1) 21-09-26 / SSeMU UPDATE 96 (2.5.4):
+* Novo Arquivo e Sistema de Requisitos de Comandos (CommandRequirement): criado Data\CommandRequirement.txt e modulo CommandRequirement.h/.cpp adaptado para 4 classes 97k (DW, DK, FE, MG), suportando requisitos de nivel, resets, itens com contagem e consumo no inventario, mapas, horarios, dias da semana e mensagens personalizadas de falha. [GameServer][CommandRequirement.h/.cpp][CommandManager.cpp][ServerInfo.cpp][CommandRequirement.txt][97KOR]
+* Nova Funcao LUA MessageGlobalSend: implementada comunicacao global inter-servidor (GDGlobalMessageSend / DGGlobalMessageRecv) via DataServer com opcode 0x2B (SDHP_GLOBAL_MESSAGE_SEND / RECV) e broadcast para todos os GameServers conectados. [GameServer][DataServer][LuaFunction.h/.cpp][DSProtocol.h/.cpp][DataServerProtocol.h/.cpp][97KOR]
+* Correcao de Monstros Estaticos: corrigido bug no gObjMonsterReactionProc que mantinha PathStartEnd ativo mesmo com PathCount == 0, impedindo novas rotas de movimento. [GameServer][Monster.cpp][97KOR]
+* Correcao do Sistema de Noticias (Notice): suporte a leitura de 3 e 10 colunas sem descompasso de campos no MemScript, inicializacao segura de variaveis e envio de mensagem antes do incremento de indice para nao pular a primeira noticia. [GameServer][Notice.cpp][97KOR]
+* Correcao de Resolucao do Cliente Main: corrigida a largura da resolucao modo 4 de 1360 para 1366 pixels (1366x768). [Main.dll][Resolution.cpp][Client97K]
+
 UPDATE CMZ 10 (3.1.0) 20-09-26 / SSeMU UPDATE 95 (2.5.3):
 * Correcao Critica no DataServer (BadSyntax): corrigida a inversao logica em CheckTextSyntax que bloqueava o carregamento de personagens normais e travava o cliente na tela de Loading ao clicar para entrar no jogo. [DataServer][Util.cpp][BadSyntax.txt][97KOR]
 * Sistema de Filtragem de Nomes Improprios (BadSyntax): implementado modulo BadSyntax.h/.cpp no DataServer carregando DataServer\BadSyntax.txt para bloquear criacao de chars, guilds e rename com termos proibidos. [DataServer][BadSyntax.h/.cpp][Util.cpp][DataServer.cpp][97KOR]

@@ -189,6 +189,16 @@ struct SDHP_GLOBAL_NOTICE_RECV
 	char message[128];
 };
 
+// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 96 (2.5.4) - Estrutura de recebimento de mensagem global
+struct SDHP_GLOBAL_MESSAGE_RECV
+{
+	PBMSG_HEAD header; // C1:2B
+	WORD MapServerGroup;
+	BYTE type;
+	BYTE color;
+	char message[128];
+};
+
 struct SDHP_SNS_DATA_RECV
 {
 	PWMSG_HEAD header; // C1:24
@@ -327,6 +337,16 @@ struct SDHP_GLOBAL_NOTICE_SEND
 	WORD delay;
 	DWORD color;
 	BYTE speed;
+	char message[128];
+};
+
+// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 96 (2.5.4) - Estrutura de envio de mensagem global
+struct SDHP_GLOBAL_MESSAGE_SEND
+{
+	PBMSG_HEAD header; // C1:2B
+	WORD MapServerGroup;
+	BYTE type;
+	BYTE color;
 	char message[128];
 };
 
@@ -536,6 +556,8 @@ void DGPetItemInfoRecv(SDHP_PET_ITEM_INFO_RECV* lpMsg);
 void DGOptionDataRecv(SDHP_OPTION_DATA_RECV* lpMsg);
 void DGGlobalPostRecv(SDHP_GLOBAL_POST_RECV* lpMsg);
 void DGGlobalNoticeRecv(SDHP_GLOBAL_NOTICE_RECV* lpMsg);
+// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 96 (2.5.4) - Declaracao de recebimento de mensagem global
+void DGGlobalMessageRecv(SDHP_GLOBAL_MESSAGE_RECV* lpMsg);
 void DGGlobalWhisperRecv(SDHP_GLOBAL_WHISPER_RECV* lpMsg);
 void DGGlobalWhisperEchoRecv(SDHP_GLOBAL_WHISPER_ECHO_RECV* lpMsg);
 void GDServerInfoSend();
@@ -548,6 +570,8 @@ void GDOptionDataSend(int aIndex);
 void GDPetItemInfoSend(int aIndex,int type);
 void GDGlobalPostSend(BYTE type,char* name,char* message);
 void GDGlobalNoticeSend(BYTE type,BYTE count,BYTE opacity,WORD delay,DWORD color,BYTE speed,char* message,...);
+// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 96 (2.5.4) - Declaracao de envio de mensagem global
+void GDGlobalMessageSend(int MapServerGroup,BYTE type,BYTE color,char* message,...);
 void GDCharacterInfoSaveSend(int aIndex);
 void GDInventoryItemSaveSend(int aIndex);
 void GDOptionDataSaveSend(int aIndex,BYTE* SkillKey,BYTE GameOption,BYTE QKey,BYTE WKey,BYTE EKey,BYTE ChatWindow);
