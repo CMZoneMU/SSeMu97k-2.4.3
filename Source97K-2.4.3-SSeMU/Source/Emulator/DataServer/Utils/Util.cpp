@@ -78,7 +78,8 @@ bool CheckTextSyntax(char* text,int size) // OK
 		}
 	}
 
-	if(gBadSyntax.CheckSyntax(text) == 0)
+	// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 95 (2.5.3) - Fix BadSyntax inverted logic check
+	if(gBadSyntax.CheckSyntax(text) != 0)
 	{
 		return 0;
 	}

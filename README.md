@@ -26,6 +26,7 @@ UPDATE CMZ 00 (3.0.0) / Correções CMZone 29-08-26
 
 
 UPDATE CMZ 10 (3.1.0) 20-09-26 / SSeMU UPDATE 95 (2.5.3):
+* Correcao Critica no DataServer (BadSyntax): corrigida a inversao logica em CheckTextSyntax que bloqueava o carregamento de personagens normais e travava o cliente na tela de Loading ao clicar para entrar no jogo. [DataServer][Util.cpp][BadSyntax.txt][97KOR]
 * Sistema de Filtragem de Nomes Improprios (BadSyntax): implementado modulo BadSyntax.h/.cpp no DataServer carregando DataServer\BadSyntax.txt para bloquear criacao de chars, guilds e rename com termos proibidos. [DataServer][BadSyntax.h/.cpp][Util.cpp][DataServer.cpp][97KOR]
 * Metodo Lua BridgeFunction_OnUserMove (ScriptCore.lua): adicionadas chamadas gScriptLoader.OnUserMove em gObjMoveGate, gObjTeleport e gObjSummonAlly para integracao com scripts de movimentacao. [GameServer][User.cpp][97KOR]
 * Taxas Divididas PvM e PvP em Habilidades (SkillDamage): suporte a colunas DamageRatePvM e DamageRatePvP em SkillDamage.txt com calculo especifico em GetDamageRate por tipo de alvo (lpTarget->Type). [GameServer][SkillDamage.h/.cpp][Attack.cpp][97KOR]
