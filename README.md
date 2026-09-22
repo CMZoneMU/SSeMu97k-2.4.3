@@ -23,6 +23,15 @@ UPDATE CMZ 00 (3.0.0) / Correções CMZone 29-08-26
 * Foi corrigido o brilho e a transparência dos itens, restaurando o visual original da versão 97d (itens +11 a +13 com brilho sólido e itens +14 a +15 com corpo transparente). [97KOR]
 * Foi corrigido o bug nos comandos /reset e /mreset em que o nível do personagem aumentava (+1) ao invés de voltar para o Level 1. [97KOR]
 * Foi implementado o Sistema Lua de forma estável e otimizada (apenas funções da 97k), atualizado e rodando 100% sem erros e sem crashes. [GameServer][97KOR]
+ 
+ 
+ UPDATE CMZ 12 (3.1.2) 22-09-26 / SSeMU UPDATE 97 (2.5.5 / 2.5.6):
+* Configuracao de Experiencia em Attack (/attack e /offattack): adicionado suporte completo as taxas CustomAttackExperienceRate_AL0~3 e CustomAttackOfflineExperienceRate_AL0~3 em GameServer\DATA\GameServerInfo - Custom.dat com aplicacao de multiplicador percentual de experiencia solo e em party. [GameServer][CustomAttack.h/.cpp][ObjectManager.cpp][GameServerInfo - Custom.dat][97KOR]
+* Mensagens de Notificacao no Message.txt: suporte as mensagens 750 a 759 para alertas e notificacoes de comando de ataque e utilitarios. [GameServer][Data\Message.txt][97KOR]
+* Novas Funcoes LUA e Contagem de Monstros: implementadas as funcoes de script GetItemName, GetMapName, GetMonsterName e a busca/contagem real de monstros em mapa ou retangulo de coordenadas via MonsterCount. [GameServer][LuaFunction.h/.cpp][97KOR]
+* Encriptacao de Scripts LUA e Require: implementada funcao LuaRequire com suporte a leitura de arquivos criptografados com header SCRIPT_HEADER e chave XOR dinamica, com fallback transparente para scripts convencionais. [GameServer][LuaFunction.cpp][ScriptLoader.cpp][97KOR]
+* Suporte a Musica Customizada em Mapas: adicionado campo MusicPath na struct CUSTOM_MAP_INFO no GetMainInfo e Main.dll, com geracao binaria em ServerInfo.sse e reproducao automatica de MP3 ao entrar em mapas custom. [Main.dll][GetMainInfo][CustomMap.h/.cpp][Map.cpp][Client97K]
+* Correcao de Cores em Danos: corrigido bug de interferencia de atributos de dano duplo (0x40) e combo (0x80) que causavam alteracao incorreta nas cores visuais de dano Excellent, Critical e Ignore no cliente. [GameServer][User.h][Attack.cpp][Protocol.cpp][97KOR]
 
 
 UPDATE CMZ 11 (3.1.1) 21-09-26 / SSeMU UPDATE 96 (2.5.4):

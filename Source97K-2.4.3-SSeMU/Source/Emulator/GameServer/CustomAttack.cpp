@@ -200,6 +200,12 @@ void CCustomAttack::ReadCustomAttackInfo(char* section,char* path) // OK
 	this->m_CustomAttackRepair[2] = GetPrivateProfileInt(section, "CustomAttackRepair_AL2", 0, path);
 	this->m_CustomAttackRepair[3] = GetPrivateProfileInt(section, "CustomAttackRepair_AL3", 0, path);
 
+	// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 97 (2.5.5) - Custom attack experience rate options
+	this->m_CustomAttackExperienceRate[0] = GetPrivateProfileInt(section,"CustomAttackExperienceRate_AL0",100,path);
+	this->m_CustomAttackExperienceRate[1] = GetPrivateProfileInt(section,"CustomAttackExperienceRate_AL1",100,path);
+	this->m_CustomAttackExperienceRate[2] = GetPrivateProfileInt(section,"CustomAttackExperienceRate_AL2",100,path);
+	this->m_CustomAttackExperienceRate[3] = GetPrivateProfileInt(section,"CustomAttackExperienceRate_AL3",100,path);
+
 	this->m_CustomAttackOfflineSwitch = GetPrivateProfileInt(section,"CustomAttackOfflineSwitch",0,path);
 
 	this->m_CustomAttackOfflineBuffEnable[0] = GetPrivateProfileInt(section,"CustomAttackOfflineBuffEnable_AL0",0,path);
@@ -216,6 +222,11 @@ void CCustomAttack::ReadCustomAttackInfo(char* section,char* path) // OK
 	this->m_CustomAttackOfflineMaxTimeLimit[1] = GetPrivateProfileInt(section,"CustomAttackOfflineMaxTimeLimit_AL1",0,path);
 	this->m_CustomAttackOfflineMaxTimeLimit[2] = GetPrivateProfileInt(section,"CustomAttackOfflineMaxTimeLimit_AL2",0,path);
 	this->m_CustomAttackOfflineMaxTimeLimit[3] = GetPrivateProfileInt(section,"CustomAttackOfflineMaxTimeLimit_AL3",0,path);
+
+	this->m_CustomAttackOfflineExperienceRate[0] = GetPrivateProfileInt(section,"CustomAttackOfflineExperienceRate_AL0",100,path);
+	this->m_CustomAttackOfflineExperienceRate[1] = GetPrivateProfileInt(section,"CustomAttackOfflineExperienceRate_AL1",100,path);
+	this->m_CustomAttackOfflineExperienceRate[2] = GetPrivateProfileInt(section,"CustomAttackOfflineExperienceRate_AL2",100,path);
+	this->m_CustomAttackOfflineExperienceRate[3] = GetPrivateProfileInt(section,"CustomAttackOfflineExperienceRate_AL3",100,path);
 }
 
 void CCustomAttack::Load(char* path) // OK
@@ -1273,3 +1284,28 @@ void CCustomAttack::CGCustomAttackToggleRecv(PMSG_CUSTOM_ATTACK_TOGGLE_RECV* lpM
 
 	this->CustomAttackSend(lpObj->Index);
 }
+
+// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 97 (2.5.5) - Custom attack experience rate calculation
+int CCustomAttack::GetExperienceRate(LPOBJ lpObj)
+{
+	if(this->m_CustomAttackSwitch == 0)
+	{
+		return 100;
+	}
+
+	if(lpObj->Attack.Started != 0)
+	{
+		if(lpObj->Attack.Offline == 0)
+		{
+			return this->m_CustomAttackExperienceRate[lpObj->AccountLevel];
+		}
+		else
+		{
+			return this->m_CustomAttackOfflineExperienceRate[lpObj->AccountLevel];
+		}
+	}
+	else
+	{
+		return 100;
+	}
+}

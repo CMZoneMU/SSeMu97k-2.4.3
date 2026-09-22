@@ -115,6 +115,23 @@ enum eAttributeType
 	ATTRIBUTE_KALIMA = 6,
 };
 
+// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 97 (2.5.5) - Standardize damage types and properties
+enum eDamageType
+{
+	DAMAGE_TYPE_NORMAL = 0,
+	DAMAGE_TYPE_IGNORE = 1,
+	DAMAGE_TYPE_EXE = 2,
+	DAMAGE_TYPE_CRITICAL = 3,
+	DAMAGE_TYPE_REFLECT = 4,
+	DAMAGE_TYPE_POISON = 5,
+};
+
+enum eDamageProp
+{
+	DAMAGE_PROP_DOUBLE = 64,
+	DAMAGE_PROP_COMBO = 128,
+};
+
 enum eDamageReductionType
 {
 	DAMAGE_REDUCTION_EXCELLENT_ITEM = 0,

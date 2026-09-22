@@ -51,6 +51,28 @@ __declspec(naked) void LoadMapNameParty() // OK
 	}
 }
 
+// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 97 (2.5.5) - Play custom map music
+void PlayCustomMapMusic(int world)
+{
+	CUSTOM_MAP_INFO* lpInfo = gCustomMap.GetInfoByNumber(world);
+
+	if(lpInfo != 0 && lpInfo->MusicPath[0] != 0)
+	{
+		char buff[256] = {0};
+
+		if(strncmp(lpInfo->MusicPath,"Music\\",6) == 0 || strncmp(lpInfo->MusicPath,"Data\\",5) == 0)
+		{
+			wsprintf(buff,"Data\\%s",lpInfo->MusicPath);
+		}
+		else
+		{
+			wsprintf(buff,"Data\\Music\\%s",lpInfo->MusicPath);
+		}
+
+		((void(_cdecl*)(char* Name, BOOL bEnforce))0x00412890)(buff, FALSE);
+	}
+}
+
 __declspec(naked) void LoadMapMusic() // OK
 {
 	static DWORD jmpBack = 0x00527475;
@@ -96,6 +118,7 @@ __declspec(naked) void LoadMapMusic() // OK
 		((void(_cdecl*)(char* Name, BOOL bEnforce))0x00412890)("Data\\Music\\BloodCastle.mp3", FALSE);
 		break;
 	default:
+		PlayCustomMapMusic(World);
 		break;
 	}
 

@@ -168,6 +168,7 @@ void InitLuaFunction(lua_State *L) {
   lua_register(L, "SQLAsyncGetString", LuaSQLAsyncGetString);
 }
 
+// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 97 (2.5.5) - Support for encrypted lua scripts with key
 int LuaRequire(lua_State *L) {
   char buff[256];
   const char *path = luaL_checklstring(L, 1, 0);
@@ -187,10 +188,37 @@ int LuaRequire(lua_State *L) {
     }
   }
 
-  if (luaL_loadfile(L, buff)) {
-    LogAdd(LOG_RED, "[ScriptLoader] Could not load '%s'. %s", buff,
-           lua_tostring(L, -1));
-    return 0;
+  bool loaded = false;
+
+  if (key != 0 && strlen(key) > 0) {
+    FILE* file = 0;
+    if (fopen_s(&file, buff, "rb") == 0 && file != 0) {
+      SCRIPT_HEADER header;
+      if (fread(&header, sizeof(SCRIPT_HEADER), 1, file) == 1) {
+        if (strcmp(header.key, key) == 0 && header.size > 0 && header.size < 10000000) {
+          BYTE* buffer = new BYTE[header.size + 1];
+          if (fread(buffer, 1, header.size, file) == header.size) {
+            for (DWORD i = 0; i < header.size; i++) {
+              buffer[i] ^= key[i % strlen(key)];
+            }
+            buffer[header.size] = 0;
+            if (luaL_loadbuffer(L, (char*)buffer, header.size, buff) == 0) {
+              loaded = true;
+            }
+          }
+          delete[] buffer;
+        }
+      }
+      fclose(file);
+    }
+  }
+
+  if (!loaded) {
+    if (luaL_loadfile(L, buff)) {
+      LogAdd(LOG_RED, "[ScriptLoader] Could not load '%s'. %s", buff,
+             lua_tostring(L, -1));
+      return 0;
+    }
   }
 
   lua_pushlightuserdata(L, ((void *)&sentinel_));
@@ -2878,6 +2906,7 @@ int LuaMoneySend(lua_State *L) {
   return 1;
 }
 
+// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 97 (2.5.5) - MonsterCount implementation
 int LuaMonsterCount(lua_State *L) {
   if (lua_gettop(L) < 2) {
     return luaL_error(L, LUA_SCRIPT_CODE_ERROR2, 2);
@@ -2885,12 +2914,30 @@ int LuaMonsterCount(lua_State *L) {
 
   int aValue = lua_tointeger(L, 1);
   int bValue = lua_tointeger(L, 2);
-  int cValue = luaL_optint(L, 3, 1);
-  int dValue = luaL_optint(L, 4, 1);
+  int cValue = luaL_optint(L, 3, 0);
+  int dValue = luaL_optint(L, 4, 0);
   int eValue = luaL_optint(L, 5, 255);
   int fValue = luaL_optint(L, 6, 255);
 
-  lua_pushinteger(L, 0);
+  int count = 0;
+
+  for (int n = OBJECT_START_MONSTER; n < MAX_OBJECT_MONSTER; n++) {
+    if (gObj[n].Connected == OBJECT_ONLINE && gObj[n].Type == OBJECT_MONSTER && gObj[n].Live != 0) {
+      if (aValue != -1 && gObj[n].Class != aValue) {
+        continue;
+      }
+
+      if (bValue != -1 && gObj[n].Map != bValue) {
+        continue;
+      }
+
+      if (gObj[n].X >= cValue && gObj[n].X <= eValue && gObj[n].Y >= dValue && gObj[n].Y <= fValue) {
+        count++;
+      }
+    }
+  }
+
+  lua_pushinteger(L, count);
 
   return 1;
 }
