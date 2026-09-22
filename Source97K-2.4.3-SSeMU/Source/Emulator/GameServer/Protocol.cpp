@@ -1272,6 +1272,7 @@ void GCWeatherSend(int aIndex,BYTE weather) // OK
 	DataSend(aIndex,(BYTE*)&pMsg,pMsg.header.size);
 }
 
+// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 97 (2.5.5) - Fix damage color bug by extracting clean damage type
 void GCDamageSend(int aIndex,int bIndex,BYTE flag,int damage,int type) // OK
 {
 	PMSG_DAMAGE_SEND pMsg;
@@ -1290,10 +1291,33 @@ void GCDamageSend(int aIndex,int bIndex,BYTE flag,int damage,int type) // OK
 	pMsg.damage[0] = SET_NUMBERHB(GET_MAX_WORD_VALUE(damage));
 	pMsg.damage[1] = SET_NUMBERLB(GET_MAX_WORD_VALUE(damage));
 
-	if(type)
+	BYTE DamageType = (BYTE)(type & 0x0F);
+
+	if(DamageType != 0)
 	{
 		pMsg.damage[0] &= 0x1F;
-		pMsg.damage[0] |= ((type==1)?0x10:((type==2)?0x40:((type==3)?0x80:((type==4)?0x20:type))));
+
+		switch(DamageType)
+		{
+			case DAMAGE_TYPE_IGNORE:
+				pMsg.damage[0] |= 0x10;
+				break;
+			case DAMAGE_TYPE_EXE:
+				pMsg.damage[0] |= 0x40;
+				break;
+			case DAMAGE_TYPE_CRITICAL:
+				pMsg.damage[0] |= 0x80;
+				break;
+			case DAMAGE_TYPE_REFLECT:
+				pMsg.damage[0] |= 0x20;
+				break;
+			case DAMAGE_TYPE_POISON:
+				pMsg.damage[0] |= 0x20;
+				break;
+			default:
+				pMsg.damage[0] |= (DamageType & 0xE0);
+				break;
+		}
 	}
 
 	#if(GAMESERVER_EXTRA==1)

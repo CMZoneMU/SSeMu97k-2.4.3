@@ -84,6 +84,7 @@ public:
 	void CustomAttackDurationlAttack(LPOBJ lpObj,int bIndex,int skill);
 	bool CustomAttackCheckRequeriment(LPOBJ lpObj);
 	void CGCustomAttackToggleRecv(PMSG_CUSTOM_ATTACK_TOGGLE_RECV* lpMsg,int aIndex);
+	int GetExperienceRate(LPOBJ lpObj);
 public:
 	std::vector<CUSTOM_ATTACK_DELAY_INFO> m_CustomAttackDelayInfo;
 	std::map<int,CUSTOM_ATTACK_SKILL_INFO> m_CustomAttackSkillInfo;
@@ -97,11 +98,13 @@ public:
 	int m_CustomAttackPotionRate1;
 	int m_CustomAttackPotionRate2;
 	int m_CustomAttackRepair[MAX_ACCOUNT_LEVEL];
+	int m_CustomAttackExperienceRate[MAX_ACCOUNT_LEVEL];
 	int m_CustomAttackOfflineSwitch;
 	int m_CustomAttackOfflineCoinGain[MAX_ACCOUNT_LEVEL];
 	int m_CustomAttackOfflineBuffEnable[MAX_ACCOUNT_LEVEL];
 	int m_CustomAttackOfflineKeepEnable[MAX_ACCOUNT_LEVEL];
 	int m_CustomAttackOfflineMaxTimeLimit[MAX_ACCOUNT_LEVEL];
+	int m_CustomAttackOfflineExperienceRate[MAX_ACCOUNT_LEVEL];
 };
 
 extern CCustomAttack gCustomAttack;

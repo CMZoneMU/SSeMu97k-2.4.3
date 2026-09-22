@@ -59,6 +59,9 @@ bool CCustomMap::Load(char* path) // OK
 
 			strcpy_s(info.MapName,lpMemScript->GetAsString());
 
+			// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 97 (2.5.5) - Read MusicPath for custom maps
+			strcpy_s(info.MusicPath,lpMemScript->GetAsString());
+
 			this->SetInfo(info);
 		}
 	}

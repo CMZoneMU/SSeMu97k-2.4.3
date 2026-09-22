@@ -317,15 +317,16 @@ bool CAttack::Attack(LPOBJ lpObj,LPOBJ lpTarget,CSkill* lpSkill,bool send,BYTE f
 			damage = (damage*lpObj->DLDamageMultiplierRate)/100;
 		}
 
+		// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 97 (2.5.5) - Isolate damage properties from damage types
 		if((GetLargeRand()%100) < lpObj->DoubleDamageRate)
 		{
-			effect |= 0x40;
+			effect |= DAMAGE_PROP_DOUBLE;
 			damage += damage;
 		}
 
 		if(combo != 0)
 		{
-			effect |= 0x80;
+			effect |= DAMAGE_PROP_COMBO;
 			damage += damage;
 			damage += (((lpObj->Strength+lpObj->AddStrength)+(lpObj->Dexterity+lpObj->AddDexterity)+(lpObj->Energy+lpObj->AddEnergy))/gServerInfo.m_ComboDamageConstA[lpObj->Class])*gServerInfo.m_ComboDamageConstB[lpObj->Class];
 			damage = (damage*gServerInfo.m_ComboDamageConstC[lpObj->Class])/100;
@@ -334,7 +335,7 @@ bool CAttack::Attack(LPOBJ lpObj,LPOBJ lpTarget,CSkill* lpSkill,bool send,BYTE f
 	}
 	else
 	{
-		effect = 0x04;
+		effect = DAMAGE_TYPE_REFLECT;
 		damage = (damage*((lpObj->Type==OBJECT_USER&&lpTarget->Type==OBJECT_USER)?gServerInfo.m_ReflectDamageRatePvP:gServerInfo.m_ReflectDamageRatePvM))/100;
 
 		if (lpObj->Type == OBJECT_USER && lpTarget->Type == OBJECT_USER)
@@ -438,7 +439,7 @@ bool CAttack::Attack(LPOBJ lpObj,LPOBJ lpTarget,CSkill* lpSkill,bool send,BYTE f
 		{
 			bool CheckSelfDefense = 1;
 
-			if(effect == 4)
+			if((effect & 0x0F) == DAMAGE_TYPE_REFLECT)
 			{
 				CheckSelfDefense = 0;
 			}
@@ -477,7 +478,7 @@ bool CAttack::Attack(LPOBJ lpObj,LPOBJ lpTarget,CSkill* lpSkill,bool send,BYTE f
 	{
 		if(lpTarget->Type == OBJECT_USER)
 		{
-			if(effect != 4)
+			if((effect & 0x0F) != DAMAGE_TYPE_REFLECT)
 			{
 				if(lpTarget->DamageReflect > 0)
 				{

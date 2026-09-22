@@ -810,6 +810,9 @@ void CObjectManager::CharacterCalcExperienceAlone(LPOBJ lpObj,LPOBJ lpMonster,in
 
 	experience = (experience*gExperienceTable.GetExperienceRate(lpObj))/100;
 
+	// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 97 (2.5.5) - Custom attack experience rate
+	experience = (experience*gCustomAttack.GetExperienceRate(lpObj))/100;
+
 	lpMonster->Money += (DWORD)experience;
 
 	this->CharacterPetLevelUp(lpObj,(DWORD)experience);
@@ -931,6 +934,9 @@ void CObjectManager::CharacterCalcExperienceParty(LPOBJ lpObj,LPOBJ lpMonster,in
 		experience = (experience*gCustomMonster.GetCustomMonsterExperienceRate(lpMonster->Class,lpMonster->Map))/100;
 
 		experience = (experience*gExperienceTable.GetExperienceRate(lpTarget))/100;
+
+		// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 97 (2.5.5) - Custom attack experience rate
+		experience = (experience*gCustomAttack.GetExperienceRate(lpTarget))/100;
 
 		lpMonster->Money += (DWORD)(experience/PartyCount);
 
