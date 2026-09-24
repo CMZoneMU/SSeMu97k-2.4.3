@@ -85,8 +85,7 @@ bool CNpcTalk::NpcTalk(LPOBJ lpNpc,LPOBJ lpObj) // OK
 		case 241:
 			this->NpcGuildMaster(lpNpc,lpObj);
 			break;
-		case 255:
-			break;
+		// Update SSeMU 97 2.5.5 -> 97K SSeMU Fix - Removed case 255 to allow Lumen the Barmaid shop to open
 		default:
 			return 0;
 	}
