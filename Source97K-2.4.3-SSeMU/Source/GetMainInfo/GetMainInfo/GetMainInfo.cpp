@@ -158,7 +158,13 @@ int _tmain(int argc, _TCHAR* argv[]) // OK
 		((BYTE*)&info)[n] -= (BYTE)(0x95 ^ HIBYTE(n));
 	}
 
-	HANDLE file = CreateFile(".\\Path\\ServerInfo.sse",GENERIC_WRITE,FILE_SHARE_READ,0,CREATE_ALWAYS,FILE_ATTRIBUTE_ARCHIVE,0);
+	// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 98 (2.5.7) - Change ServerInfo to ServerInfo.cmz and output to Data/Custom/MainInfo
+	CreateDirectory(".\\Path", 0);
+	CreateDirectory(".\\Path\\Data", 0);
+	CreateDirectory(".\\Path\\Data\\Custom", 0);
+	CreateDirectory(".\\Path\\Data\\Custom\\MainInfo", 0);
+
+	HANDLE file = CreateFile(".\\Path\\Data\\Custom\\MainInfo\\ServerInfo.cmz",GENERIC_WRITE,FILE_SHARE_READ,0,CREATE_ALWAYS,FILE_ATTRIBUTE_ARCHIVE,0);
 
 	if(file == INVALID_HANDLE_VALUE)
 	{
@@ -179,7 +185,7 @@ int _tmain(int argc, _TCHAR* argv[]) // OK
 
 	CLEAR_END
 
-	printf("\n[.\\Path\\ServerInfo.sse] Generated successfully...\n\n");
+	printf("\n[.\\Path\\Data\\Custom\\MainInfo\\ServerInfo.cmz] Generated successfully...\n\n");
 	system("pause");
 
 	return 0;
