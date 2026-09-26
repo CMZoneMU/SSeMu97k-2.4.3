@@ -25,7 +25,19 @@ UPDATE CMZ 00 (3.0.0) / Correções CMZone 29-08-26
 * Foi implementado o Sistema Lua de forma estável e otimizada (apenas funções da 97k), atualizado e rodando 100% sem erros e sem crashes. [GameServer][97KOR]
  
  
- UPDATE CMZ 12 (3.1.2) 22-09-26 / SSeMU UPDATE 97 (2.5.5 / 2.5.6):
+UPDATE CMZ 13 (3.1.3) 26-09-26 / SSeMU UPDATE 98 (2.5.7 ~ 2.5.7-1):
+* Criptografia e Descriptografia de HardwareId: implementada rotina dinamica XOR (PacketArgumentEncrypt / Decrypt) para transmissao segura do HardwareId na conexao entre Client Main e GameServer, prevenindo forjamento de identidade de maquina. [GameServer][Main.dll][ConnectionManager.cpp][Protocol.cpp][97KOR]
+* HardwareId Unico por Cliente: geracao de identificador unico de 44 caracteres combinando memoria fisica instalada (GlobalMemoryStatusEx) e parametros de arquitetura do processador, eliminando IDs duplicados entre clientes distintos. [Main.dll][Util.cpp][Client97K][97KOR]
+* Prevencao de Congelamento de Chars Offline no Reconnect: verificacao previa de socket valido (lpObj->Socket != INVALID_SOCKET) antes de setar OBJECT_DELCMD em gObjMoveGate e gObjTeleport, evitando travamentos em contas desconectadas ou em /offattack. [GameServer][User.cpp][97KOR]
+* Desconexao Limpa de Contas Reconectadas e Aviso 153: envio de notificacao 153 no JGAccountAlreadyConnectedRecv e encerramento limpo para sessoes conectadas e offline via AttackOfflineClose, solucionando o problema de jogadores presos no servidor. [GameServer][JSProtocol.cpp][Data\Message.txt][97KOR]
+* Otimizacao e Ordem de Checagens no JoinServer: interrupcao antecipada de loops de contagem de conexoes por IP/HWID (AccountManager.cpp) e validacao de limites de conexoes somente apos conferir contas ja existentes, eliminando expulsoes e bloqueios indevidos. [JoinServer][AccountManager.cpp][JoinServerProtocol.cpp][97KOR]
+* Otimizacao de Memoria no Cliente Main: desativacao de rotinas agressivas de purga de memoria RAM (ReduceConsumeProc) com leituras e escritas excessivas no disco, assegurando FPS estavel sem micro-engasgos. [Main.dll][Patchs.cpp][Client97K]
+* Suporte a 5 Plugins no GetMainInfo: correcao do carregamento de plugins customizados (PluginName1 a PluginName5) e criacao automatica da estrutura de diretorios Data\Custom\MainInfo\. [GetMainInfo][GetMainInfo.cpp][Client97K]
+* Sincronizacao da Estrutura CUSTOM_MAP_INFO: alinhamento do campo MusicPath[100] na struct entre GetMainInfo e Main.dll, eliminando a divergencia de 8.000 bytes e o erro [Error] ReadMainFile #3: Unexpected size for the main file. [Main.dll][GetMainInfo][CustomMap.h][ServerInfo.cmz][Client97K]
+* Atualizacao de Versao de Titulo e Compilacao Release: macros GAMESERVER_VERSION e JOINSERVER_VERSION atualizadas para (Update 98 - Ver: 2.5.7) e flag /FS adicionada aos projetos para builds sem erro de PDB. [GameServer][JoinServer][stdafx.h][GameServer.vcxproj][JoinServer.vcxproj][Main.vcxproj][97KOR]
+ 
+ 
+UPDATE CMZ 12 (3.1.2) 22-09-26 / SSeMU UPDATE 97 (2.5.5 / 2.5.6):
 * Configuracao de Experiencia em Attack (/attack e /offattack): adicionado suporte completo as taxas CustomAttackExperienceRate_AL0~3 e CustomAttackOfflineExperienceRate_AL0~3 em GameServer\DATA\GameServerInfo - Custom.dat com aplicacao de multiplicador percentual de experiencia solo e em party. [GameServer][CustomAttack.h/.cpp][ObjectManager.cpp][GameServerInfo - Custom.dat][97KOR]
 * Mensagens de Notificacao no Message.txt: suporte as mensagens 750 a 759 para alertas e notificacoes de comando de ataque e utilitarios. [GameServer][Data\Message.txt][97KOR]
 * Novas Funcoes LUA e Contagem de Monstros: implementadas as funcoes de script GetItemName, GetMapName, GetMonsterName e a busca/contagem real de monstros em mapa ou retangulo de coordenadas via MonsterCount. [GameServer][LuaFunction.h/.cpp][97KOR]
