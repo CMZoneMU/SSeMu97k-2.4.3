@@ -128,7 +128,8 @@ extern "C" _declspec(dllexport) void _cdecl EntryProc()
 
 	SetPriorityClass(GetCurrentProcess(), HIGH_PRIORITY_CLASS);
 
-	if(gProtect.ReadMainFile("ServerInfo.sse") != 0)
+	// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 98 (2.5.7) - Change ServerInfo.sse to Data/Custom/MainInfo/ServerInfo.cmz
+	if(gProtect.ReadMainFile("Data\\Custom\\MainInfo\\ServerInfo.cmz") != 0)
 	{
 		gProtect.CheckLauncher();
 
@@ -246,7 +247,7 @@ extern "C" _declspec(dllexport) void _cdecl EntryProc()
 	}
 	else
 	{
-		ErrorMessageBox("Could not load ServerInfo.sse!");
+		ErrorMessageBox("Could not load Data\\Custom\\MainInfo\\ServerInfo.cmz!");
 		ExitProcess(0);
 	}
 }
