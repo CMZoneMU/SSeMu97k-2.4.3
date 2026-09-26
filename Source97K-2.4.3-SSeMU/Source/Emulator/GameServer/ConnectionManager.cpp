@@ -63,7 +63,8 @@ void CConnectionManager::CGHardwareIdRecv(PMSG_HARDWARE_ID_INFO_RECV* lpMsg,int 
 {
 	char HardwareId[45] = {0};
 
-	memcpy(HardwareId,lpMsg->HardwareId,sizeof(lpMsg->HardwareId));
+	// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 98 (2.5.7) - Decrypt HardwareId received from client
+	PacketArgumentDecrypt(HardwareId,lpMsg->HardwareId,sizeof(HardwareId));
 
 	if(HardwareId[8] != '-' && HardwareId[17] != '-' && HardwareId[26] != '-' && HardwareId[35] != '-')
 	{

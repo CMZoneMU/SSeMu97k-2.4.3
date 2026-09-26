@@ -124,6 +124,7 @@ long CAccountManager::GetAccountCount() // OK
 	return AccountCount;
 }
 
+// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 98 (2.5.7) - Optimize connection limit check
 bool CAccountManager::CheckConnectionLimit(char* IpAddress,char* HardwareId) // OK
 {
 	this->m_critical.lock();
@@ -134,7 +135,7 @@ bool CAccountManager::CheckConnectionLimit(char* IpAddress,char* HardwareId) // 
 
 		int hwCount = 0;
 
-		for(std::map<std::string,ACCOUNT_INFO>::iterator it = this->m_AccountInfo.begin(); it != this->m_AccountInfo.end();)
+		for(std::map<std::string,ACCOUNT_INFO>::iterator it = this->m_AccountInfo.begin(); it != this->m_AccountInfo.end(); it++)
 		{
 			if(strcmp(it->second.IpAddress,IpAddress) == 0)
 			{
@@ -146,7 +147,10 @@ bool CAccountManager::CheckConnectionLimit(char* IpAddress,char* HardwareId) // 
 				hwCount++;
 			}
 
-			it++;
+			if((MaxConnectionPerIP > 0 && ipCount >= MaxConnectionPerIP) && (MaxConnectionPerHID > 0 && hwCount >= MaxConnectionPerHID))
+			{
+				break;
+			}
 		}
 
 		if(MaxConnectionPerIP > 0 && ipCount >= MaxConnectionPerIP)

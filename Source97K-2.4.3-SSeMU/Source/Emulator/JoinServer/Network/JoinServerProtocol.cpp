@@ -53,13 +53,6 @@ void GJConnectAccountRecv(SDHP_CONNECT_ACCOUNT_RECV* lpMsg,int index) // OK
 
 	pMsg.result = 1;
 
-	if(gAccountManager.CheckConnectionLimit(lpMsg->IpAddress,lpMsg->HardwareId) == 0)
-	{
-		pMsg.result = 7;
-		gSocketManager.DataSend(index,(BYTE*)&pMsg,pMsg.header.size);
-		return;
-	}
-
 	if(CheckTextSyntax(lpMsg->account,sizeof(lpMsg->account)) == 0)
 	{
 		pMsg.result = 2;
@@ -79,6 +72,14 @@ void GJConnectAccountRecv(SDHP_CONNECT_ACCOUNT_RECV* lpMsg,int index) // OK
 			JGAccountAlreadyConnectedSend(AccountInfo.GameServerCode,AccountInfo.UserIndex,AccountInfo.Account);
 		}
 
+		return;
+	}
+
+	// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 98 (2.5.7) - Check connection limit after verifying existing account
+	if(gAccountManager.CheckConnectionLimit(lpMsg->IpAddress,lpMsg->HardwareId) == 0)
+	{
+		pMsg.result = 7;
+		gSocketManager.DataSend(index,(BYTE*)&pMsg,pMsg.header.size);
 		return;
 	}
 

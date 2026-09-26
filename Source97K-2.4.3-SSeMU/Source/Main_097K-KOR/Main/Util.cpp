@@ -247,6 +247,7 @@ void ErrorMessageBox(char* message,...) // OK
 	MessageBox(0,buff,"Error",MB_OK | MB_ICONERROR);
 }
 
+// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 98 (2.5.7) - Fix duplicate HardwareId across clients
 char* GetHardwareId() // OK
 {
 	char WinDir[MAX_PATH];
@@ -266,18 +267,35 @@ char* GetHardwareId() // OK
 	}
 
 	SYSTEM_INFO SystemInfo;
-
 	GetSystemInfo(&SystemInfo);
 
-	DWORD ComputerHardwareId1 = (VolumeSerialNumber ^ VolumeSerialNumber)+0x12BA1074;
+	MEMORYSTATUSEX memStat;
+	memStat.dwLength = sizeof(MEMORYSTATUSEX);
 	
-	DWORD ComputerHardwareId2 = (VolumeSerialNumber * VolumeSerialNumber) - 0x13B06451;
-	
-	DWORD ComputerHardwareId3 = (VolumeSerialNumber | SystemInfo.dwNumberOfProcessors << 16) * 0x14CE1989;
-	
-	DWORD ComputerHardwareId4 = (VolumeSerialNumber | SystemInfo.wProcessorArchitecture << 16) / 4;
-	
-	DWORD ComputerHardwareId5 = ((SystemInfo.wProcessorLevel & 0xF5FB) | (SystemInfo.wProcessorRevision << 16)) ^ 0x15CA2020;
+	if(GlobalMemoryStatusEx(&memStat) == 0)
+	{
+		return 0;
+	}
+
+	const BYTE Parameter1 = 0x1A;
+
+	const BYTE Parameter2 = 0x7B;
+
+	DWORD ComputerHardwareId1 = (VolumeSerialNumber ^ Parameter1) + Parameter2;
+	DWORD ComputerHardwareId2 = (VolumeSerialNumber * Parameter2) - Parameter1;
+	DWORD ComputerHardwareId3 = (VolumeSerialNumber | (SystemInfo.dwNumberOfProcessors << 16)) * Parameter1;
+	DWORD ComputerHardwareId4 = (VolumeSerialNumber | (SystemInfo.wProcessorArchitecture << 16)) + Parameter2;
+	DWORD ComputerHardwareId5 = ((SystemInfo.wProcessorLevel & Parameter1) | (SystemInfo.wProcessorRevision << 16)) ^ Parameter2;
+
+	DWORD ComputerHardwareId6 = Parameter1 + Parameter2;
+	DWORD ComputerHardwareId7 = (DWORD)(memStat.ullTotalPhys >> 16) + (SystemInfo.wProcessorArchitecture ^ Parameter2);
+	DWORD ComputerHardwareId8 = Parameter2 - (SystemInfo.dwPageSize ^ Parameter1);
+
+	ComputerHardwareId1 ^= (ComputerHardwareId6 & 0xFFFF);
+	ComputerHardwareId2 ^= (ComputerHardwareId7 & 0xFFFF);
+	ComputerHardwareId3 ^= (ComputerHardwareId8 & 0xFFFF);
+	ComputerHardwareId4 ^= ((ComputerHardwareId6 >> 16) & 0xFFFF);
+	ComputerHardwareId5 ^= ((ComputerHardwareId7 >> 16) & 0xFFFF);
 
 	static char HardwareId[45];
 
