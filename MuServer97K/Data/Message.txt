@@ -141,6 +141,7 @@
    148     "You're not strong enough to enter in Double Goer"
    149     "Ice Walker was defeated!"
    151     "You're not strong enough to enter in Imperial Guardian"
+   153     "Someone is attempting to access your account!!!"
    154     "Welcome back %s!"
    155     "Account type: Free"
    156     "Account type: Bronze (%s)"

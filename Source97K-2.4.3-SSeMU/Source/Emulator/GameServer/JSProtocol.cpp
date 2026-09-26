@@ -144,7 +144,17 @@ void JGAccountAlreadyConnectedRecv(SDHP_ACCOUNT_ALREADY_CONNECTED_RECV* lpMsg) /
 		return;
 	}
 
-	gCustomAttack.AttackOfflineClose(&gObj[lpMsg->index]);
+	// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 98 (2.5.7) - Fix reconnect disconnect for offline and online accounts
+	gNotice.GCNoticeSend(lpMsg->index,1,0,0,0,0,0,gMessage.GetMessage(153));
+
+	if(gObj[lpMsg->index].Attack.Offline != 0)
+	{
+		gCustomAttack.AttackOfflineClose(&gObj[lpMsg->index]);
+	}
+	else
+	{
+		CloseClient(lpMsg->index);
+	}
 }
 
 void GJServerInfoSend() // OK

@@ -140,7 +140,8 @@ int _tmain(int argc, _TCHAR* argv[]) // OK
 		info.ClientNameCRC = 0;
 	}
 
-	for(int i=0;i < 3;i++)
+	// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 98 (2.5.7) - Fix CRC calculation for up to 5 plugins
+	for(int i=0;i < 5;i++)
 	{
 		wsprintf(buff,".\\Path\\%s",info.PluginName[i]);
 

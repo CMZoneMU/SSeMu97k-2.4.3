@@ -271,7 +271,17 @@ void GCConnectClientRecv(PMSG_CONNECT_CLIENT_RECV* lpMsg)
 
 	pMsg.header.set(0xF3,0x09,sizeof(pMsg));
 
-	memcpy(pMsg.HardwareId,GetHardwareId(),sizeof(pMsg.HardwareId));
+	// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 98 (2.5.7) - Encrypt HardwareId before sending
+	char* pHwid = GetHardwareId();
+
+	if(pHwid != 0)
+	{
+		PacketArgumentEncrypt((BYTE*)pMsg.HardwareId,(BYTE*)pHwid,sizeof(pMsg.HardwareId));
+	}
+	else
+	{
+		memset(pMsg.HardwareId,0,sizeof(pMsg.HardwareId));
+	}
 
 	DataSend((BYTE*)&pMsg,pMsg.header.size);
 }

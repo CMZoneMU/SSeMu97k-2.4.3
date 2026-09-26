@@ -320,6 +320,35 @@ function BridgeFunction_OnUserItemMove(...)
 
 end
 
+-- Update SSeMU 92 2.4.9 -> 97K SSeMU Update 98 (2.5.7) - Add missing party bridges
+function BridgeFunction_OnPartyEntry(...)
+
+	if BridgeFunctionTable["OnPartyEntry"] ~= nil then
+	
+		for _, func in ipairs(BridgeFunctionTable["OnPartyEntry"]) do
+		
+			_G[func.Function](...)
+			
+		end
+		
+	end
+
+end
+
+function BridgeFunction_OnPartyClose(...)
+
+	if BridgeFunctionTable["OnPartyClose"] ~= nil then
+	
+		for _, func in ipairs(BridgeFunctionTable["OnPartyClose"]) do
+		
+			_G[func.Function](...)
+			
+		end
+		
+	end
+
+end
+
 function BridgeFunction_OnSQLAsyncResult(...)
 
 	if BridgeFunctionTable["OnSQLAsyncResult"] ~= nil then

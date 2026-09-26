@@ -2107,13 +2107,22 @@ int gObjMoveGate(int aIndex,int gate) // OK
 
 	if(lpObj->Interface.use != 0 || lpObj->DieRegen != 0)
 	{
-		lpObj->State = OBJECT_DELCMD;
+		// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 98 (2.5.7) - Fix offline reconnect freeze
+		if(lpObj->Socket != INVALID_SOCKET)
+		{
+			lpObj->State = OBJECT_DELCMD;
+		}
+
 		lpObj->RegenOk = 1;
 		gMove.GCTeleportSend(aIndex,gate,lpObj->Map,(BYTE)lpObj->X,(BYTE)lpObj->Y,lpObj->Dir);
 		return 0;
 	}
 
-	lpObj->State = OBJECT_DELCMD;
+	// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 98 (2.5.7) - Fix offline reconnect freeze
+	if(lpObj->Socket != INVALID_SOCKET)
+	{
+		lpObj->State = OBJECT_DELCMD;
+	}
 
 	lpObj->X = x;
 	lpObj->Y = y;
@@ -2177,7 +2186,11 @@ void gObjTeleport(int aIndex,int map,int x,int y) // OK
 
 	LPOBJ lpObj = &gObj[aIndex];
 
-	lpObj->State = OBJECT_DELCMD;
+	// Update SSeMU 92 2.4.9 -> 97K SSeMU Update 98 (2.5.7) - Fix offline reconnect freeze
+	if(lpObj->Socket != INVALID_SOCKET)
+	{
+		lpObj->State = OBJECT_DELCMD;
+	}
 
 	if(lpObj->Interface.use != 0 && lpObj->Interface.type == INTERFACE_TRADE)
 	{
