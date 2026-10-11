@@ -288,10 +288,9 @@ WHERE AccountID = @AccountID AND Name = @CharacterName;
 - [x] **Centralização e Alinhamento**: Textos matematicamente centralizados na janela e dentro das molduras dos botões `CONFIRMAR` e `CANCELAR`.
 - [x] **Compatibilidade Widescreen**: Sem deformação de alinhamento em diferentes proporções de tela.
 
-### Fase 2 (GameServer & Comandos de Chat):
-- [x] **Arquitetura C++**: Implementação de `CustomChangeClass.h` e `CustomChangeClass.cpp`.
-- [x] **Configurações Centralizadas**: Suporte a parâmetros em `GameServerInfo - Custom.dat`.
-- [x] **Registro de Comandos**: Adicionados comandos 66 (`/class`), 67 (`/bk`), 68 (`/sm`), 69 (`/me`), 70 (`/mg`) em `CommandManager.h`, `CommandManager.cpp` e `CommandManager.txt`.
-- [x] **Alocação e Integridade de Memória**: Estruturas limpas sem memory leaks e comentários estritamente ASCII.
-- [x] **Compilação Release Win32 GameServer**: Compilado com sucesso (`0 Erros, 0 Avisos`).
-- [x] **Sincronização de Binários**: `GameServer97k.exe` sincronizado para a pasta de testes e para o repositório Git.
+### Fase 3 (Textura OZT Nativa e Redimensionamento Proporcional - Update 3.2.1):
+- [x] **Eliminacao do Fundo Duplo**: Removida a textura duplicada, mantendo estritamente a moldura central `CustomClass_Frame`.
+- [x] **Redimensionamento Compacto e Centralizado**: Moldura redimensionada para `96x128`, setas nativas `20x20` e botao confirmar `96x22`.
+- [x] **Textura OZT Nativa de 32 Bits (Cabecalho 22 Bytes)**: Decodificada diretamente do PSD original com 4 canais RGBA. Criado o arquivo `CustomClass_Frame.ozt` (262.166 bytes) com cabecalho exato de 22 bytes (4 bytes Webzen + 18 bytes TGA), eliminando o desvio de cor verde e o fundo preto, alcancando transparencia de canal alfa real sem alterar a saturacao do dourado original.
+- [x] **Carregamento OZT e Fallback**: `CustomChangeClass.cpp` atualizado para carregar via `OpenTGA` com suporte a `OpenJPG` de contingencia.
+

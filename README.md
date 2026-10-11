@@ -4,6 +4,13 @@
 ## Créditos MuServer e Cliente: SSeMU SetecSoft Development
 ## IDE Antigravity: Organizar e Implementar as Correções.
 
+UPDATE CMZ 18 (3.1.8) 11-10-26 / CUSTOM CHANGE CLASS NATIVE TEXTURES & FRAME COMPACT:
+* Refinamento Visual da Moldura Central (CustomClass_Frame): eliminada a duplicidade de fundos e implementada textura OZT nativa Webzen de 32 bits com cabecalho exato de 22 bytes e canal alfa calibrado exclusivamente na moldura dourada. [Client97K][Main.dll][CustomChangeClass.cpp][CustomClass_Frame.ozt][97KOR]
+  - Eliminacao do Fundo Duplo: removida textura redundante, mantendo unicamente a moldura centralizada CustomClass_Frame sobre a textura de pedra original da janela. [Main.dll][CustomChangeClass.cpp]
+  - Textura OZT com Alfa Real (Opcao 2): decodificacao dos canais RGBA da moldura, gerando o arquivo CustomClass_Frame.ozt com cabecalho oficial de 22 bytes (eliminando deslocamento de cor verde e silhuetas indevidas) e canal alfa perfeitamente isolado nas bordas douradas, garantindo transparencia nativa sem fundo preto. [Client97K][Data\Custom\Interface\CustomClass_Frame.ozt]
+  - Redimensionamento Compacto e Centralizacao: moldura central recalibrada para 96x128, setas de navegacao nativas compactadas para 20x20 e botao CONFIRMAR redimensionado para 96x22, todos matematicamente centralizados na janela. [Main.dll][CustomChangeClass.cpp]
+  - Carregamento OZT Prioritario no Main: implementada chamada OpenTGA com suporte a fallback OpenJPG em CustomChangeClass::LoadImages(). [Main.dll][CustomChangeClass.cpp]
+
 UPDATE CMZ 17 (3.1.7) 28-09-26 / CUSTOM CHANGE CLASS INTERFACE & SYSTEM:
 * Sistema Customizado de Troca de Classe (Change Class System): implementada funcionalidade completa de troca de classe in-game (Blade Knight, Soul Master, Muse Elf e Magic Gladiator), integrada entre GameServer e Client Main. [GameServer][Main.dll][CustomChangeClass.h/.cpp][Client97K][MuServer97K][97KOR]
   - Interface Grafica OpenGL Customizada (Fase 1): janela modelada em OpenGL com moldura dourada, fundo translucido semitransparente, carrossel de navegacao entre classes (< e >), botao de atalho "TC" integrado na janela de status (tecla "C"), docking dinamico e centralizacao matematica em resolucoes widescreen sem bordas pretas nos textos. [Main.dll][CustomChangeClass.h/.cpp]
